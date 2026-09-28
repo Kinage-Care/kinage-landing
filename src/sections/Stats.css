@@ -1,0 +1,74 @@
+/* Figma 583:976 — four stat cards (gap 20), quote below. White band
+   (refinement brief); cards use the shared .surface-card, like the trust cards. */
+.stats {
+  padding-block: var(--section-y);
+  background: var(--surface-page);
+}
+
+.stats__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-20);
+  align-items: stretch;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.stat__value {
+  font-size: var(--type-heading-size);
+  line-height: normal;
+  font-weight: var(--weight-black);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--text-accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stat__label {
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line);
+  letter-spacing: var(--type-caption-tracking);
+  color: var(--text-body);
+}
+
+.stats__quote {
+  padding-block: var(--space-4);
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
+  letter-spacing: var(--type-body-relaxed-tracking);
+  color: var(--text-body);
+  text-align: center;
+}
+
+@media (max-width: 1023px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .stats__inner {
+    gap: var(--space-28);
+  }
+  .stats__grid {
+    gap: var(--space-12);
+  }
+  .stat__value {
+    font-size: 30px;
+  }
+  .stat__label {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,222 @@
+/*
+ * Early-access dialog. Native <dialog> in the top layer: the page behind is
+ * inert, Esc closes, focus returns to the opener. Kinage surfaces only —
+ * white panel on a soft eggplant scrim, Museo Sans, violet primary action.
+ */
+.ea {
+  width: min(520px, 100% - 2 * var(--layout-gutter-mobile));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  color: var(--text-body);
+  box-shadow: var(--shadow-dialog);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.ea::backdrop {
+  background: var(--scrim);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.ea[open] {
+  animation: ea-in var(--motion-duration-reveal) var(--motion-ease-out);
+}
+.ea[open]::backdrop {
+  animation: ea-fade var(--motion-duration-reveal) var(--motion-ease-out);
+}
+@keyframes ea-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes ea-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.ea__panel {
+  position: relative;
+  padding: var(--space-40) var(--space-40) var(--space-36);
+}
+
+.ea__close {
+  position: absolute;
+  top: var(--space-16);
+  right: var(--space-16);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-lilac);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-hover) var(--motion-ease-out);
+}
+.ea__close:hover {
+  background: var(--color-orchid);
+}
+.ea__close:focus-visible {
+  border-radius: 50%;
+}
+.ea__close svg path {
+  fill: none;
+  stroke: var(--color-eggplant);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+}
+
+.ea__form,
+.ea__done {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.ea__title {
+  padding-right: var(--space-40);
+  font-size: 28px;
+  line-height: 1.18;
+  font-weight: var(--weight-black);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+.ea__title:focus {
+  outline: none;
+}
+
+.ea__intro {
+  margin-top: calc(-1 * var(--space-8));
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
+  text-wrap: pretty;
+}
+
+.ea__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-16);
+}
+
+.ea__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
+}
+.ea__field label {
+  font-size: var(--type-button-sm-size);
+  line-height: 1.3;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--type-button-sm-tracking);
+  color: var(--text-heading);
+}
+.ea__optional {
+  margin-left: var(--space-4);
+  font-weight: var(--weight-regular);
+  color: var(--text-body);
+}
+.ea__field input,
+.ea__field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-field);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--text-heading);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  transition:
+    border-color var(--motion-duration-hover) var(--motion-ease-out),
+    box-shadow var(--motion-duration-hover) var(--motion-ease-out);
+}
+.ea__field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+.ea__field input:hover,
+.ea__field textarea:hover {
+  border-color: var(--border-field-hover);
+}
+.ea__field input:focus-visible,
+.ea__field textarea:focus-visible {
+  outline: none;
+  border-color: var(--color-violet);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-violet) 22%, transparent);
+}
+.ea__field [aria-invalid='true'] {
+  border-color: var(--color-berry);
+}
+.ea__field [aria-invalid='true']:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-berry) 20%, transparent);
+}
+
+.ea__error {
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-small);
+  color: var(--color-berry);
+}
+
+.ea__alert {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-berry) 8%, var(--color-white));
+  color: var(--color-ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.ea__alert a {
+  color: var(--text-action);
+  font-weight: var(--weight-bold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ea__submit {
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
+}
+.ea__submit[aria-disabled='true'] {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+@media (max-width: 767px) {
+  .ea__panel {
+    padding: var(--space-32) var(--space-20) var(--space-24);
+  }
+  .ea__title {
+    font-size: 24px;
+  }
+  .ea__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ea[open],
+  .ea[open]::backdrop {
+    animation: none;
+  }
+}
+
+/* Page scroll lock while the dialog is open (motion/smoothScroll.ts). */
+html.is-scroll-locked {
+  overflow: hidden;
+}

@@ -1,0 +1,103 @@
+/* Figma 583:787 — 720px row: 219.8 × 228 plate (Ben overhangs it by ~84px) + copy.
+   The section label is aligned to the copy column's left edge (refinement brief). */
+.founder {
+  /* Continues the white of the advisors band → joined top. */
+  /* + extra room (pass 5); on desktop the shared stack-section rule applies instead. */
+  padding-block: calc(var(--section-join) + var(--section-roomy)) calc(var(--section-y) + var(--section-roomy));
+  background: var(--surface-page);
+}
+
+.founder__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.founder__label {
+  width: min(var(--layout-container-narrow), 100%);
+  padding-left: calc(219.8px + var(--space-40));
+}
+
+.founder__row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-40);
+  width: min(var(--layout-container-narrow), 100%);
+}
+
+.founder__photo {
+  position: relative;
+  flex: none;
+  width: 219.8px;
+  height: 228px;
+}
+
+/* The composite already contains the eggplant plate, glow and texture;
+   its plate spans x 48–705 of 765px and ends at the bottom edge (measured). */
+.founder__photo img {
+  position: absolute;
+  left: -15.9px;
+  bottom: 0;
+  width: 254px;
+  height: auto;
+  max-width: none;
+}
+
+.founder__copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.founder__title {
+  font-size: var(--type-title-founder-size);
+  line-height: var(--type-title-founder-line);
+  font-weight: var(--type-title-founder-weight);
+  letter-spacing: var(--type-title-founder-tracking);
+  color: var(--text-heading);
+}
+
+.founder__story {
+  margin-top: var(--space-12);
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
+  letter-spacing: var(--type-body-relaxed-tracking);
+  color: var(--text-body);
+}
+
+.founder__byline {
+  margin-top: var(--space-16);
+  font-size: 13px;
+  line-height: normal;
+  letter-spacing: var(--tracking-small);
+  /* Museo Sans 500, full ink. */
+  font-weight: var(--weight-regular);
+  color: var(--text-heading);
+}
+
+.founder__cta {
+  margin-top: var(--space-16);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 767px) {
+  .founder__label {
+    padding-left: 0;
+    text-align: center;
+  }
+  .founder__row {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-28);
+  }
+  .founder__photo {
+    margin-top: 84px;
+  }
+  .founder__copy {
+    align-items: center;
+    text-align: center;
+  }
+}

@@ -1,0 +1,79 @@
+/* Figma 583:810. Continues the founder's white → joined top; full section
+   padding below so the cards never sit on top of "How it works". */
+.benefits {
+  padding-block: var(--section-join) var(--section-y);
+  background: var(--surface-page);
+}
+
+.benefits__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-36);
+}
+
+.benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+}
+
+.benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: var(--space-28) var(--space-24);
+  border-radius: var(--radius-lg);
+  background: var(--surface-card);
+}
+
+.benefit__icon {
+  width: 128.22px;
+  height: 128.22px;
+  object-fit: cover;
+}
+
+.benefit__title,
+.benefit__body {
+  align-self: stretch;
+}
+
+.benefit__title {
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-line);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
+  color: var(--text-heading);
+}
+
+.benefit__body {
+  font-size: var(--type-body-xl-size);
+  line-height: var(--type-body-xl-line);
+  letter-spacing: var(--type-body-xl-tracking);
+  color: var(--text-body);
+}
+
+@media (max-width: 1023px) {
+  .benefits__grid {
+    gap: var(--space-16);
+  }
+  .benefit {
+    padding: var(--space-24) var(--space-16);
+  }
+  .benefit__title {
+    font-size: 18px;
+  }
+  .benefit__body {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .benefits__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .benefit__icon {
+    width: 104px;
+    height: 104px;
+  }
+}

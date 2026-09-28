@@ -1,0 +1,186 @@
+/*
+ * Figma 583:1070 — 1200 × 72, radius 16, white at 80% + 6.85px backdrop blur.
+ * Only the bar's fill is translucent; logo, links and buttons stay opaque.
+ *
+ * Hidden while scrolling (lift + fade, --motion-nav-hide), shown again after
+ * scrolling stops (--motion-nav-show, slower). The wrapper moves; the bar
+ * fades — keeping opacity on the element that owns the backdrop-filter so the
+ * blur is never cut off by an ancestor's opacity.
+ */
+.nav {
+  position: fixed;
+  top: var(--layout-nav-offset);
+  left: 50%;
+  z-index: 50;
+  width: min(var(--layout-nav-width), 100% - 2 * var(--layout-gutter));
+  transform: translate(-50%, 0);
+  transition:
+    transform var(--motion-nav-show) var(--motion-ease-out),
+    visibility 0s linear 0s;
+}
+
+.nav[data-hidden] {
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, calc(-1 * var(--motion-nav-distance)));
+  transition:
+    transform var(--motion-nav-hide) var(--motion-ease-exit),
+    visibility 0s linear var(--motion-nav-hide);
+}
+
+.nav__bar {
+  transition: opacity var(--motion-nav-show) var(--motion-ease-out);
+}
+.nav[data-hidden] .nav__bar {
+  opacity: 0;
+  transition: opacity var(--motion-nav-hide) var(--motion-ease-exit);
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  height: var(--layout-nav-height);
+  padding: var(--space-4) var(--space-24);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(6.85px);
+  backdrop-filter: blur(6.85px);
+  box-shadow: var(--shadow-nav);
+}
+
+.nav__brand {
+  display: inline-flex;
+  border-radius: var(--radius-md);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-32);
+}
+
+.nav__link {
+  font-size: var(--type-nav-size);
+  line-height: var(--type-nav-line);
+  font-weight: var(--type-nav-weight);
+  letter-spacing: var(--type-nav-tracking);
+  color: var(--text-heading);
+  white-space: nowrap;
+  border-radius: 4px;
+  transition: color var(--motion-duration-hover) var(--motion-ease-out);
+}
+.nav__link:hover {
+  color: var(--text-accent);
+}
+
+.nav__cta {
+  height: 44px;
+}
+
+.nav__menu-cta,
+.nav__toggle {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+  .nav__links {
+    gap: var(--space-24);
+  }
+}
+
+/* ---- Collapsed menu below 1024px ------------------------------------- */
+@media (max-width: 1023px) {
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    cursor: pointer;
+  }
+  .nav__toggle svg path {
+    stroke: var(--color-ink);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    transform-origin: 11px 11px;
+    transition: transform var(--motion-duration-hover) var(--motion-ease-out);
+  }
+  .nav[data-open] .nav__toggle-top {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .nav[data-open] .nav__toggle-bottom {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .nav__links {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-12);
+    border-radius: var(--radius-xl);
+    background: var(--color-white);
+    box-shadow: var(--shadow-nav);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--motion-duration-hover) var(--motion-ease-out),
+      transform var(--motion-duration-hover) var(--motion-ease-out),
+      visibility 0s linear var(--motion-duration-hover);
+  }
+  .nav[data-open] .nav__links {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .nav__link {
+    display: block;
+    padding: var(--space-12) var(--space-16);
+  }
+  .nav__link:hover {
+    background: var(--color-lavender);
+  }
+  .nav__menu-cta {
+    display: block;
+    padding: var(--space-8) var(--space-16) var(--space-4);
+  }
+  .nav__menu-cta .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav {
+    top: 12px;
+    width: calc(100% - 2 * var(--layout-gutter-mobile));
+  }
+  .nav__bar {
+    height: 60px;
+    padding: var(--space-4) var(--space-12) var(--space-4) var(--space-16);
+  }
+  .nav__bar .brand {
+    transform: scale(0.88);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .nav__bar,
+  .nav__links {
+    transition: none;
+  }
+}

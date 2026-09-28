@@ -1,0 +1,556 @@
+/*
+ * Family Financial Oversight phone — Figma 596:1995 (lavender panel 489 × 409,
+ * radius 14.7) and 601:2577 (phone screen 195.8 × 423.7, 11px plum bezel
+ * outside it, centred +7.4px right and −43.95px up in the panel, so the phone
+ * projects 62.3px above the panel's top edge — on purpose).
+ *
+ * Outer geometry: Figma px × --u (unitless, = panel width / --panel-units,
+ * set by PhoneDemo). The screen's content (.pm) is laid out at 2 × Figma size
+ * and scaled by --u / 2, so all product-UI values below are Figma × 2.
+ * Product UI colours are scoped here (the app's palette, not landing tokens).
+ */
+.phone-demo {
+  --panel-units: 489;
+  --phone-overlap: 62.3;
+  --phone-bottom: 25.58;
+  --phone-shift: 7.4;
+  --u: 1;
+  --px: calc(var(--u) * 1px);
+
+  --pm-canvas: #f8f7f1;
+  --pm-header: #6a396a;
+  --pm-bezel: #774478;
+  --pm-text: #1e1122;
+  --pm-feed-text: #111827;
+  --pm-muted: #525252;
+  --pm-border: #c9d0d9;
+  --pm-overdue-bg: #fbe7e7;
+  --pm-overdue-ink: #8d3434;
+  --pm-flag-bg: #f3ecfa;
+  --pm-flag-ink: #684286;
+  --pm-send: #6c3bb2;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding-bottom: calc(var(--phone-bottom) * var(--px));
+  border-radius: calc(14.696 * var(--px));
+  background: var(--surface-card);
+}
+
+.phone {
+  position: relative;
+  left: calc(var(--phone-shift) * var(--px));
+  flex: none;
+  margin-top: calc(-1 * var(--phone-overlap) * var(--px));
+  padding: calc(11 * var(--px));
+  border-radius: calc(25 * var(--px));
+  background: var(--pm-bezel);
+  box-shadow: 0 0 calc(30.2 * var(--px)) rgba(160, 155, 130, 0.3);
+}
+
+.phone__screen {
+  position: relative;
+  width: calc(195.795 * var(--px));
+  height: calc(423.72 * var(--px));
+  overflow: hidden;
+  border-radius: calc(14 * var(--px));
+  /* Header colour behind the top of the screen (its rounded top corners),
+     canvas below — ending well above the cut-out corner of the header. */
+  background: linear-gradient(var(--pm-header) 0 8%, var(--pm-canvas) 8%);
+  /* Clips the scaled screen content to the rounded corners on every engine. */
+  isolation: isolate;
+}
+
+/* ---- The app screen, 2 × Figma -------------------------------------- */
+.pm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 391.59px;
+  height: 847.44px;
+  transform: scale(calc(var(--u) / 2));
+  transform-origin: 0 0;
+  color: var(--pm-text);
+  font-family: var(--font-sans);
+  text-align: left;
+}
+.pm img {
+  display: block;
+  max-width: none;
+}
+.pm p {
+  margin: 0;
+  text-wrap: wrap;
+}
+/* Live text follows the site's tracking roles (tokens.json → letterSpacing):
+   greeting title, running text, small UI labels. The balance keeps Figma's
+   -0.38px. Each value is declared where the size is, so the em matches. */
+.pm__hello {
+  letter-spacing: var(--tracking-title);
+}
+.pm__hello-sub,
+.pm__message,
+.pm__vendor,
+.pm__amount,
+.pm__note,
+.pm__bubble {
+  letter-spacing: var(--tracking-text);
+}
+.pm__balance-label,
+.pm__badge,
+.pm__date,
+.pm__see-all,
+.pm__placeholder,
+.pm__typed {
+  letter-spacing: var(--tracking-small);
+}
+
+.pm__scroll {
+  position: relative;
+}
+
+/* Header — FinancialSummaryCard 601:2579 */
+.pm__header {
+  position: relative;
+  height: 239.97px;
+  overflow: hidden;
+  border-radius: 0 0 0 15.31px;
+}
+/*
+ * The header's purple is ONE shape with the cream corner cut out of it
+ * (Figma 601:2587: a cream rect at x 314.28, top 162.65, 34.14 corner radius,
+ * running off the right and bottom edges). It used to be purple under a cream
+ * rectangle: both had their antialiased edge on the same line, and whenever
+ * that line fell between device pixels — e.g. after the feed scrolls by 18.5px
+ * when the reply arrives — the purple bled through as a thin dark line. Cut
+ * out, there is no purple under the corner at all, at any scale or position.
+ */
+.pm__header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--pm-header);
+  clip-path: path(
+    'M0 0H391.59V162.65H348.42A34.14 34.14 0 0 0 314.28 196.79V239.97H15.31A15.31 15.31 0 0 1 0 224.66Z'
+  );
+}
+.pm__quarters {
+  position: absolute;
+  right: 0;
+  bottom: 0.02px;
+  width: 77.31px;
+  height: 77.31px;
+}
+.pm__glow,
+.pm__arc {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.pm__glow > span,
+.pm__arc > span {
+  position: relative;
+  flex: none;
+}
+.pm__glow img,
+.pm__arc img {
+  position: absolute;
+}
+.pm__glow {
+  left: -64.18px;
+  top: -93.46px;
+  width: 486.46px;
+  height: 532.37px;
+}
+.pm__glow > span {
+  width: 357.09px;
+  height: 435.13px;
+  rotate: -20.42deg;
+}
+.pm__glow img {
+  /* inset −6.96% −5.99% −6.69% −6.54% */
+  left: -6.54%;
+  top: -6.96%;
+  width: 112.53%;
+  height: 113.65%;
+}
+.pm__arc {
+  left: -243.44px;
+  top: -256.62px;
+  width: 671px;
+  height: 670.05px;
+  mix-blend-mode: screen;
+}
+.pm__arc > span {
+  width: 486.66px;
+  height: 461.97px;
+  rotate: 136.56deg;
+}
+.pm__arc img {
+  /* inset −2.24% −8.29% −6.64% −4.24% */
+  left: -4.24%;
+  top: -2.24%;
+  width: 112.53%;
+  height: 108.88%;
+}
+.pm__menu-trigger {
+  position: absolute;
+  left: calc(50% + 2px);
+  top: 207.84px;
+  display: grid;
+  place-items: center;
+  width: 36.15px;
+  height: 17.07px;
+  translate: -50% 0;
+  border: 1px solid #c2aab5;
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+.pm__menu-trigger img {
+  width: 11.7px;
+  height: 6.69px;
+}
+
+.pm__intro {
+  position: absolute;
+  top: 50.2px;
+  left: 17.08px;
+  display: flex;
+  flex-direction: column;
+  gap: 8.03px;
+  width: 360.46px;
+}
+.pm__greeting-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 64.26px;
+}
+.pm__greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 6.02px;
+  width: 293.19px;
+  color: #fff;
+}
+.pm__hello {
+  font-size: 30.12px;
+  line-height: 1.2;
+  font-weight: var(--weight-bold);
+}
+.pm__hello-sub {
+  font-size: 16.07px;
+  line-height: 22.09px;
+  font-weight: var(--weight-regular);
+}
+.pm__menu {
+  display: grid;
+  place-items: center;
+  width: 38.15px;
+  height: 38.15px;
+  border-radius: 8.03px;
+  background: #f9e8f9;
+}
+.pm__menu img {
+  width: 20.1px;
+  height: 11.74px;
+}
+.pm__balance {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #fff;
+}
+.pm__balance-value {
+  font-size: 38.15px;
+  line-height: 1.2;
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.38px;
+}
+.pm__balance-label {
+  display: flex;
+  align-items: center;
+  gap: 9.04px;
+  font-size: 14.06px;
+  line-height: 1;
+  font-weight: var(--weight-regular);
+  color: #d3d2d2;
+}
+.pm__balance-label img {
+  width: 14.06px;
+  height: 14.06px;
+}
+
+/* Feed — Payment alerts 601:2597 */
+.pm__feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20.08px;
+  padding: 24.1px 14.06px;
+}
+.pm__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8.03px;
+}
+.pm__message {
+  /* The phone's width is fixed (it scales as a whole): keep Figma's line breaks. */
+  white-space: pre-line;
+  font-size: 16.07px;
+  line-height: 1.5;
+  font-weight: var(--weight-light);
+  color: var(--pm-feed-text);
+}
+.pm__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pm__layer {
+  display: block;
+  height: 118.48px;
+  margin-bottom: -113.46px;
+  border: 1px solid rgba(201, 208, 217, 0.6);
+  border-radius: 8.03px;
+  background: #fff;
+  box-shadow:
+    0 4.02px 12.05px rgba(16, 42, 67, 0.07),
+    inset 0 4.02px 32.23px #fff;
+}
+.pm__layer--back {
+  width: 319.14px;
+}
+.pm__layer--mid {
+  width: 339.38px;
+  border-color: rgba(201, 208, 217, 0.8);
+}
+.pm__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12.05px;
+  width: 100%;
+  padding: 16.07px;
+  overflow: hidden;
+  border: 1px solid var(--pm-border);
+  border-radius: 8.03px;
+  background: #fff;
+  box-shadow: 0 4.02px 12.05px rgba(87, 39, 97, 0.07);
+}
+.pm__edge {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  width: 3.01px;
+  background: var(--pm-overdue-ink);
+}
+.pm__card--flagged .pm__edge {
+  background: var(--pm-flag-ink);
+}
+.pm__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pm__badges {
+  display: flex;
+  align-items: center;
+  gap: 8.03px;
+}
+.pm__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5.2px;
+  height: 26.45px;
+  padding: 4.2px 10.4px 4.2px 8.3px;
+  border-radius: 4.2px;
+  font-size: 14.06px;
+  line-height: 16.07px;
+  font-weight: var(--weight-regular);
+  white-space: nowrap;
+}
+.pm__badge img {
+  width: 12.05px;
+  height: 12.05px;
+}
+.pm__badge--overdue {
+  background: var(--pm-overdue-bg);
+  color: var(--pm-overdue-ink);
+}
+.pm__badge--flagged {
+  background: var(--pm-flag-bg);
+  color: var(--pm-flag-ink);
+}
+.pm__chevron {
+  width: 18.07px;
+  height: 18.07px;
+}
+.pm__summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.pm__vendor {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8.03px;
+  font-size: 18.07px;
+  line-height: 24.1px;
+  font-weight: var(--weight-regular);
+  color: var(--pm-text);
+}
+.pm__date {
+  font-size: 14.06px;
+  line-height: 18.07px;
+  color: var(--pm-muted);
+}
+.pm__amount {
+  font-size: 16.07px;
+  font-weight: var(--weight-bold);
+  color: var(--pm-feed-text);
+}
+.pm__note {
+  font-size: 16.07px;
+  line-height: 19.68px;
+  font-weight: var(--weight-light);
+  color: var(--pm-muted);
+}
+.pm__see-all {
+  font-size: 14.06px;
+  line-height: 1.2;
+  font-weight: var(--weight-bold);
+  text-align: right;
+  color: var(--pm-text);
+}
+
+/* Question and reply indicator — shown only while the demo plays. */
+.pm__question {
+  display: none;
+  justify-content: flex-end;
+  padding-left: 60px;
+}
+.pm__bubble {
+  padding: 9px 14px;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--pm-flag-bg);
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: var(--weight-regular);
+  color: var(--pm-text);
+}
+.pm__thinking {
+  display: none;
+  align-items: center;
+}
+.pm__dots {
+  display: inline-flex;
+  gap: 6px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(87, 39, 97, 0.07);
+}
+.pm__dots > span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-plum);
+  opacity: 0.35;
+}
+
+/* Composer — Question composer 601:2645 */
+.pm__composer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16.07px 16.07px 24.1px;
+  background: var(--pm-canvas);
+}
+.pm__input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50.2px;
+  padding: 0 5.02px 0 16.41px;
+  border: 1px solid var(--pm-border);
+  border-radius: 8.03px;
+  background: #fff;
+  filter: drop-shadow(0 4.02px 6.02px rgba(16, 42, 67, 0.07));
+}
+.pm__placeholder,
+.pm__typed {
+  font-size: 14.06px;
+  font-weight: var(--weight-regular);
+  white-space: nowrap;
+}
+.pm__placeholder {
+  color: #44505f;
+}
+.pm__typed {
+  position: absolute;
+  left: 16.41px;
+  display: none;
+  align-items: center;
+  color: var(--pm-text);
+}
+.phone-demo[data-demo-active] .pm__typed {
+  display: inline-flex;
+}
+.pm__caret {
+  display: block;
+  width: 1.5px;
+  height: 18px;
+  margin-left: 2px;
+  visibility: hidden;
+}
+.pm__caret > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--pm-send);
+}
+.pm__send {
+  display: grid;
+  place-items: center;
+  width: 40.16px;
+  height: 40.16px;
+  border-radius: 8.03px;
+  background: var(--pm-send);
+}
+.pm__send img {
+  width: 24.29px;
+  height: 24.29px;
+}
+
+/* ---- Smaller layouts ------------------------------------------------ */
+/* Side by side (≥1024px) the panel top lines up with the copy, as in Figma,
+   and the phone projects into the section padding above. Stacked (under
+   1024px) the panel is centred, no wider than 560px, with room reserved above
+   for the projection so it never touches the copy. */
+@media (max-width: 1023px) {
+  .phone-demo {
+    width: min(560px, 100%);
+    margin-inline: auto;
+    margin-top: calc(var(--phone-overlap) * var(--px));
+  }
+}
+/* Phones: the phone takes more of the panel so its screen stays legible. */
+@media (max-width: 767px) {
+  .phone-demo {
+    --panel-units: 330;
+    --phone-overlap: 40;
+    --phone-bottom: 24;
+    --phone-shift: 0;
+    width: 100%;
+  }
+}

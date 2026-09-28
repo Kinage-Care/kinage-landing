@@ -1,0 +1,187 @@
+/*
+ * /advisors — the landing's system only: white / cream bands, one eggplant
+ * band (setup), .surface-card cards, section rhythm tokens, the shared
+ * buttons. Bands are separated by their surfaces, never by rules.
+ */
+.adv {
+  background: var(--surface-page);
+}
+
+.adv__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.adv__narrow {
+  width: min(var(--layout-container-narrow), 100% - 2 * var(--layout-gutter));
+}
+
+/* Header: clears the fixed nav, then the page rhythm. */
+.adv__hero {
+  padding-top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + var(--section-join));
+  padding-bottom: var(--section-y);
+}
+.adv__hero .eyebrow + .adv__title {
+  margin-top: var(--space-12);
+}
+.adv__title {
+  width: min(880px, 100%);
+  font-size: var(--type-heading-xl-size);
+  line-height: var(--type-heading-xl-line);
+  font-weight: var(--type-heading-xl-weight);
+  letter-spacing: var(--type-heading-xl-tracking);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+.adv__title .accent,
+.adv .section-title .accent {
+  color: var(--text-accent);
+}
+
+.adv__lede {
+  width: min(640px, 100%);
+  margin-top: var(--space-20);
+  font-size: var(--type-body-lg-relaxed-size);
+  line-height: var(--type-body-lg-relaxed-line);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--type-body-lg-relaxed-tracking);
+  color: var(--text-body);
+  text-wrap: pretty;
+}
+.adv__lede--left {
+  width: 100%;
+}
+
+.adv__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-16);
+  margin-top: var(--space-36);
+}
+.adv__cta {
+  min-width: 220px;
+  min-height: 48px;
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
+}
+
+/* Bands */
+.adv__band {
+  padding-block: var(--section-y);
+}
+.adv__band--warm {
+  background: var(--surface-warm);
+}
+.adv__band--brand {
+  background: var(--surface-brand);
+  color: var(--text-on-brand);
+}
+
+.adv__h2 {
+  margin-top: var(--space-12);
+  text-align: left;
+}
+.adv__h2--on-brand,
+.adv__eyebrow-on-brand {
+  color: var(--text-on-brand);
+}
+.adv__lede--on-brand {
+  color: var(--text-on-brand-soft);
+}
+
+/* Card groups: the shared surface card (Trust and Safety). */
+.adv__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin-top: var(--space-40);
+}
+.adv__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.adv__card-title {
+  font-size: var(--type-title-strong-size);
+  line-height: var(--type-title-strong-line);
+  font-weight: var(--type-title-strong-weight);
+  letter-spacing: var(--type-title-strong-tracking);
+  color: var(--text-heading);
+}
+.adv__card-body {
+  font-size: var(--type-body-sm-size);
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-sm-tracking);
+  color: var(--text-body);
+}
+
+/* Setup: copy left, four points right. */
+.adv__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-64);
+}
+.adv__points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+.adv__point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--color-white) 8%, transparent);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--text-on-brand);
+}
+.adv__point-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--color-lilac);
+}
+.adv__point-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--color-eggplant);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 1023px) {
+  .adv__cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+  .adv__split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-36);
+  }
+}
+
+@media (max-width: 767px) {
+  .adv__title {
+    font-size: 34px;
+  }
+  .adv__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(320px, 100%);
+  }
+  .adv__point {
+    padding: var(--space-14) var(--space-16);
+  }
+}

@@ -1,0 +1,57 @@
+# Build the site and publish it with GitHub Pages.
+# Runs on every push to main and from the Actions tab ("Run workflow").
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push waits instead of cancelling a live one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # Gives the Pages base path: /<repository> for github.io, empty for a custom domain.
+      - id: pages
+        uses: actions/configure-pages@v6
+
+      - run: npm ci
+
+      # `build` runs `npm run check` first (token / brand / arc drift + TypeScript).
+      - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          # Optional: Settings → Secrets and variables → Actions → Variables.
+          # Unset, the contact dialog stays honest: it says it could not send.
+          VITE_EARLY_ACCESS_ENDPOINT: ${{ vars.EARLY_ACCESS_ENDPOINT }}
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

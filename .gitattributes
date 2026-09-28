@@ -1,0 +1,8 @@
+# Text files are stored with LF so the generated-file checks (npm run check)
+# compare byte for byte on every OS; binaries are left alone.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.mp4 binary
+*.woff2 binary

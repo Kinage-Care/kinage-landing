@@ -1,0 +1,19 @@
+/*
+ * The lockup is the canonical 151 × 34 SVG. Its box includes the i-dot above
+ * and the g's descender below the mark, so the image is pulled in by the mark's
+ * own margins (top 2.773, bottom 6.977): the element's box is exactly the
+ * 24.25px mark, and the lockup centres in the nav and footer as before.
+ */
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand__logo {
+  display: block;
+  flex: none;
+  width: 151px;
+  height: 34px;
+  max-width: none;
+  margin-block: -2.773px -6.977px;
+}

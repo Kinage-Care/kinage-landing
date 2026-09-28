@@ -1,0 +1,185 @@
+/*
+ * /our-story — a reading page in the landing's system: white page, one
+ * 720px reading column (the landing's narrow column), cream closing band,
+ * section rhythm tokens. Story blocks are separated by whitespace and type,
+ * never by rules. Ben's photo (the founder composite) closes the story.
+ */
+.story {
+  background: var(--surface-page);
+}
+
+.story__column {
+  width: min(var(--layout-container-narrow), 100% - 2 * var(--layout-gutter));
+  margin-inline: auto;
+}
+.story__column--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Clears the fixed nav (37 + 72) and then keeps the page's own rhythm. */
+/* The chapters follow on the same white: whitespace (their own top padding) separates them. */
+.story__head {
+  padding-top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + var(--section-join));
+}
+.story__head .eyebrow + .story__title {
+  margin-top: var(--space-12);
+}
+
+.story__title {
+  font-size: var(--type-heading-xl-size);
+  line-height: var(--type-heading-xl-line);
+  font-weight: var(--type-heading-xl-weight);
+  letter-spacing: var(--type-heading-xl-tracking);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+.story__title .accent {
+  color: var(--text-accent);
+}
+
+.story__intro {
+  margin-top: var(--space-24);
+  font-size: var(--type-body-lg-relaxed-size);
+  line-height: var(--type-body-lg-relaxed-line);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--type-body-lg-relaxed-tracking);
+  color: var(--text-body);
+  text-wrap: pretty;
+}
+
+.story__chapters {
+  padding-bottom: var(--section-y);
+}
+
+.story__chapter {
+  padding-top: var(--space-64);
+}
+
+.story__chapter-title {
+  font-size: var(--type-heading-size);
+  line-height: var(--type-heading-line);
+  font-weight: var(--type-heading-weight);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+
+.story__kicker {
+  margin-top: var(--space-8);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--text-accent);
+}
+
+.story__body {
+  margin-top: var(--space-16);
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
+  letter-spacing: var(--type-body-relaxed-tracking);
+  color: var(--text-body);
+  text-wrap: pretty;
+}
+
+/* Same composite and plate as the landing's founder section, a little larger. */
+.story__portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-20);
+  padding-top: var(--space-64);
+}
+.story__photo {
+  position: relative;
+  display: block;
+  width: 263.76px;
+  height: 273.6px;
+  margin-top: 101px;
+}
+.story__photo img {
+  position: absolute;
+  left: -19.08px;
+  bottom: 0;
+  width: 304.8px;
+  height: auto;
+  max-width: none;
+}
+/* Two lines: the name prominent (700), the role quieter (secondary body). */
+.story__signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+.story__signature-name {
+  font-size: var(--type-title-size);
+  line-height: 1.3;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--type-title-tracking);
+  color: var(--text-heading);
+}
+.story__signature-role {
+  font-size: var(--type-body-sm-size);
+  line-height: 1.4;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--type-body-sm-tracking);
+  color: var(--text-body);
+}
+
+.story__close {
+  padding-block: var(--section-y);
+  background: var(--surface-warm);
+}
+.story__close-title {
+  font-size: var(--type-heading-size);
+  line-height: var(--type-heading-line);
+  font-weight: var(--type-heading-weight);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+.story__cta {
+  margin-top: var(--space-28);
+  min-width: 249px;
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
+}
+
+@media (max-width: 767px) {
+  .story__column {
+    width: calc(100% - 2 * var(--layout-gutter-mobile));
+  }
+  .story__title {
+    font-size: 36px;
+  }
+  .story__chapter-title,
+  .story__close-title {
+    font-size: 28px;
+  }
+  .story__chapter,
+  .story__portrait {
+    padding-top: var(--space-48);
+  }
+  .story__intro {
+    font-size: 17px;
+  }
+  .story__photo {
+    width: 219.8px;
+    height: 228px;
+    margin-top: 84px;
+  }
+  .story__photo img {
+    left: -15.9px;
+    width: 254px;
+  }
+  .story__cta {
+    width: 100%;
+    max-width: 320px;
+  }
+}

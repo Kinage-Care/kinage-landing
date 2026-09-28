@@ -1,0 +1,70 @@
+/* Figma 596:1985 — cream band, split: copy column 634 | 77 | 489 phone panel.
+   The phone projects 62px above its panel (PhoneDemo reserves that room). */
+.what {
+  padding-block: var(--section-y);
+  background: var(--surface-warm);
+}
+
+.what__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 634fr) minmax(0, 489fr);
+  align-items: start;
+  gap: 77px;
+}
+
+.what__copy {
+  max-width: 485px;
+}
+
+.what__copy,
+.what__demo {
+  min-width: 0;
+}
+
+.what__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-24);
+}
+
+.what__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14);
+}
+
+.what__title {
+  text-align: left;
+  text-wrap: wrap;
+}
+.what__title-line {
+  display: block;
+}
+
+.what__body {
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
+  letter-spacing: var(--type-body-relaxed-tracking);
+  color: var(--text-body);
+}
+
+/* Laptop widths: equal columns so the phone keeps a legible size. */
+@media (max-width: 1199px) {
+  .what__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-48);
+  }
+}
+
+@media (max-width: 1023px) {
+  .what__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+  .what__demo {
+    width: 100%;
+    max-width: 720px;
+  }
+}
+

@@ -1,0 +1,134 @@
+/* Figma 583:875 — linen band, 40px between groups. */
+.trust {
+  padding-block: var(--section-y);
+  background: var(--surface-warm);
+}
+
+.trust__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.trust__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.trust__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-12);
+}
+
+.trust__chip {
+  padding: var(--space-8) var(--space-14);
+  border-radius: var(--radius-xs);
+  background: var(--color-white);
+  box-shadow: var(--shadow-chip);
+  font-size: var(--type-button-sm-size);
+  line-height: var(--type-button-sm-line);
+  font-weight: var(--type-button-sm-weight);
+  letter-spacing: var(--type-button-sm-tracking);
+  color: var(--text-heading);
+  white-space: nowrap;
+}
+
+.trust__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  align-items: start;
+}
+
+.trust__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+/* Surface (white, 24 padding, 16 radius, soft shadow) comes from .surface-card. */
+.trust-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+/* Figma fixes these cards at 225px; min-height keeps longer copy safe. */
+.trust-card--fixed {
+  min-height: 225px;
+}
+
+.trust-card__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-xl);
+  background: var(--surface-chip);
+}
+.trust-card__icon img {
+  width: 28px;
+  height: 28px;
+}
+
+.trust-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.trust-card__title {
+  font-size: var(--type-title-strong-size);
+  line-height: var(--type-title-strong-line);
+  font-weight: var(--type-title-strong-weight);
+  letter-spacing: var(--type-title-strong-tracking);
+  color: var(--text-heading);
+}
+
+.trust-card__body {
+  font-size: var(--type-body-sm-size);
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-sm-tracking);
+  color: var(--text-body);
+}
+
+.trust__reframe {
+  padding-inline: var(--space-28);
+  font-size: var(--type-body-lg-relaxed-size);
+  line-height: var(--type-body-lg-relaxed-line);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--type-body-lg-relaxed-tracking);
+  color: var(--text-heading);
+  text-align: center;
+  text-wrap: balance;
+}
+
+@media (max-width: 1023px) {
+  .trust__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Two columns: flatten the three designed columns into one flow. */
+  .trust__col {
+    display: contents;
+  }
+  .trust-card--fixed {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .trust__inner {
+    gap: var(--space-28);
+  }
+  .trust__cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+  .trust__reframe {
+    padding-inline: 0;
+    font-size: 17px;
+  }
+}

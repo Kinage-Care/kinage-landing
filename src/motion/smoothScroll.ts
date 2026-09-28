@@ -1,0 +1,84 @@
+/**
+ * Very light desktop wheel smoothing (Lenis) and the page scroll lock.
+ *
+ * Lenis moves the *native* window scroll, so position: sticky (the stack), the
+ * scrubbed hero flight and the nav's scroll/idle detection keep working
+ * unchanged — no transformed scroll container, no scrollerProxy. It only runs
+ * with a fine pointer from `motion.smooth.min-width` and never under
+ * prefers-reduced-motion; touch keeps native scrolling. It is driven by the
+ * GSAP ticker so ScrollTrigger reads the same frame.
+ *
+ * GSAP's ScrollSmoother is not used on purpose: it transforms the content,
+ * which breaks native sticky positioning.
+ */
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
+import { gsap, ScrollTrigger } from './gsap';
+import { MOTION } from './tokens';
+
+let lenis: Lenis | null = null;
+let locks = 0;
+
+const QUERY = `(min-width: ${MOTION.smooth.minWidth}px) and (pointer: fine) and (prefers-reduced-motion: no-preference)`;
+
+/** Starts/stops smoothing as the media conditions change. Returns a cleanup. */
+export function initSmoothScroll(): () => void {
+  const mql = window.matchMedia(QUERY);
+  const tick = (time: number) => lenis?.raf(time * 1000);
+
+  const start = () => {
+    if (lenis) return;
+    lenis = new Lenis({ lerp: MOTION.smooth.lerp, smoothWheel: true, syncTouch: false, autoRaf: false, anchors: false });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(tick);
+    if (locks > 0) lenis.stop();
+  };
+  const stop = () => {
+    if (!lenis) return;
+    gsap.ticker.remove(tick);
+    lenis.destroy();
+    lenis = null;
+  };
+  const sync = () => (mql.matches ? start() : stop());
+
+  sync();
+  mql.addEventListener('change', sync);
+  return () => {
+    mql.removeEventListener('change', sync);
+    stop();
+  };
+}
+
+/** Jump (no animation) to a scroll position, keeping Lenis in step. */
+export function jumpTo(y: number) {
+  if (lenis) {
+    // The page may have just been replaced (route change): re-read its height
+    // first, or Lenis clamps to the previous page's scroll limit.
+    lenis.resize();
+    lenis.scrollTo(y, { immediate: true, force: true });
+  } else window.scrollTo(0, y);
+}
+
+/**
+ * Prevents page scrolling while a modal is open. The document keeps its
+ * scroll offset (overflow is clipped on <html>, nothing is repositioned), so
+ * closing returns to the exact spot and scroll-driven animations stay where
+ * they were. `scrollbar-gutter: stable` (base.css) avoids a width jump.
+ */
+export function lockScroll(): () => void {
+  locks += 1;
+  if (locks === 1) {
+    document.documentElement.classList.add('is-scroll-locked');
+    lenis?.stop();
+  }
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    locks -= 1;
+    if (locks === 0) {
+      document.documentElement.classList.remove('is-scroll-locked');
+      lenis?.start();
+    }
+  };
+}

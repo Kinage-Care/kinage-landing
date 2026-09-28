@@ -1,0 +1,108 @@
+/* Figma 562:4058 — pt 82 / pb 80; intro block (header + video) then roadmap, gap 20. */
+.how {
+  /* Continues the white of the benefits section → joined top. */
+  padding-block: var(--section-join) var(--section-y);
+  background: var(--surface-page);
+}
+
+.how__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.how__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-36);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-24);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  border-radius: var(--radius-2xl);
+}
+
+.step__num-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.step__circle {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  color: var(--color-white);
+  font-size: 18px;
+  line-height: normal;
+  font-weight: var(--weight-black);
+}
+.step__circle--1 { background: var(--color-copper); box-shadow: var(--shadow-step-1); }
+.step__circle--2 { background: var(--color-rosewood); box-shadow: var(--shadow-step-2); }
+.step__circle--3 { background: var(--color-berry); box-shadow: var(--shadow-step-3); }
+.step__circle--4 { background: var(--color-grape); box-shadow: var(--shadow-step-4); }
+
+.step__line {
+  flex: 1;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-thistle);
+  transform-origin: left center;
+}
+
+.step__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.step__title {
+  font-size: var(--type-title-sm-size);
+  line-height: var(--type-title-sm-line);
+  font-weight: var(--type-title-sm-weight);
+  letter-spacing: var(--type-title-sm-tracking);
+  color: var(--text-heading);
+}
+
+.step__body {
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-line);
+  letter-spacing: var(--type-body-xs-tracking);
+  color: var(--text-body);
+}
+
+@media (max-width: 1023px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8) var(--space-24);
+  }
+  /* Only the connector between 1 → 2 and 3 → 4 reads correctly in two rows. */
+  .step:nth-child(2) .step__line {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 767px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .step {
+    padding: var(--space-16) 0;
+  }
+  .step__line {
+    visibility: hidden;
+  }
+}

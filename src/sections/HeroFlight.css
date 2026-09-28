@@ -1,0 +1,424 @@
+/*
+ * Hero + problems + flight layer.
+ *
+ * The hero is a scaled "stage" (Figma 596:1913). Every Figma measurement is
+ * written as N * var(--u), where --u is 1px at the reference size:
+ *
+ *   --ux  width unit: the 1360px composition (card + overhanging assets) fits
+ *         the viewport width.
+ *   --uy  height unit: the visible composition — SMS top (32 above the card)
+ *         to chart bottom (659.8 below the card top) = 691.8 — fits under the
+ *         nav (37 + 72 + 4px air) with 16px to spare at the bottom:
+ *         (100svh - 129px) / 691.8.
+ *   --u   = min(--ux, --uy), floored at 0.6 so type never gets small; below
+ *         that the hero simply runs past the fold.
+ *
+ * The card keeps the full width (1201 * --ux); everything inside and around
+ * it — type, spacing, asset sizes, arcs — uses --u and is anchored to the
+ * nearest card edge, so a short laptop viewport compresses the composition
+ * vertically while the icon groups stay at the card's sides. Text has
+ * readable minimums, so with large text the card grows instead.
+ */
+
+.flight-zone {
+  position: relative;
+  container-type: inline-size;
+}
+
+/* ================================================================ HERO */
+
+.hero {
+  --ux: calc(min(100cqw - 32px, 1360px) / 1360);
+  --uy: calc((100svh - 129px) / 691.8);
+  --u: min(var(--ux), max(0.6px, var(--uy)));
+  position: relative;
+  /* Figma: card top at 145 (nav ends at 109; SMS overhangs the card by 32). */
+  padding-top: max(calc(145 * var(--u)), calc(113px + 32 * var(--u)));
+  padding-bottom: calc(32.8 * var(--u));
+  background: var(--surface-page);
+}
+
+/* Large desktops: the hero reserves (almost) the first screen, so on a fresh
+   load Sound Familiar's eyebrow starts 24px below the fold instead of peeking
+   in. The extra room is below the card; the composition itself is untouched.
+   Shorter screens are unaffected (the hero is already taller than this). */
+@media (min-width: 1200px) {
+  .hero {
+    min-height: calc(100svh - var(--section-y) + var(--space-24));
+  }
+}
+
+.hero__stage {
+  position: relative;
+  width: calc(1201 * var(--ux));
+  min-height: calc(637 * var(--u));
+  margin-inline: auto;
+  display: flex;
+}
+
+/* Figma 596:1916: cream, 28 radius, soft warm edge; clips its arcs only. */
+.hero__card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: max(20px, calc(28 * var(--u)));
+  background: var(--surface-hero);
+  box-shadow: var(--shadow-hero);
+}
+
+/* Dotted arcs around the icon groups (Figma 596:2557 left, 596:2559 right):
+   1013.3 × 1027.6 boxes centring a 766.5 × 727.6 ellipse, rotated. */
+.hero__arc {
+  position: absolute;
+  top: calc(-168.33 * var(--u));
+  width: calc(1013.335 * var(--u));
+  height: calc(1027.57 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero__arc > span {
+  position: relative;
+  flex: none;
+  width: calc(766.468 * var(--u));
+  height: calc(727.578 * var(--u));
+}
+.hero__arc-spin {
+  position: absolute;
+  inset: 0;
+  /* Turns around the ellipse's centre (the box centre), composited. */
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.hero__arc img {
+  position: absolute;
+  /* Figma bleed of the brush stroke (inset −0.75% −2.8% −2.27% −1.43%) plus
+     the 60-unit margin the derived SVG adds on every side so the large stamps
+     are no longer cut at the export's bounds (scripts/derive-hero-arcs.mjs):
+     1 SVG unit = 1px of this 766.5 × 727.6 box. */
+  left: -9.258%;
+  top: -8.9965%;
+  width: 119.887%;
+  height: 119.513%;
+  max-width: none;
+}
+.hero__arc--left {
+  left: calc(-738.05 * var(--u));
+}
+.hero__arc--left > span {
+  rotate: -60deg;
+}
+.hero__arc--right {
+  right: calc(-684.34 * var(--u));
+}
+.hero__arc--right > span {
+  rotate: -120deg;
+  scale: 1 -1;
+}
+
+/* Hero asset slots — Figma boxes in card coordinates (1201 × 637). */
+.hero__slot {
+  position: absolute;
+  left: calc(var(--l) * var(--u));
+  top: calc(var(--t) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+}
+/* The right-hand group keeps its distance from the card's right edge. */
+.hero__slot[data-asset='sms'],
+.hero__slot[data-asset='scam'],
+.hero__slot[data-asset='chart'] {
+  left: auto;
+  right: calc((1201 - var(--l) - var(--w)) * var(--u));
+}
+/* Lower assets hold their distance from the card's bottom edge when the
+   card grows taller than 637u (narrow screens, large text). */
+.hero__slot[data-asset='gmail'],
+.hero__slot[data-asset='chart'],
+.hero__slot[data-asset='scam'] {
+  top: auto;
+  bottom: calc((637 - var(--t) - var(--h)) * var(--u));
+}
+.hero__slot img,
+.problem-card__slot img {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Figma centres the copy on the hero inner (724.8 tall), which puts it
+     21px above the card's centre: 35 top / 77 bottom. */
+  padding-block: calc(35 * var(--u)) calc(77 * var(--u));
+  text-align: center;
+}
+
+.hero__title {
+  width: calc(877.685 * var(--u));
+  /* 72 = --type-display-size at the reference size. */
+  font-size: max(40px, calc(72 * var(--u)));
+  line-height: var(--type-display-line);
+  font-weight: var(--type-display-weight);
+  color: var(--text-hero-heading);
+}
+
+.hero__lead {
+  width: calc(647 * var(--u));
+  margin-top: calc(20 * var(--u));
+  font-size: max(16px, calc(18 * var(--u)));
+  line-height: var(--type-body-lg-line);
+  /* Museo Sans 300 (Figma 596:2552). */
+  font-weight: var(--type-body-lg-weight);
+  color: var(--text-hero-body);
+}
+.hero__lead--strong {
+  /* Figma: one empty 1.55 line between the two paragraphs; the reassurance line is 500. */
+  margin-top: 1.55em;
+  font-weight: var(--weight-regular);
+  color: var(--text-hero-strong);
+}
+
+/* Figma 596:2554: 249 × 44, 8px radius, violet, 16 / 700. */
+.hero__cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: calc(36 * var(--u));
+}
+.hero__cta {
+  width: 249px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
+}
+
+@media (max-width: 1023px) {
+  .br-wide {
+    display: none;
+  }
+  .hero__lead {
+    width: min(calc(647 * var(--u)), 100% - 48px);
+  }
+}
+
+/* ============================================================= PROBLEMS */
+
+/* Sound Familiar now follows the section rhythm like every other section
+   (pass 5; it used to keep Figma's 10 + 72). */
+.problems {
+  padding-block: var(--section-y);
+  background: var(--surface-page);
+}
+
+.problems__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-36);
+}
+
+.problems__head {
+  position: relative;
+  z-index: 3;
+}
+
+.problems__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+}
+
+.problem-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--space-28) var(--space-24);
+  border-radius: var(--radius-lg);
+  background: var(--surface-card);
+}
+
+.problem-card__art {
+  position: relative;
+  aspect-ratio: 336 / 201;
+  container-type: inline-size;
+}
+
+.problem-card__slot,
+.problem-card__shadow {
+  position: absolute;
+}
+
+.problem-card__shadow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Soft contact shadows under the assets — sized relative to the art box. */
+.problem-card__shadow-blur {
+  flex: none;
+  background: var(--color-shadow-plum);
+  border-radius: calc(var(--radius) / 336 * 100cqw);
+  filter: blur(calc(var(--blur) / 336 * 100cqw));
+}
+.problem-card__shadow-svg {
+  position: relative;
+  flex: none;
+}
+.problem-card__shadow-svg img {
+  position: absolute;
+  width: 202.23%;
+  height: 202.71%;
+  max-width: none;
+}
+
+.problem-card__title,
+.problem-card__body {
+  position: relative;
+  z-index: 3;
+}
+
+.problem-card__title {
+  /* Figma: 4px spacer between two 10px gaps. */
+  margin-top: 14px;
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-line);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
+  color: var(--text-heading);
+}
+
+.problem-card__body {
+  font-size: var(--type-body-card-size);
+  line-height: var(--type-body-card-line);
+  letter-spacing: var(--type-body-card-tracking);
+  color: var(--text-body);
+}
+
+@media (max-width: 1023px) {
+  .problems__grid {
+    gap: var(--space-16);
+  }
+  .problem-card {
+    padding: var(--space-20) var(--space-16);
+  }
+  .problem-card__title {
+    font-size: 18px;
+  }
+  .problem-card__body {
+    font-size: 15px;
+    line-height: 1.35;
+  }
+}
+
+/* =========================================================== FLIGHT LAYER */
+
+/*
+ * Stacking inside .flight-zone (its own stacking context via container-type):
+ *   card/hero surfaces (auto) < back layer (2) < copy (3) < front layer (4).
+ * Both layers are siblings of the sections, so no section transform or
+ * isolation can trap them below the copy. Nav (fixed, z 50) stays on top.
+ */
+.flight-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+}
+.flight-layer--front {
+  z-index: 4;
+}
+
+.flight-asset {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: none;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+
+.flight-zone.is-flying .flight-layer {
+  display: block;
+}
+.flight-zone.is-flying .flight-static {
+  visibility: hidden;
+}
+
+/* ================================================================ MOBILE
+ * No flight under 768px: the hero keeps a compact six-asset composition and
+ * the cards show their own assets (revealed in sequence). */
+@media (max-width: 767px) {
+  .hero {
+    --u: var(--ux);
+    padding: 116px var(--layout-gutter-mobile) 64px;
+  }
+  .hero__stage {
+    width: 100%;
+    min-height: 0;
+  }
+  .hero__card {
+    border-radius: 24px;
+  }
+  .hero__arc {
+    --u: 0.55px;
+  }
+  .hero__content {
+    padding: 96px 20px 112px;
+  }
+  .hero__title {
+    width: 100%;
+    font-size: 36px;
+    text-wrap: balance;
+  }
+  .hero__lead {
+    width: 100%;
+    margin-top: 16px;
+    font-size: 16px;
+  }
+  .hero__cta-wrap {
+    width: 100%;
+    margin-top: 28px;
+  }
+  .hero__cta {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .hero__slot,
+  .hero__slot[data-asset] {
+    top: auto;
+    bottom: auto;
+    height: auto;
+    aspect-ratio: var(--w) / var(--h);
+  }
+  .hero__slot[data-asset='bill'] { left: -10px; top: -34px; width: 104px; }
+  .hero__slot[data-asset='doc'] { left: 92px; top: 26px; width: 54px; }
+  .hero__slot[data-asset='sms'] { left: auto; right: -12px; top: -30px; width: 92px; }
+  .hero__slot[data-asset='gmail'] { left: -14px; bottom: -38px; width: 96px; }
+  .hero__slot[data-asset='scam'] { left: calc(50% - 34px); bottom: -30px; width: 68px; }
+  .hero__slot[data-asset='chart'] { left: auto; right: -14px; bottom: -34px; width: 112px; }
+
+  .problems__inner {
+    gap: var(--space-28);
+  }
+  .problems__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .problem-card {
+    padding: var(--space-24) var(--space-20);
+  }
+  .problem-card__title {
+    font-size: 19px;
+  }
+  .problem-card__body {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
