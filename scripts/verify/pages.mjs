@@ -52,6 +52,9 @@ const which = (page) =>
   const nf = await which(page);
   // GitHub Pages answers 404 (with 404.html); `vite preview` falls back with 200.
   log('unknown path: the app still renders (the landing)', [200, 404].includes(res404.status()) && nf.page === 'home', `HTTP ${res404.status()} → ${nf.page}`);
+  // Chrome logs the intended 404 document itself as a console error; start the asset checks clean.
+  errors.length = 0;
+  failed.length = 0;
 
   // assets
   await page.goto(root, { waitUntil: 'networkidle' });
