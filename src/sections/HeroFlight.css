@@ -23,6 +23,20 @@
 .flight-zone {
   position: relative;
   container-type: inline-size;
+  /* Lavender below the hero composition, moved out of Sound Familiar's top
+     padding: the card-to-heading distance (and every flight slot) is
+     unchanged; only the lavender/white boundary sits lower. */
+  --hero-tail: var(--layout-hero-tail);
+}
+@media (max-width: 1199px) {
+  .flight-zone {
+    --hero-tail: var(--layout-hero-tail-tablet);
+  }
+}
+@media (max-width: 767px) {
+  .flight-zone {
+    --hero-tail: var(--layout-hero-tail-mobile);
+  }
 }
 
 /* ================================================================ HERO */
@@ -34,8 +48,10 @@
   position: relative;
   /* Figma: card top at 145 (nav ends at 109; SMS overhangs the card by 32). */
   padding-top: max(calc(145 * var(--u)), calc(113px + 32 * var(--u)));
-  padding-bottom: calc(32.8 * var(--u));
-  background: var(--surface-page);
+  padding-bottom: calc(32.8 * var(--u) + var(--hero-tail));
+  /* Lavender stage (Figma 596:1913) from the top of the page, so it also sits
+     behind the floating nav; the next section stays white. */
+  background: var(--surface-hero-stage);
 }
 
 /* Large desktops: the hero reserves (almost) the first screen, so on a fresh
@@ -44,7 +60,7 @@
    Shorter screens are unaffected (the hero is already taller than this). */
 @media (min-width: 1200px) {
   .hero {
-    min-height: calc(100svh - var(--section-y) + var(--space-24));
+    min-height: calc(100svh - (var(--section-y) - var(--hero-tail)) + var(--space-24));
   }
 }
 
@@ -56,7 +72,7 @@
   display: flex;
 }
 
-/* Figma 596:1916: cream, 28 radius, soft warm edge; clips its arcs only. */
+/* Figma 596:1916: white on the lavender stage, 28 radius, soft edge; clips its arcs only. */
 .hero__card {
   position: absolute;
   inset: 0;
@@ -212,7 +228,7 @@
 /* Sound Familiar now follows the section rhythm like every other section
    (pass 5; it used to keep Figma's 10 + 72). */
 .problems {
-  padding-block: var(--section-y);
+  padding-block: calc(var(--section-y) - var(--hero-tail)) var(--section-y);
   background: var(--surface-page);
 }
 
@@ -357,7 +373,7 @@
 @media (max-width: 767px) {
   .hero {
     --u: var(--ux);
-    padding: 116px var(--layout-gutter-mobile) 64px;
+    padding: 116px var(--layout-gutter-mobile) calc(64px + var(--hero-tail));
   }
   .hero__stage {
     width: 100%;

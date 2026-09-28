@@ -2,12 +2,12 @@
 
 > Warm cream and white surfaces, eggplant brand bands, soft 3D objects. Calm, trustworthy, family-first.
 
-**Theme:** light. A cream hero card, cream and white section bands, eggplant brand bands (pricing, final CTA) and a near-black footer.
+**Theme:** light. A white hero card on a lavender hero, cream and white section bands, eggplant brand bands (pricing, final CTA) and a near-black footer.
 **Source of truth:** Figma file `FuFWAgjVb8Vgxs8o0UlNRc` — hero (`596:1913`) and Family Financial Oversight (`596:1985`, phone `601:2577`) from node `596:1908`, every other section from `583:518` ("Kinage – Landing Wireframe", 1440 × 8559; replaces `562:3749`). The two frames differ only in the hero. Exact visual values come from Figma; behaviour and spacing from the refinement briefs.
 **Values:** `design-system/tokens.json` → generated `src/styles/tokens.css` (`npm run tokens`; `npm run check` fails on drift).
 **Structure reference:** `design-system/reference/toggl-track/` — kept locally for comparison only (not in the repository); none of its colours, fonts or radii are active.
 
-Kinage runs on a quiet surface system — white page, warm cream bands — with lavender cards for anything that explains the product. The brand colour is eggplant (`#6a396a`): the hero heading on cream, the pricing band and the closing CTA. Headings are Museo Sans 900 with one plum-coloured half (`#774478`) that carries the emphasis; the violet action colour (`#6c3bb2`) is reserved for buttons and links. Depth comes from very soft, low-alpha shadows (3–5%) and from the 3D illustrations themselves, never from gradients on UI.
+Kinage runs on a quiet surface system — white page, warm cream bands — with lavender cards for anything that explains the product. The brand colour is eggplant (`#6a396a`): the hero heading on the white hero card, the pricing band and the closing CTA. Headings are Museo Sans 900 with one plum-coloured half (`#774478`) that carries the emphasis; the violet action colour (`#6c3bb2`) is reserved for buttons and links. Depth comes from very soft, low-alpha shadows (3–5%) and from the 3D illustrations themselves, never from gradients on UI.
 
 ---
 
@@ -15,7 +15,7 @@ Kinage runs on a quiet surface system — white page, warm cream bands — with 
 
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Eggplant | `#6a396a` | `--color-eggplant` | Hero heading on cream; pricing band, final CTA, founder plate; FAQ toggle glyph |
+| Eggplant | `#6a396a` | `--color-eggplant` | Hero heading on the white card; pricing band, final CTA, founder plate; FAQ toggle glyph |
 | Plum | `#774478` | `--color-plum` | Eyebrows, highlighted heading half, statistic figures |
 | Violet | `#6c3bb2` | `--color-violet` | Filled primary buttons, outlined buttons, links |
 | Orchid | `#ebd4ec` | `--color-orchid` | Highlighted word in the final CTA; open FAQ toggle |
@@ -23,9 +23,9 @@ Kinage runs on a quiet surface system — white page, warm cream bands — with 
 | Soft ink | `rgba(27,14,25,.78)` | `--color-ink-soft` | Body copy (plum-tinted, never neutral grey) |
 | Graphite | `#2e2d2d` | `--color-graphite` | Hero reassurance line; at 82% the hero paragraph (596:2552) |
 | White | `#ffffff` | `--color-white` | Page, problems, testimonials and statistics bands, cards, light buttons on eggplant |
-| **Cream** | `#fbf6ef` | `--color-cream` | Warm canvas from the new hero (596:1916): hero card, What Kinage Is, advisors panel, trust, FAQ, Our Story closing band |
+| **Cream** | `#fbf6ef` | `--color-cream` | Warm canvas: What Kinage Is, advisors panel, trust, FAQ, Our Story closing band (the hero card was cream until the reversed hero, pass 9) |
 | Linen | `#f8f7f1` | `--color-linen` | Retired from the landing (the phone demo scopes its own app canvas, also `#f8f7f1`) |
-| Lavender | `#f1ecf9` | `--color-lavender` | Problem and benefit cards, the phone's panel |
+| Lavender | `#f1ecf9` | `--color-lavender` | The hero stage (`--surface-hero-stage`, Figma 596:1913), problem and benefit cards, the phone's panel |
 | Lilac | `#f3ecfa` | `--color-lilac` | FAQ toggle, dialog close button, trust icon chips, "Was flagged" badge |
 | Heather | `#e8dff4` | `--color-heather` | Video poster multiply tint (29%) |
 | Thistle | `#e8ddeb` | `--color-thistle` | Roadmap connector line |
@@ -88,7 +88,7 @@ How it is applied: `base.css` gives text elements a zero-specificity default —
 
 **Line breaks:** `h1–h3` use `text-wrap: balance`; paragraphs, list items, quotes and captions use `text-wrap: pretty` (no lone last word). Short phrases that must stay together get a no-break space in the copy — "One Dashboard" (benefit title) and "one dashboard." (roadmap step 4); with the tracking pass also "organized automatically." (roadmap step 1), "they're emergencies." and "no accountability." (problem cards), "one dashboard." (family benefit) and "through emails." (Sarah Miller's quote), where `pretty` alone left a lone final word at some widths. No hard-coded desktop line breaks except the Figma ones marked `.br-wide`, which drop out below 1024px.
 
-**Heading pattern:** `<h2 class="section-title">Plain half <span class="accent">plum half</span></h2>` — always one accent run, in plum; on eggplant the accent is orchid (final CTA). The hero heading is one colour: eggplant on cream.
+**Heading pattern:** `<h2 class="section-title">Plain half <span class="accent">plum half</span></h2>` — always one accent run, in plum; on eggplant the accent is orchid (final CTA). The hero heading is one colour: eggplant on the white card.
 
 **Responsive type:** the hero heading scales with the hero stage (72px at 1440 × 900, down with a short viewport, floor 40px, 36px on phones); section headings drop to 28px under 768px; body copy never goes below 14px.
 
@@ -109,7 +109,7 @@ How it is applied: `base.css` gives text elements a zero-specificity default —
 
 | Shadow | Value | Use |
 |--------|-------|-----|
-| `--shadow-hero` | `0 1px 2px rgba(74,60,40,.05), 0 6px 16px -4px rgba(74,60,40,.08)` | Hero card: short, neutral-warm, close to the surface (deliberately lighter than Figma's 30px glow) |
+| `--shadow-hero` | `0 0 24px rgba(52,40,66,.07), 0 1px 1px rgba(52,40,66,.02), 0 12px 28px -12px rgba(52,40,66,.08)` | Hero card: separates the white card from the lavender stage — a faint all-round edge (Figma 596:1916 is an all-round 30px glow; the bottom edge matches its falloff) plus a short cool-neutral drop. No long halo, no purple glow |
 | `--shadow-card` | `0 8px 12px 0 rgba(0,0,0,.05)` — composite, parts exposed as `--shadow-card-x/-y/-blur/-spread/-color` | `.surface-card` — the Trust and Safety reference: trust, statistic and testimonial cards; carousel arrows |
 | `--shadow-chip` | `0 4px 6px rgba(0,0,0,.03)` | Trust chips |
 | `--shadow-nav` | `0 1px 2px rgba(40,28,40,.05), 0 6px 18px -6px rgba(40,28,40,.1)` | Floating nav: short and neutral, no purple haze (deliberately lighter than Figma) |
@@ -130,14 +130,15 @@ How it is applied: `base.css` gives text elements a zero-specificity default —
 
 Padding lives on the section, never as margins on its children. Exceptions, each deliberate:
 - **Advisors and founder** (the first two stack layers) share `section.stack-section` on desktop: Figma's 82px (583:777) + the extra + `--section-roomy` (28 / 22 / 16, pass 5), content centred, and **equal total heights** — `StackGroup equalize={2}` gives both the taller one's natural height as a minimum (≈ 693px at 1440). Larger text grows both together; nothing is cropped. Below 1200px the founder uses the rhythm + `--section-roomy` and both use their own content height.
-- **Sound Familiar** ("You're not the only one") follows the rhythm (`--section-y`) like every other section since pass 5. On desktops (≥ 1200px) the hero has `min-height: calc(100svh − --section-y + 24px)`, so on a fresh load its eyebrow starts 24px **below the first screen** at any taller viewport (1920 × 1080, 1920 × 1200, 2560 × 1440 …); the extra room sits below the hero card, whose composition is unchanged; on 1440 × 900 and shorter screens the hero is already taller and nothing changes.
+- **Hero tail** (pass 9): the lavender hero continues `--hero-tail` (72 / 48 / 24px) below its composition, and Sound Familiar's top padding is `--section-y − --hero-tail`, so the card-to-heading distance and every flight slot are exactly where they were; only the lavender/white boundary sits lower (it used to be 5–10px under the Gmail and chart assets).
+- **Sound Familiar** ("You're not the only one") follows the rhythm (`--section-y`, minus the hero tail on top) like every other section since pass 5. On desktops (≥ 1200px) the hero has `min-height: calc(100svh − (--section-y − --hero-tail) + 24px)`, so on a fresh load its eyebrow starts 24px **below the first screen** at any taller viewport (1920 × 1080, 1920 × 1200, 2560 × 1440 …); the extra room sits below the hero card, whose composition is unchanged; on 1440 × 900 and shorter screens the hero is already taller and nothing changes.
 - The **footer** adds `--section-roomy` above its columns and below the copyright; the final CTA pads its inner so the texture fills the band.
 
 ## Surfaces by section
 
 | Section | Background |
 |---------|-----------|
-| Hero card | cream (`--surface-hero`) on the white page |
+| Hero | lavender stage (`--surface-hero-stage`, `#f1ecf9`) from the top of the page — also behind the floating nav — with a white card (`--surface-hero`); Sound Familiar below is white |
 | You're not the only one · testimonials · statistics | white `#FFFFFF` |
 | What Kinage Is · trust · FAQ | cream (`--surface-warm`) |
 | Advisors | white band, cream panel with the What You Get card radius (`--radius-lg`, 12px, all corners) |
@@ -153,7 +154,7 @@ Every component lives in `src/components`, `src/sections` or `src/pages` with a 
 
 - **Buttons** (`base.css`): `.btn--primary` violet fill, 6px radius (8px on the hero and dialog, 596:2554), 13/28 padding; `.btn--outline` violet 1px stroke, 8px radius; `.btn--light` white on eggplant; `.btn--ghost-light` 1.5px white-50% stroke on eggplant; `.text-link` violet 700 with underline on hover. Press = 0.98 scale. **Inactive** (`:disabled`): 50% opacity, no hover — for any action whose destination is not decided yet.
 - **Nav** (`Nav.tsx`, 583:1070): fixed floating bar, 1200 × 72, 37px from the top, 16px radius, white at **80%** + 6.85px backdrop blur, the short neutral `--shadow-nav` (only the shadow was softened — fill, blur and full-opacity text unchanged), links 14 / 700. Visible on load; **hides while the page is actively scrolling (either direction) and returns once scrolling has stopped for `motion.nav.idle` (500ms)** — with desktop smoothing, "stopped" means the glide has ended. Dismiss 220ms `ease.exit`, reveal 380ms `ease.out`, 10px lift. While hidden it is `visibility: hidden` + `pointer-events: none`. It stays visible while its menu is open or keyboard focus is inside it, and never hides under reduced motion. Section links are absolute (`/#section`) so they work from Our Story; "Our Story" goes to `/our-story` and carries `aria-current` there. Collapses to a disclosure menu below 1024px.
-- **Hero** (`HeroFlight.tsx`, 596:1913): centred copy on a cream card (1201 × 637, 28 radius, the short `--shadow-hero`), eggplant 72 / 1.1 heading, 18px paragraph in 300 at graphite 82%, reassurance line 500, violet 249 × 44 CTA. Two dotted arcs (596:2557 / 596:2559) sit inside the card, clipped by it, behind everything, and turn very slowly (see Motion); each is `span (Figma box) > span (Figma tilt/mirror) > span[data-hero-arc] (rotation only) > img`. Six 3D assets around it are the flight's start anchors.
+- **Hero** (`HeroFlight.tsx`, 596:1913): centred copy on a white card on the lavender stage (1201 × 637, 28 radius, the soft `--shadow-hero`), eggplant 72 / 1.1 heading, 18px paragraph in 300 at graphite 82%, reassurance line 500, violet 249 × 44 CTA. Two dotted arcs (596:2557 / 596:2559) sit inside the card, clipped by it, behind everything, and turn very slowly (see Motion); each is `span (Figma box) > span (Figma tilt/mirror) > span[data-hero-arc] (rotation only) > img`. Six 3D assets around it are the flight's start anchors.
   - **Fit:** `--u = min(--ux, --uy)` — `--ux` fits the 1360px composition to the width, `--uy = (100svh − 129px) / 691.8` fits SMS-top-to-chart-bottom under the nav with 16px spare. The card keeps the full width (`1201 × --ux`); type, spacing, arcs and assets use `--u` and are anchored to the nearest card edge (left group by left, right group by right, lower assets by bottom). At 1366 × 768 and 1280 × 720 the heading, copy, CTA and all six icons fit the first screen; at 1440 × 900 and larger it is the Figma composition. Floor 0.6 (below that the hero runs past the fold); phones use the width unit only.
 - **Section head** (`.section-head`): eyebrow · 12 · heading · 12 · lead, centred.
 - **Brand** (`Brand.tsx`): the canonical lockup **`design-system/brand/kinage-logo.svg`** (the supplied 151 × 34 SVG, verbatim — four quarters with their own negative-space gaps + the wordmark), rendered as an image so no page style can touch its fills or geometry; its box is pulled to the 24.25px mark (margins −2.773 / −6.977) so it centres like before. `tone="inverse"` (footer) uses `src/assets/brand/kinage-logo-inverse.svg`, the same geometry with every fill white. **Favicon**: `public/favicon.svg` is the four mark paths only, viewBox = their bounds; `favicon-16/32.png` and `apple-touch-icon.png` are rendered from it. All are generated by `scripts/build-brand.mjs` (`npm run brand`) and checked by `npm run check` — one source for header, footer and favicon (the old CSS-built mark lost its 0.78px horizontal gap to pixel rounding, and the old favicon was a hand-drawn approximation).
@@ -233,7 +234,7 @@ The rings' Figma brush stroke is denser at one end, so as a ring turns, the visi
 ## Do's and Don'ts
 
 ### Do
-- Keep one plum accent run per heading; orchid on eggplant; the hero heading is eggplant on cream.
+- Keep one plum accent run per heading; orchid on eggplant; the hero heading is eggplant on the white card.
 - Use violet only for actions (buttons, links, send).
 - Put tinted cards (lavender) on white, white cards on white or cream with their soft shadow.
 - Keep shadows at 3–5% alpha (the hero's warm edge is the softest); let the 3D art provide depth.

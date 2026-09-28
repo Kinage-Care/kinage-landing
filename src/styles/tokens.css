@@ -46,7 +46,8 @@
   --text-highlight-cta: var(--color-orchid);
   --surface-page: var(--color-white);
   --surface-warm: var(--color-cream);
-  --surface-hero: var(--color-cream);
+  --surface-hero: var(--color-white);
+  --surface-hero-stage: var(--color-lavender);
   --surface-card: var(--color-lavender);
   --surface-raised: var(--color-white);
   --surface-chip: var(--color-lilac);
@@ -122,6 +123,9 @@
   --layout-section-extra-tablet: 22px;
   --layout-section-extra-mobile: 16px;
   --layout-stack-section-padding: 82px;
+  --layout-hero-tail: 72px;
+  --layout-hero-tail-tablet: 48px;
+  --layout-hero-tail-mobile: 24px;
   --layout-section-roomy: 28px;
   --layout-section-roomy-tablet: 22px;
   --layout-section-roomy-mobile: 16px;
@@ -151,7 +155,7 @@
   --shadow-card-spread: 0;
   --shadow-card-color: rgba(0, 0, 0, 0.05);
   --shadow-nav: 0 1px 2px rgba(40, 28, 40, 0.05), 0 6px 18px -6px rgba(40, 28, 40, 0.1);
-  --shadow-hero: 0 1px 2px rgba(74, 60, 40, 0.05), 0 6px 16px -4px rgba(74, 60, 40, 0.08);
+  --shadow-hero: 0 0 24px rgba(52, 40, 66, 0.07), 0 1px 1px rgba(52, 40, 66, 0.02), 0 12px 28px -12px rgba(52, 40, 66, 0.08);
   --shadow-step-1: 0 8px 9px rgba(206, 169, 152, 0.25);
   --shadow-step-2: 0 8px 9px rgba(151, 77, 77, 0.25);
   --shadow-step-3: 0 8px 9px rgba(143, 58, 68, 0.25);

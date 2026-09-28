@@ -461,6 +461,8 @@ for (const width of [1920, 1440, 1024, 768, 390]) {
     return {
       surfaces: {
         hero: hero.backgroundColor,
+        heroStage: getComputedStyle(document.querySelector('.hero')).backgroundColor,
+        heroTail: parseFloat(getComputedStyle(document.querySelector('.flight-zone')).getPropertyValue('--hero-tail')),
         heroRadius: hero.borderTopLeftRadius,
         heroShadow: hero.boxShadow,
         mock: getComputedStyle(document.querySelector('.phone__screen')).backgroundImage.includes('248, 247, 241') ? 'rgb(248, 247, 241)' : getComputedStyle(document.querySelector('.phone__screen')).backgroundImage,
@@ -531,11 +533,14 @@ for (const width of [1920, 1440, 1024, 768, 390]) {
   const sec = Object.fromEntries(r.sections.map((x) => [x.id, x]));
   // Hero, problems (flight zone), pricing (own 64px banner padding) keep their Figma spacing;
   // testimonials have their own feature spacing; advisors + founder share 576px on desktop.
-  // Sound Familiar (problems) follows the rhythm since pass 5; the founder adds its extra room.
-  const own = ['hero', 'pricing', 'testimonials', 'founder', ...(width >= 1200 ? ['advisors'] : [])];
+  // Sound Familiar (problems) follows the rhythm since pass 5, minus the lavender the
+  // reversed hero carries below its composition (pass 9, --hero-tail); the founder adds its extra room.
+  const own = ['hero', 'problems', 'pricing', 'testimonials', 'founder', ...(width >= 1200 ? ['advisors'] : [])];
   const ruled = r.sections.filter((x) => !own.includes(x.id));
   const bad = ruled.filter((x) => !exp.includes(x.top) || x.bottom !== exp[0]);
   log(`${tag} section rhythm ${exp[0]} (join ${exp[1]})`, bad.length === 0, ruled.map((x) => `${x.id} ${x.top}/${x.bottom}`).join(' · '));
+  const tail = width >= 1200 ? 72 : width >= 768 ? 48 : 24;
+  log(`${tag} Sound Familiar: rhythm minus the hero's ${tail}px lavender tail on top (card-to-heading distance unchanged)`, r.surfaces.heroTail === tail && sec.problems.top === exp[0] - tail && sec.problems.bottom === exp[0], `${sec.problems.top}/${sec.problems.bottom} tail ${r.surfaces.heroTail}`);
   log(`${tag} testimonials padding ${feature} (more than the rhythm)`, sec.testimonials.top === feature && sec.testimonials.bottom === feature, `${sec.testimonials.top}/${sec.testimonials.bottom}`);
   const roomy = width >= 1200 ? 28 : width >= 768 ? 22 : 16;
   if (width < 1200) log(`${tag} founder: rhythm + ${roomy}px extra room`, sec.founder.top === exp[1] + roomy && sec.founder.bottom === exp[0] + roomy, `${sec.founder.top}/${sec.founder.bottom}`);
@@ -543,13 +548,14 @@ for (const width of [1920, 1440, 1024, 768, 390]) {
   else log(`${tag} advisors and founder grow with content`, sec.advisors.h > 300 && sec.founder.h > 300, `${sec.advisors.h} / ${sec.founder.h}`);
   const WHITE = 'rgb(255, 255, 255)';
   const CREAM = 'rgb(251, 246, 239)';
+  const LAVENDER = 'rgb(241, 236, 249)';
   log(
-    `${tag} surfaces: hero/what/advisors/trust/FAQ cream; problems/testimonials/stats white; phone UI keeps its own canvas`,
-    r.surfaces.hero === CREAM && sec.what.bg === CREAM && r.surfaces.panel === CREAM && sec.trust.bg === CREAM && sec.faq.bg === CREAM &&
+    `${tag} surfaces: hero lavender (#f1ecf9) with a white card; what/advisors/trust/FAQ cream; problems/testimonials/stats white; phone UI keeps its own canvas`,
+    r.surfaces.heroStage === LAVENDER && r.surfaces.hero === WHITE && sec.what.bg === CREAM && r.surfaces.panel === CREAM && sec.trust.bg === CREAM && sec.faq.bg === CREAM &&
       sec.problems.bg === WHITE && sec.testimonials.bg === WHITE && sec.stats.bg === WHITE && r.surfaces.mock === 'rgb(248, 247, 241)',
-    `faq ${sec.faq.bg} stats ${sec.stats.bg} mock ${r.surfaces.mock}`,
+    `hero ${r.surfaces.heroStage} card ${r.surfaces.hero} faq ${sec.faq.bg} stats ${sec.stats.bg} mock ${r.surfaces.mock}`,
   );
-  log(`${tag} hero card: 28 radius, short soft shadow (token), eggplant heading`, r.tokens.hero.includes('0.08') && !r.surfaces.heroShadow.includes('30.2px') && r.heroTitle === 'rgb(106, 57, 106)' && (width < 768 || r.surfaces.heroRadius === '28px' || parseFloat(r.surfaces.heroRadius) >= 20), `${r.surfaces.heroRadius} ${r.surfaces.heroShadow}`);
+  log(`${tag} hero card: 28 radius, soft cool-neutral shadow (token, no long halo or purple glow), eggplant heading`, r.tokens.hero.includes('52, 40, 66') && !r.surfaces.heroShadow.includes('30.2px') && !/\b(4[0-9]|[5-9][0-9])px/.test(r.tokens.hero) && r.heroTitle === 'rgb(106, 57, 106)' && (width < 768 || r.surfaces.heroRadius === '28px' || parseFloat(r.surfaces.heroRadius) >= 20), `${r.surfaces.heroRadius} ${r.surfaces.heroShadow}`);
   log(`${tag} nav: 80% fill kept, short neutral shadow (no purple haze)`, r.navBg === 'rgba(255, 255, 255, 0.8)' && !r.navShadow.includes('115, 65, 116') && !r.navShadow.includes('41.9px'), r.navShadow);
   log(`${tag} advisors panel: What You Get card radius on all four corners`, r.advisorsRadius.every((x) => x === r.benefitRadius), `${r.advisorsRadius.join(' ')} vs ${r.benefitRadius}`);
   log(`${tag} founder attribution "Ben Terk, Founder of Kinage"`, r.byline === 'Ben Terk, Founder of Kinage', r.byline);
