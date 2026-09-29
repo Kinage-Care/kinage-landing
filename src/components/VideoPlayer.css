@@ -40,6 +40,14 @@
   border-radius: 0;
   background: var(--color-night);
 }
+/* The page reserves its scrollbar's width (scrollbar-gutter: stable); while
+   the player is full screen that strip would stay visible beside it. */
+:root:has(.video:fullscreen) {
+  scrollbar-gutter: auto;
+}
+:root:has(.video:-webkit-full-screen) {
+  scrollbar-gutter: auto;
+}
 
 /* Figma: #e8dff4 at 29%, multiply. */
 .video__tint {
