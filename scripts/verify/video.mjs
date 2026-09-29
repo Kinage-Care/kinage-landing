@@ -52,8 +52,17 @@ const seek = async (page, s) => {
     r.dispatchEvent(new Event('input', { bubbles: true }));
     r.dispatchEvent(new Event('change', { bubbles: true }));
   }, s);
-  await page.waitForFunction((s) => Math.abs(document.querySelector('.video__media').currentTime - s) < 0.4, s, { timeout: 8000 });
-  await page.waitForTimeout(350);
+  // currentTime changes at once; the seek itself (and the cue update that follows it)
+  // completes only when the data at the new position has arrived — over a network, later.
+  await page.waitForFunction(
+    (s) => {
+      const v = document.querySelector('.video__media');
+      return !v.seeking && v.readyState >= 2 && Math.abs(v.currentTime - s) < 0.4;
+    },
+    s,
+    { timeout: 15000 },
+  );
+  await page.waitForTimeout(250);
 };
 
 // ---- desktop
