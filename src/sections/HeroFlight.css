@@ -99,9 +99,10 @@
   overflow: clip;
   border-radius: max(20px, calc(28 * var(--u)));
   pointer-events: none;
-  /* Quieter texture: 75% on every layout (it multiplies the phones' own
-     softening below). */
-  opacity: 0.75;
+  /* Quieter texture, behind the icons without competing with the heading:
+     45% on desktop and tablet (40% below the earlier 75%); phones keep 75%
+     (set in their block below, multiplying their own softening). */
+  opacity: 0.45;
 }
 .hero__ring {
   position: absolute;
@@ -395,6 +396,7 @@
   .hero__rings {
     inset: calc(-1 * var(--hero-pad-top)) calc(-1 * var(--hero-bleed)) calc(-1 * var(--hero-pad-bottom));
     border-radius: 0;
+    opacity: 0.75;
   }
   /* Phones: one large circle above the card whose lower arc runs through
      Bill, the document and SMS, and one below whose upper arc runs through
