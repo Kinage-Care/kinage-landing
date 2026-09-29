@@ -1,8 +1,10 @@
-/* 862.3 × 518.75, radius 12 — 16:9-ish box reserved before metadata loads. */
+/* Up to 862.3 wide (Figma), radius 12. The box has the video's own shape —
+   16:9 for the explainer (1920 × 1080), replaced by the file's measured ratio
+   once its metadata loads — so the whole frame fills it: no bars, no crop. */
 .video {
   position: relative;
   width: min(862.302px, 100%);
-  aspect-ratio: 862.302 / 518.752;
+  aspect-ratio: 16 / 9;
   margin-inline: auto;
   overflow: hidden;
   border-radius: var(--radius-lg);

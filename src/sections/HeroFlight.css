@@ -48,8 +48,6 @@
   /* Figma: card top at 145 (nav ends at 109; SMS overhangs the card by 32). */
   --hero-pad-top: max(calc(145 * var(--u)), calc(113px + 32 * var(--u)));
   --hero-pad-bottom: calc(32.8 * var(--u) + var(--hero-tail));
-  /* From the card's side to the hero's side (the ring layer reaches it). */
-  --hero-bleed: calc((100cqw - 1201 * var(--ux)) / 2);
   position: relative;
   padding-top: var(--hero-pad-top);
   padding-bottom: var(--hero-pad-bottom);
@@ -86,22 +84,21 @@
 }
 
 /*
- * Dotted rings. One seamless asset (hero-ring.svg: a square round the ring's
- * centre, ring radius = width / 2.4, dots reaching 12.5% of it beyond), placed as whole circles with a radius
- * --r and a centre given in card coordinates. A circle keeps its footprint
- * while it turns, so a ring that clears the copy at rest clears it at every
- * angle. The layer spans the whole hero and clips there: nothing reaches past
- * the page's sides (no horizontal overflow) or into the next section.
+ * Dotted rings: one seamless asset (hero-ring.svg — a square round the ring's
+ * centre, ring radius = width / 2.4; 1 SVG unit = 1u, as the Figma arcs were).
+ *
+ * Desktop and tablet: the Figma arcs (596:2557 / 596:2559) — the same ellipse
+ * as the asset (383.2 × 363.8), centred round the left and right icon groups
+ * mostly outside the card, and masked by the card (its box and radius), so the
+ * visible arcs pass behind the icons inside the card. Only this layer clips:
+ * the icons and the flight layer are not inside it.
  */
 .hero__rings {
   position: absolute;
-  inset: calc(-1 * var(--hero-pad-top)) calc(-1 * var(--hero-bleed)) calc(-1 * var(--hero-pad-bottom));
+  inset: 0;
   overflow: clip;
+  border-radius: max(20px, calc(28 * var(--u)));
   pointer-events: none;
-  /* Its width is the hero's (= the flight zone's, so --u is unchanged inside);
-     its height gives the card's height to the rings below. */
-  container-type: size;
-  --card-h: calc(100cqh - var(--hero-pad-top) - var(--hero-pad-bottom));
 }
 .hero__ring {
   position: absolute;
@@ -121,39 +118,21 @@
   height: 100%;
   max-width: none;
 }
-/* Desktop and tablet: round the left group (through Bill and Gmail, the
-   document inside) and the right group (through the chart and past the scam
-   alert, SMS just above), each clear of the copy. Centres sit at a fixed
-   distance from the card's side and at a fixed share of its height; the
-   radius grows with the card when larger text makes it taller than 637u, so
-   the rings still reach the top and bottom icons (anchored to those edges). */
+/* Centres of the Figma arc boxes (1013.3 × 1027.6 at −738.05 / right −684.34,
+   top −168.33), in card coordinates. */
 .hero__ring--a {
-  --r: max(calc(155 * var(--u)), calc(var(--card-h) * 0.2433));
-  left: calc(var(--hero-bleed) + 82 * var(--u) - var(--r) * 1.2);
-  top: calc(var(--hero-pad-top) + var(--card-h) * 0.4992 - var(--r) * 1.2);
+  --r: calc(373.385 * var(--u));
+  left: calc(-231.382 * var(--u) - var(--r) * 1.2);
+  top: calc(345.455 * var(--u) - var(--r) * 1.2);
   rotate: -60deg;
 }
 .hero__ring--b {
-  --r: max(calc(160 * var(--u)), calc(var(--card-h) * 0.2512));
-  right: calc(var(--hero-bleed) + 90 * var(--u) - var(--r) * 1.2);
-  top: calc(var(--hero-pad-top) + var(--card-h) * 0.5306 - var(--r) * 1.2);
+  --r: calc(373.385 * var(--u));
+  right: calc(-177.673 * var(--u) - var(--r) * 1.2);
+  top: calc(345.455 * var(--u) - var(--r) * 1.2);
   /* Mirrored: the two rings read as a pair and turn in opposite directions. */
   rotate: 120deg;
   scale: -1 1;
-}
-/* Tablets and small laptops: the copy keeps readable minimum sizes, so it is
-   larger here relative to the card; slightly smaller rings, a little further
-   out, keep the same clearance and stay whole inside the page. */
-@media (max-width: 1199px) {
-  .hero__ring--a {
-    --r: max(calc(150 * var(--u)), calc(var(--card-h) * 0.2355));
-    left: calc(var(--hero-bleed) + 86 * var(--u) - var(--r) * 1.2);
-  }
-  .hero__ring--b {
-    --r: max(calc(148 * var(--u)), calc(var(--card-h) * 0.2323));
-    right: calc(var(--hero-bleed) + 88 * var(--u) - var(--r) * 1.2);
-    top: calc(var(--hero-pad-top) + var(--card-h) * 0.55 - var(--r) * 1.2);
-  }
 }
 
 /* Hero asset slots — Figma boxes in card coordinates (1201 × 637). */
@@ -408,6 +387,11 @@
   }
   .hero__card {
     border-radius: 24px;
+  }
+  /* Phones: the ring layer spans the whole hero (not the card) and clips there. */
+  .hero__rings {
+    inset: calc(-1 * var(--hero-pad-top)) calc(-1 * var(--hero-bleed)) calc(-1 * var(--hero-pad-bottom));
+    border-radius: 0;
   }
   /* Phones: one large circle above the card whose lower arc runs through
      Bill, the document and SMS, and one below whose upper arc runs through

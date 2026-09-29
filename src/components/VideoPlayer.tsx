@@ -58,6 +58,7 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
   const [cue, setCue] = useState('');
   const [fullscreen, setFullscreen] = useState(false);
   const [idle, setIdle] = useState(false);
+  const [ratio, setRatio] = useState<string | undefined>(undefined);
 
   const track = () => trackRef.current?.track ?? null;
 
@@ -93,7 +94,10 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
     const v = videoRef.current;
     if (!v) return;
     const onTime = () => setTime(v.currentTime);
-    const onMeta = () => setDuration(v.duration);
+    const onMeta = () => {
+      setDuration(v.duration);
+      if (v.videoWidth && v.videoHeight) setRatio(`${v.videoWidth} / ${v.videoHeight}`);
+    };
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
     const onVolume = () => setMuted(v.muted);
@@ -250,6 +254,7 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
       data-playing={playing || undefined}
       data-idle={(started && idle) || undefined}
       data-fullscreen={fullscreen || undefined}
+      style={ratio ? { aspectRatio: ratio } : undefined}
       onPointerMove={started ? wake : undefined}
       onPointerDown={started ? wake : undefined}
       onFocus={started ? wake : undefined}
