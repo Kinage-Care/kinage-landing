@@ -21,10 +21,23 @@
   background: var(--color-white);
 }
 
+/* The box has the video's own ratio, so `cover` shows the whole frame — and,
+   unlike `contain`, leaves no sub-pixel strip of background at an edge where
+   the fractional box and the pixel-snapped video layer disagree (a dark
+   hairline on the top / right edge at some widths and display scales). */
 .video[data-started] .video__media {
+  object-fit: cover;
+  background: transparent;
+  cursor: pointer;
+}
+/* Full screen: the screen's shape may differ from the video's — letterbox. */
+.video:fullscreen .video__media {
   object-fit: contain;
   background: var(--color-night);
-  cursor: pointer;
+}
+.video:-webkit-full-screen .video__media {
+  object-fit: contain;
+  background: var(--color-night);
 }
 
 /* The whole player goes full screen, so the bar and subtitles come along. */
