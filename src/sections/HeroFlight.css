@@ -99,6 +99,9 @@
   overflow: clip;
   border-radius: max(20px, calc(28 * var(--u)));
   pointer-events: none;
+  /* Quieter texture: 75% on every layout (it multiplies the phones' own
+     softening below). */
+  opacity: 0.75;
 }
 .hero__ring {
   position: absolute;
