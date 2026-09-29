@@ -59,8 +59,9 @@ export function HowItWorks() {
           </header>
           <div data-reveal>
             <VideoPlayer
-              src={withBase('/media/product-explainer.mp4')}
-              poster={withBase('/media/product-explainer-poster.jpg')}
+              src={withBase('/media/kinage-explainer.mp4')}
+              poster={withBase('/media/kinage-explainer-poster.jpg')}
+              captions={{ src: withBase('/media/kinage-explainer.en.vtt'), srclang: 'en', label: 'English' }}
               title="How Kinage works — about a minute on what it does, and why your accounts stay safe"
             />
           </div>

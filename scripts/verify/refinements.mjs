@@ -258,11 +258,11 @@ for (const [w, h] of [[1440, 900], [1366, 768], [1280, 720], [1920, 1080], [1920
   const r1 = await arcAngle();
   const rate = (r1[0] - r0[0]) / 2;
   const arcsOnly = await page.evaluate(() => ({
-    parents: [...document.querySelectorAll('.hero__arc > span')].map((e) => getComputedStyle(e).rotate),
+    parents: [...document.querySelectorAll('.hero__ring')].map((e) => getComputedStyle(e).rotate),
     inFlight: [...document.querySelectorAll('[data-hero-arc]')].some((e) => e.closest('.flight-layer, .hero__content')),
     pe: getComputedStyle(document.querySelector('.hero__card')).pointerEvents,
   }));
-  log('hero arcs rotate ~112 s per turn (100 + 12%), only the arc wrappers (Figma tilt kept)', r0.length === 2 && rate > 2.9 && rate < 3.5 && arcsOnly.parents.join() === '-60deg,-120deg' && !arcsOnly.inFlight, `${rate.toFixed(2)}°/s ${JSON.stringify(arcsOnly)}`);
+  log('hero rings rotate ~112 s per turn (100 + 12%), only the spin wrappers (fixed tilt kept)', r0.length === 2 && rate > 2.9 && rate < 3.5 && arcsOnly.parents.join() === '-60deg,120deg' && !arcsOnly.inFlight, `${rate.toFixed(2)}°/s ${JSON.stringify(arcsOnly)}`);
   const triggers = await page.evaluate(() => [...document.querySelectorAll('[aria-haspopup="dialog"]')].map((e) => `${e.tagName}:${e.textContent.trim()}`));
   const early = triggers.filter((t) => /^BUTTON:Get early access$/i.test(t));
   log('every Get Early Access control is a dialog button (nav ×2, hero, final CTA, footer)', early.length === 5, triggers.join(' | '));

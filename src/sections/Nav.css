@@ -110,14 +110,19 @@
     stroke: var(--color-ink);
     stroke-width: 1.75;
     stroke-linecap: round;
+    /* The 22 × 22 icon's centre, in viewBox units. */
+    transform-box: view-box;
     transform-origin: 11px 11px;
     transition: transform var(--motion-duration-hover) var(--motion-ease-out);
   }
+  /* Close: each bar first moves onto the centre line (±4px), then turns about
+     the centre — a symmetric X. (Rotating first and moving after left the two
+     diagonals crossing off-centre, with uneven arms.) */
   .nav[data-open] .nav__toggle-top {
-    transform: translateY(4px) rotate(45deg);
+    transform: rotate(45deg) translateY(4px);
   }
   .nav[data-open] .nav__toggle-bottom {
-    transform: translateY(-4px) rotate(-45deg);
+    transform: rotate(-45deg) translateY(-4px);
   }
 
   .nav__links {

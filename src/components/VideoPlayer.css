@@ -7,9 +7,12 @@
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--color-white);
+  /* Subtitle and control sizes follow the player's width (and full screen). */
+  container-type: inline-size;
 }
 
 .video__media {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -18,6 +21,23 @@
 
 .video[data-started] .video__media {
   object-fit: contain;
+  background: var(--color-night);
+  cursor: pointer;
+}
+
+/* The whole player goes full screen, so the bar and subtitles come along. */
+.video:fullscreen {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background: var(--color-night);
+}
+.video:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
   background: var(--color-night);
 }
 
@@ -58,11 +78,196 @@
   border-radius: 50%;
 }
 
+/* ---- Subtitles: the track's active cue, drawn above the control bar ---- */
+.video__captions {
+  --bar: 58px;
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--bar) + 8px);
+  z-index: 1;
+  width: max-content;
+  max-width: 88%;
+  translate: -50% 0;
+  text-align: center;
+  pointer-events: none;
+  transition: bottom var(--motion-duration-hover) var(--motion-ease-out);
+}
+.video__captions span {
+  padding: 0.12em 0.45em;
+  border-radius: 4px;
+  background: rgb(18 12 22 / 0.78);
+  color: var(--color-white);
+  font-size: clamp(14px, 2.3cqi, 36px);
+  line-height: 1.45;
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-text);
+  white-space: pre-line;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.video[data-idle] .video__captions {
+  bottom: max(12px, 3cqi);
+}
+
+/* ---- Control bar: seek line over one row of buttons, on a soft scrim ---- */
+.video__controls {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 8px 4px;
+  background: linear-gradient(to top, rgb(18 12 22 / 0.72), rgb(18 12 22 / 0.42) 60%, transparent);
+  color: var(--color-white);
+  transition: opacity var(--motion-duration-hover) var(--motion-ease-out);
+}
+.video[data-idle] .video__controls {
+  opacity: 0;
+}
+.video[data-idle] {
+  cursor: none;
+}
+
+.video__bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.video__spacer {
+  flex: 1;
+}
+.video__time {
+  padding-inline: 6px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-small);
+  white-space: nowrap;
+  opacity: 0.92;
+}
+
+.video__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--motion-duration-hover) var(--motion-ease-out);
+}
+.video__btn:hover {
+  background: rgb(255 255 255 / 0.14);
+}
+.video__btn:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: -2px;
+}
+.video__btn svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.video__btn svg .fill {
+  fill: currentColor;
+  stroke: none;
+}
+/* CC: off = outline at reduced strength; on = full strength + orchid bar. */
+.video__btn--cc[aria-pressed='false'] svg {
+  opacity: 0.72;
+}
+.video__btn--cc[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: 5px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--color-orchid);
+}
+
+/* Seek: a 4px line (orchid progress) with a 14px handle, 20px hit area. */
+.video__seek {
+  --p: 0%;
+  width: calc(100% - 12px);
+  height: 20px;
+  margin: 0 6px;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.video__seek::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--color-orchid) var(--p), rgb(255 255 255 / 0.35) var(--p));
+}
+.video__seek::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--color-orchid) var(--p), rgb(255 255 255 / 0.35) var(--p));
+}
+.video__seek::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  appearance: none;
+}
+.video__seek::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+}
+.video__seek:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 @media (max-width: 767px) {
   .video__play,
   .video__play img {
     width: 60px;
     height: 60px;
+  }
+  .video__controls {
+    padding: 14px 2px 2px;
+  }
+  .video__captions {
+    --bar: 52px;
+  }
+}
+
+/* Large players (desktop, full screen): a little more room. */
+@container (min-width: 1100px) {
+  .video__controls {
+    padding: 28px 16px 10px;
+  }
+  .video__btn {
+    width: 48px;
+    height: 48px;
+  }
+  .video__btn svg {
+    width: 28px;
+    height: 28px;
+  }
+  .video__time {
+    font-size: 16px;
+  }
+  .video__captions {
+    --bar: 78px;
   }
 }
 
@@ -70,5 +275,9 @@
   .video__play:hover,
   .video__play:active {
     transform: none;
+  }
+  .video__controls,
+  .video__captions {
+    transition: none;
   }
 }

@@ -140,9 +140,11 @@ const wait = (page, ms) => page.waitForTimeout(ms);
   await wait(page, 1200);
   const vid = await page.evaluate(() => {
     const v = document.querySelector('.video__media');
-    return { paused: v.paused, controls: v.controls, muted: v.muted, t: +v.currentTime.toFixed(2) };
+    // The player's own bar (seek, play, time, sound, CC, full screen) replaces the native controls.
+    const bar = document.querySelector('.video__controls');
+    return { paused: v.paused, controls: !!bar && getComputedStyle(bar).opacity !== '0' && !!bar.querySelector('.video__btn--cc'), muted: v.muted, subtitles: v.textTracks[0]?.mode, t: +v.currentTime.toFixed(2) };
   });
-  log('video plays with sound on click, controls shown', !vid.paused && vid.controls && !vid.muted, JSON.stringify(vid));
+  log('video plays with sound on click, its control bar (incl. CC) shown, subtitles on', !vid.paused && vid.controls && !vid.muted && vid.subtitles !== 'disabled', JSON.stringify(vid));
   await page.evaluate(() => document.querySelector('.video__media').pause());
 
   // --- Carousel

@@ -15,10 +15,11 @@ Originals stay untouched in `D:\Kinage Lending\example`. The project holds deriv
 | `src/assets/3d/benefit-family.webp` | `example/3d img/Family coordination.png` | What you get | Benefit 3 icon |
 | `src/assets/3d/household.webp` | `example/3d img/household.png` | Pricing banner | "Kinage / Your household" card |
 | `src/assets/images/ben-terk.webp` | `example/Ben img/Group 67.png` | The story behind Kinage; end of Our Story | Ben + plate composite (plate spans x 48–705 of 765) |
-| `public/media/product-explainer.mp4` | `example/product-explainer-draft2.mp4` (1280×720, 63 s, AAC) | Up and running in minutes | Explainer video |
-| `public/media/product-explainer-poster.jpg` | first frame of the video (ffmpeg) | Up and running in minutes | Poster = Figma preview |
+| `public/media/kinage-explainer.mp4` | Supplied `Comp 1_5.mp4`, byte-for-byte (1920×1080 H.264, 29.97 fps, AAC 48 kHz stereo, 63.46 s; already fast-start) | Up and running in minutes | Explainer video |
+| `public/media/kinage-explainer.en.vtt` | `kinage-product-video/subtitles/kinage-explainer.en.vtt`, unchanged (18 cues, timed to v2; checked against this file: its narration runs 20 ms later at every cue — AAC priming — so the timing holds) | Up and running in minutes | English subtitles, on by default |
+| `public/media/kinage-explainer-poster.jpg` | frame at 24.5 s of the video (ffmpeg, 1920×1080) | Up and running in minutes | Poster ("All in one place") |
 | `public/fonts/MuseoSans-{300,500,700,900}.woff2` | `example/Museo Sans/*.otf` (fontTools, lossless) | Everywhere | Only face on the page |
-| `src/assets/figma/hero-arc-left.svg`, `hero-arc-right.svg` | **Generated** by `scripts/derive-hero-arcs.mjs` from `design-system/reference/figma-exports/hero-arc-*.src.svg` (Figma 596:2557 / 596:2559) | Hero card (596:1913) | Dotted arcs (viewBox +60 so no stamp is cut, head stamps faded in), clipped by the cream card |
+| `src/assets/figma/hero-ring.svg` | **Generated** by `scripts/derive-hero-arcs.mjs` from `design-system/reference/figma-exports/hero-ring.src.svg` (the supplied Ellipse 10.svg, Figma 627:775, verbatim) | Hero (both rings) | Seamless dotted ring: full square viewBox, true circle, periodic stamp size (no join), brush × 1.6 |
 | `src/assets/figma/problem-scam-shadow.svg` | Figma (562:3805) | Problem card 2 | Blurred contact shadow |
 | `src/assets/figma/pricing-texture.png` | Figma 583:962 (1440 × 286 export) | Pricing | Band texture (the 562 export is kept as `reference/figma-exports/pricing-texture-562.png`) |
 | `src/assets/figma/pricing-glow.svg` | Figma (562:4391, unchanged in 583:961) | Pricing | Band glow |

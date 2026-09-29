@@ -25,13 +25,14 @@ Open **http://localhost:5190** (Our Story: **/our-story**, For Advisors: **/advi
 | `npm run build:pages` | `check`, then the build exactly as GitHub Pages serves it (base `/kinage-landing/`) |
 | `npm run preview:pages` | Serves that build on http://localhost:5191/kinage-landing/ |
 | `node scripts/verify/pages.mjs [--url=…]` | Static-hosting checks: direct load + refresh of every page, assets and links under the base, navigation, video, contact dialog. Default URL is the local Pages preview; pass the live URL to check the published site |
-| `npm run check` | Drift checks (`tokens.css` ↔ `tokens.json`, brand assets ↔ `design-system/brand/kinage-logo.svg`, hero arcs ↔ their Figma sources) + `tsc --noEmit` |
+| `npm run check` | Drift checks (`tokens.css` ↔ `tokens.json`, brand assets ↔ `design-system/brand/kinage-logo.svg`, hero ring ↔ its Figma source) + `tsc --noEmit` |
 | `npm run brand` | Regenerate the white lockup, `favicon.svg` and the PNG favicons from the canonical logo |
-| `npm run arcs` | Regenerate the hero arc SVGs from their Figma exports |
+| `npm run arcs` | Regenerate the seamless hero ring SVG from its Figma export |
 | `npm run tokens` | Regenerate `src/styles/tokens.css` from `design-system/tokens.json` |
 | `npm run verify:shots` | Full-page screenshots (1920/1440/1024/768/390) + overflow / image / console checks → `verification/` |
 | `npm run verify:flight` | Hero → cards transition checks (start, mid, end, reverse, fast jumps, reload mid-way, resize). `-- --width=1024` for other sizes |
 | `npm run verify:interactions` | Demo, stack, roadmap, video, carousel, FAQ, focus, reduced motion |
+| `node scripts/verify/video.mjs [--url=…]` | Explainer player: subtitle track loads and is on by default, cues at the start / middle / end and none between cues, CC off stays off through pause / seek / resume, keyboard, full screen, phone size |
 | `npm run verify:refinements` | Refinement-brief checks at 1920/1440/1024/768/390 and laptop heights (1440×900, 1366×768, 1280×720): hero fit, hero/nav shadows, surfaces, section rhythm incl. the +30 extra, equal advisors/founder heights, advisors radius, stack shadow, testimonial cards vs the Trust card, wrapping, FAQ controls, both dialog modes, Our Story route and caption, arc rotation, nav scroll/idle, scam above the copy |
 | `npm run verify:sections -- --out=… --width=…` | Section-by-section crops for before/after comparisons |
 | `npm run verify:record` | Screen recording of the opening transition → `verification/hero-flight.mp4` (`-- --out=verification/after` to redirect) |
@@ -75,7 +76,7 @@ src/
   lib/               early-access.ts — the contact form's submission integration point · base.ts — base-path helpers
   routes.ts          the pages (/, /our-story, /advisors), shared with the build
   router.ts          History-API routing between them, under the base path
-public/              fonts (WOFF2), media (video + poster), favicon.svg + PNG favicons (generated)
+public/              fonts (WOFF2), media (video, poster, subtitles), favicon.svg + PNG favicons (generated)
 scripts/             build-tokens.mjs, build-brand.mjs, derive-hero-arcs.mjs, pages.mjs, verify/*
 .github/workflows/   pages.yml — build + GitHub Pages deployment
 ```
@@ -101,7 +102,8 @@ scripts/             build-tokens.mjs, build-brand.mjs, derive-hero-arcs.mjs, pa
 | Logo / favicon | Replace `design-system/brand/kinage-logo.svg` (the only source), then `npm run brand` |
 | 3D assets | `src/assets/3d/*.webp` — keep file names; hero/card geometry is in `FLIGHT_ASSETS` (`landing.ts`) |
 | Ben's photo | `src/assets/images/ben-terk.webp` (composite incl. plate; placement in `Founder.css`) |
-| Video | `public/media/product-explainer.mp4` + `product-explainer-poster.jpg` |
+| Video | `public/media/kinage-explainer.mp4` + `kinage-explainer-poster.jpg`; subtitles `kinage-explainer.en.vtt` (WebVTT; keep cue times in sync with the file — `node scripts/verify/video.mjs` checks three of them) |
+| Hero rings | Replace `design-system/reference/figma-exports/hero-ring.src.svg`, then `npm run arcs` |
 
 ## Animation settings
 
@@ -113,7 +115,7 @@ All in `design-system/tokens.json → motion` (documented in `DESIGN.md → Moti
 - **Roadmap**: `stagger.steps`. **Carousel**: `carousel.interval` (autoplay ms, 4000), `carousel.side-scale`, `carousel.active-scale`, `duration.carousel`.
 - **Scroll smoothing**: `smooth.lerp` (0.16), `smooth.min-width` (1024). Desktop with a fine pointer only; off for touch and reduced motion.
 - **Section spacing**: `layout.section-space*` (120 / 88 / 64), `layout.section-join*` (72 / 56 / 40), `layout.section-space-feature*` (testimonials) plus `layout.section-extra*` (30 / 22 / 16) → `--section-y` / `--section-join` / `--section-feature-y` in `base.css`. Advisors + founder: `layout.stack-section-padding` (82) + extra, heights equalised by `StackGroup equalize`.
-- **Hero arcs**: `arcs.period` (112 s per turn), `arcs.ramp` (easing to rest / back).
+- **Hero rings**: `arcs.period` (112 s per turn), `arcs.ramp` (easing to rest / back).
 - **FAQ / hover**: `duration.accordion`, `duration.hover`, `ease.out`.
 - **Demo**: `src/content/demo-chat.ts → timing` (incl. `hold`, the 3 s pause on the completed state before the loop resets); starts at `trigger.demo-start`.
 
@@ -125,7 +127,6 @@ Installed at project scope in `D:\Kinage Lending\.claude\skills` (see its README
 
 ## Known limitations
 
-- No captions/transcript exists for the explainer video; add a `.vtt` track to `VideoPlayer` when available.
 - Mobile and tablet layouts are an interpretation (no mobile frames were available in Figma).
 - Link destinations marked pending in `links.ts` need real URLs; forms, analytics and backend are out of scope.
 - The footer copyright line is white at 30% as in Figma (≈2.6 : 1 on the night background, below WCAG AA). Raise `--text-on-brand-faint` if it should pass.

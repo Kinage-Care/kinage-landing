@@ -7,8 +7,7 @@ import { useHeroArcs } from '../motion/useHeroArcs';
 import { useHeroFlight } from '../motion/useHeroFlight';
 import { useReveal } from '../motion/useReveal';
 import { MOTION, MQ } from '../motion/tokens';
-import heroArcLeft from '../assets/figma/hero-arc-left.svg';
-import heroArcRight from '../assets/figma/hero-arc-right.svg';
+import heroRing from '../assets/figma/hero-ring.svg';
 import scamShadow from '../assets/figma/problem-scam-shadow.svg';
 import './HeroFlight.css';
 
@@ -100,23 +99,23 @@ export function HeroFlight() {
       {/* ------------------------------------------------ 02 — HERO */}
       <section className="hero" id={SECTIONS.top} aria-labelledby="hero-title" ref={heroRef}>
         <div className="hero__stage">
-          {/* Cream card with the two dotted arcs (Figma 596:2557 / 596:2559), clipped
-              by the card and painted behind everything else in the stage. */}
-          <div className="hero__card" aria-hidden="true">
-            {/* Outer spans: Figma box + fixed rotation/mirror. The data-hero-arc wrapper
-                is the only thing that turns (motion/useHeroArcs.ts). */}
-            <span className="hero__arc hero__arc--left">
-              <span>
-                <span className="hero__arc-spin" data-hero-arc>
-                  <img src={heroArcLeft} alt="" />
-                </span>
+          <div className="hero__card" aria-hidden="true" />
+
+          {/* Two dotted rings (one asset, Figma 627:775, made seamless by
+              scripts/derive-hero-arcs.mjs): round the left and right icon groups
+              on desktop, across the top and bottom groups on phones. Above the
+              card, beneath the icons and the copy; clipped to the hero. The outer
+              span holds the fixed tilt/mirror, the data-hero-arc wrapper is the
+              only thing that turns (motion/useHeroArcs.ts). */}
+          <div className="hero__rings" aria-hidden="true">
+            <span className="hero__ring hero__ring--a">
+              <span className="hero__ring-spin" data-hero-arc>
+                <img src={heroRing} alt="" />
               </span>
             </span>
-            <span className="hero__arc hero__arc--right">
-              <span>
-                <span className="hero__arc-spin" data-hero-arc>
-                  <img src={heroArcRight} alt="" />
-                </span>
+            <span className="hero__ring hero__ring--b">
+              <span className="hero__ring-spin" data-hero-arc>
+                <img src={heroRing} alt="" />
               </span>
             </span>
           </div>

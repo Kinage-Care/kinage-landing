@@ -47,7 +47,7 @@ for (const w of widths) {
         const r = e.getBoundingClientRect();
         return r.width > 0 && (r.right > vw + 1 || r.left < -1) && getComputedStyle(e).position !== 'fixed';
       })
-      .filter((e) => !e.closest('.hero__card, .pricing__decor, .final-cta__decor, .phone__screen, .carousel__stage'))
+      .filter((e) => !e.closest('.hero__rings, .pricing__decor, .final-cta__decor, .phone__screen, .carousel__stage'))
       .slice(0, 6)
       .map((e) => `${e.tagName.toLowerCase()}.${String(e.className).split(' ')[0]}`);
     return {

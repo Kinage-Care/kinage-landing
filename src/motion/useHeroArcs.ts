@@ -3,18 +3,18 @@ import { gsap, ScrollTrigger, useGSAP } from './gsap';
 import { MOTION, MQ } from './tokens';
 
 /**
- * Very slow rotation of the dotted hero arcs (refinement pass 3).
+ * Very slow rotation of the dotted hero rings (refinement pass 3; continuous rings since pass 10).
  *
- * Each arc turns around its own centre in the plane of the screen, one turn
+ * Each ring turns around its own centre in the plane of the screen, one turn
  * per `motion.arcs.period` seconds, linear — so the loop has no speed pulse,
  * reversal or snap at its boundary (0° and 360° are the same frame). Only the
- * `[data-hero-arc]` wrappers move: their parents keep the Figma rotation and
- * mirroring, the card clips them, and nothing here touches the hero copy, the
+ * `[data-hero-arc]` wrappers move: their parents keep the fixed tilt and
+ * mirroring, the ring layer clips them, and nothing here touches the hero copy, the
  * 3D assets or the flight layer.
  *
  * When the hero leaves the viewport or the tab is hidden, the rotation eases
  * to rest over `motion.arcs.ramp` and pauses; it eases back from where it
- * stopped, without a jump. Under prefers-reduced-motion the arcs stay still.
+ * stopped, without a jump. Under prefers-reduced-motion the rings stay still.
  */
 export function useHeroArcs(scope: RefObject<HTMLElement | null>) {
   useGSAP(
