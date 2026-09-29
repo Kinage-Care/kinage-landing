@@ -2,14 +2,14 @@
 
 Responsive implementation of the Kinage landing page (Figma `FuFWAgjVb8Vgxs8o0UlNRc`: hero from node `596:1908`, all other sections from `583:518`) plus the Our Story (`/our-story`) and For Advisors (`/advisors`) pages, with the Kinage design library and motion.
 
-**Online preview (GitHub Pages):** https://vladislavliger-hub.github.io/kinage-landing/
+**Online preview (GitHub Pages):** https://kinage-care.github.io/kinage-landing/
 
 ## Start
 
 Node 22 (see `.nvmrc`) and npm.
 
 ```bash
-git clone https://github.com/vladislavliger-hub/kinage-landing.git
+git clone https://github.com/Kinage-Care/kinage-landing.git
 cd kinage-landing
 npm ci
 npm run dev
@@ -49,7 +49,7 @@ Verification scripts drive the locally installed Chrome through `playwright-core
 - **Pages on a static host.** The build writes `our-story/index.html`, `advisors/index.html` (one entry per path in `src/routes.ts`) and `404.html`, so direct loads and refreshes work; an unknown path gets the host's 404 status and shows the landing.
 - **Node / packages.** Node from `.nvmrc`, `npm ci` from `package-lock.json`; `npm run build` runs `npm run check` first, so a stale generated file fails the deployment instead of shipping.
 - **Contact endpoint (optional).** Set a repository variable `EARLY_ACCESS_ENDPOINT` (Settings → Secrets and variables → Actions → Variables) and re-run the workflow; it is passed to the build as `VITE_EARLY_ACCESS_ENDPOINT`. It ends up in public JavaScript, so it must be a public submission URL, never a secret.
-- **Check a deployment:** `node scripts/verify/pages.mjs --url=https://vladislavliger-hub.github.io/kinage-landing/`, plus `npm run verify:interactions -- --url=…` and `npm run verify:flight -- --url=…` for the motion.
+- **Check a deployment:** `node scripts/verify/pages.mjs --url=https://kinage-care.github.io/kinage-landing/`, plus `npm run verify:interactions -- --url=…` and `npm run verify:flight -- --url=…` for the motion.
 
 ## Moving to the client's GitHub account
 
