@@ -15,7 +15,7 @@ export function Stats() {
         <header className="section-head" data-reveal>
           <p className="eyebrow">You're not alone</p>
           <h2 className="section-title" id="stats-title">
-            The need has <span className="accent">never been greater</span>
+            The need is <span className="accent">clearer than ever</span>
           </h2>
           <p className="section-lead">
             Millions of families are managing an older adult's finances without a real system. That's not a personal failure. It's a

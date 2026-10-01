@@ -40,10 +40,10 @@
 
 .faq__question {
   flex: 1;
-  font-size: var(--type-button-size);
+  font-size: var(--type-control-size);
   line-height: 1.4;
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--type-button-tracking);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--type-control-tracking);
   color: var(--text-heading);
   transition: color var(--motion-duration-hover) var(--motion-ease-out);
 }
@@ -102,9 +102,9 @@
 
 .faq__answer {
   padding: 0 44px var(--space-20) 0;
-  font-size: var(--type-body-relaxed-size);
-  line-height: var(--type-body-relaxed-line);
-  letter-spacing: var(--type-body-relaxed-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
   opacity: 0;
   transition: opacity var(--motion-duration-accordion) var(--motion-ease-out);

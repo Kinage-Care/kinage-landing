@@ -43,9 +43,9 @@
 }
 
 .what__body {
-  font-size: var(--type-body-relaxed-size);
-  line-height: var(--type-body-relaxed-line);
-  letter-spacing: var(--type-body-relaxed-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
 }
 

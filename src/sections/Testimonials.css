@@ -128,13 +128,13 @@
   --mark-h: 40.588px;
   --mark-gap: 11.642px;
   --copy-gap: 16px;
-  --quote-size: var(--type-quote-size);
-  --quote-line: var(--type-quote-line);
-  --quote-weight: var(--type-quote-weight);
-  --quote-tracking: var(--type-quote-tracking);
-  --who-size: 14.118px;
+  --quote-size: var(--type-body-size);
+  --quote-line: var(--type-body-line);
+  --quote-weight: var(--type-body-weight);
+  --quote-tracking: var(--type-body-tracking);
+  --who-size: var(--type-small-size);
   --who-line: 1.5;
-  --who-tracking: var(--type-quote-attribution-tracking);
+  --who-tracking: var(--type-small-tracking);
   --ease: var(--slide-ms) var(--motion-ease-in-out);
 
   position: absolute;
@@ -152,7 +152,7 @@
   padding: var(--pad-y) var(--pad-x);
   border: 0;
   /* Trust-card surface, compensated for the scale (see the note at the top). */
-  border-radius: calc(var(--radius-xl) / var(--s));
+  border-radius: calc(var(--radius-card) / var(--s));
   background: var(--surface-raised);
   box-shadow: var(--shadow-card-x) calc(var(--shadow-card-y) / var(--s)) calc(var(--shadow-card-blur) / var(--s)) var(--shadow-card-spread) var(--shadow-card-color);
   transform: translate(-50%, -50%) translateX(var(--x)) scale(var(--s));
@@ -214,13 +214,13 @@
   flex-direction: column;
   gap: var(--copy-gap);
   min-width: 0;
-  color: var(--text-heading);
+  color: var(--text-body);
   transition: gap var(--ease);
 }
 
 .quote-card__text {
   margin: 0;
-  /* Active 16 / 1.2 Museo 500 (Figma 583:956); side 12 / 1.25 Museo 300. */
+  /* Active: the shared body style (16 / 1.5 Regular); side: the scaled 12 / 1.25 preview. */
   font-size: var(--quote-size);
   line-height: var(--quote-line);
   font-weight: var(--quote-weight);
@@ -231,13 +231,13 @@
 .quote-card__who {
   font-size: var(--who-size);
   line-height: var(--who-line);
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-regular);
   letter-spacing: var(--who-tracking);
   transition: font-size var(--ease);
 }
 
 .quote-card__demo {
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--text-accent);
 }
 
@@ -278,13 +278,13 @@
     --mark-h: 30.67px;
     --mark-gap: 11.642px;
     --copy-gap: 14px;
-    --quote-size: var(--type-quote-size);
-    --quote-line: var(--type-quote-line);
-    --quote-weight: var(--type-quote-weight);
-    --quote-tracking: var(--type-quote-tracking);
-    --who-size: 14.118px;
+    --quote-size: var(--type-body-size);
+    --quote-line: var(--type-body-line);
+    --quote-weight: var(--type-body-weight);
+    --quote-tracking: var(--type-body-tracking);
+    --who-size: var(--type-small-size);
     --who-line: 1.5;
-    --who-tracking: var(--type-quote-attribution-tracking);
+    --who-tracking: var(--type-small-tracking);
   }
   .quote-card[data-offset='-1'],
   .quote-card[data-offset='1'] {

@@ -1,8 +1,11 @@
 /*
  * Museo Sans — self-hosted, converted losslessly from the OTFs in
- * example/Museo Sans (originals untouched). Only the four weights the Figma
- * design uses are loaded. `font-synthesis: none` in base.css guarantees the
- * browser never fakes a missing weight.
+ * example/Museo Sans (originals untouched). Each face is declared with the
+ * weight class in its own OS/2 table, not the number in its file name:
+ *   MuseoSans-300 → 300 Light · MuseoSans-500 → 400 Regular ·
+ *   MuseoSans-700 → 600 SemiBold · MuseoSans-900 → 700 Bold.
+ * `font-synthesis: none` in base.css guarantees the browser never fakes a
+ * missing weight.
  */
 @font-face {
   font-family: 'Museo Sans';
@@ -14,21 +17,21 @@
 @font-face {
   font-family: 'Museo Sans';
   src: url('/fonts/MuseoSans-500.woff2') format('woff2');
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Museo Sans';
   src: url('/fonts/MuseoSans-700.woff2') format('woff2');
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Museo Sans';
   src: url('/fonts/MuseoSans-900.woff2') format('woff2');
-  font-weight: 900;
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }

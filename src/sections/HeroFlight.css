@@ -70,12 +70,12 @@
   display: flex;
 }
 
-/* Figma 596:1916: white on the lavender stage, soft edge. Radius --radius-hero
-   (28 → 22 in the client feedback pass) at the reference size, scaled with --u. */
+/* Figma 596:1916: white on the lavender stage, soft edge, the shared panel radius
+   (--radius-panel, 12px at every size). */
 .hero__card {
   position: absolute;
   inset: 0;
-  border-radius: max(16px, calc(22 * var(--u)));
+  border-radius: var(--radius-panel);
   background: var(--surface-hero);
   box-shadow: var(--shadow-hero);
 }
@@ -94,7 +94,7 @@
   position: absolute;
   inset: 0;
   overflow: clip;
-  border-radius: max(16px, calc(22 * var(--u)));
+  border-radius: var(--radius-panel);
   pointer-events: none;
   /* Quieter texture, behind the icons without competing with the heading:
      45% on desktop and tablet (40% below the earlier 75%); phones keep 75%
@@ -192,16 +192,16 @@
   width: calc(647 * var(--u));
   margin-top: calc(20 * var(--u));
   font-size: max(16px, calc(18 * var(--u)));
-  line-height: var(--type-body-lg-line);
+  line-height: var(--type-lead-line);
   /* Museo Sans 300 (Figma 596:2552). */
-  font-weight: var(--type-body-lg-weight);
-  color: var(--text-hero-body);
+  font-weight: var(--type-lead-weight);
+  color: var(--text-body);
 }
 .hero__lead--strong {
   /* Figma: one empty 1.55 line between the two paragraphs; the reassurance line is 500. */
   margin-top: 1.55em;
   font-weight: var(--weight-regular);
-  color: var(--text-hero-strong);
+  color: var(--text-heading);
 }
 
 /* Figma 596:2554: 249 × 44 (mandarin, shared control type and radius). */
@@ -260,7 +260,7 @@
   flex-direction: column;
   gap: 10px;
   padding: var(--space-28) var(--space-24);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   background: var(--surface-card);
 }
 
@@ -316,9 +316,9 @@
 }
 
 .problem-card__body {
-  font-size: var(--type-body-card-size);
-  line-height: var(--type-body-card-line);
-  letter-spacing: var(--type-body-card-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
 }
 
@@ -328,13 +328,6 @@
   }
   .problem-card {
     padding: var(--space-20) var(--space-16);
-  }
-  .problem-card__title {
-    font-size: 18px;
-  }
-  .problem-card__body {
-    font-size: 15px;
-    line-height: 1.35;
   }
 }
 
@@ -389,7 +382,7 @@
     min-height: 0;
   }
   .hero__card {
-    border-radius: 18px;
+    border-radius: var(--radius-panel);
   }
   /* Phones: the ring layer spans the whole hero (not the card) and clips there. */
   .hero__rings {
@@ -453,12 +446,12 @@
     height: auto;
     aspect-ratio: var(--w) / var(--h);
   }
-  .hero__slot[data-asset='bill'] { left: -10px; top: -34px; width: 104px; }
-  .hero__slot[data-asset='doc'] { left: 92px; top: 26px; width: 54px; }
-  .hero__slot[data-asset='sms'] { left: auto; right: -12px; top: -30px; width: 92px; }
-  .hero__slot[data-asset='gmail'] { left: -14px; bottom: -38px; width: 96px; }
-  .hero__slot[data-asset='scam'] { left: calc(50% - 34px); bottom: -30px; width: 68px; }
-  .hero__slot[data-asset='chart'] { left: auto; right: -14px; bottom: -34px; width: 112px; }
+  .hero__slot[data-asset='bill'] { left: -13.1px; top: -37px; width: 103.3px; }
+  .hero__slot[data-asset='doc'] { left: 84.5px; top: 19.3px; width: 67.6px; }
+  .hero__slot[data-asset='sms'] { left: auto; right: -12.1px; top: -35.8px; width: 91.3px; }
+  .hero__slot[data-asset='gmail'] { left: -16px; bottom: -30.9px; width: 119.6px; }
+  .hero__slot[data-asset='scam'] { left: calc(50% - 36.3px); bottom: -32.4px; width: 72.8px; }
+  .hero__slot[data-asset='chart'] { left: auto; right: -25.1px; bottom: -33.4px; width: 135.8px; }
 
   .problems__inner {
     gap: var(--space-28);
@@ -469,13 +462,7 @@
   .problem-card {
     padding: var(--space-24) var(--space-20);
   }
-  .problem-card__title {
-    font-size: 19px;
-  }
-  .problem-card__body {
-    font-size: 16px;
-    line-height: 1.4;
-  }
+
 }
 
 /* Wide phones and small tablets in portrait keep the phone composition with

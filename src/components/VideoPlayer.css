@@ -7,7 +7,7 @@
   aspect-ratio: 16 / 9;
   margin-inline: auto;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-panel);
   background: var(--color-white);
   /* Subtitle and control sizes follow the player's width (and full screen). */
   container-type: inline-size;
@@ -181,7 +181,7 @@
   height: 40px;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-control);
   background: transparent;
   color: inherit;
   cursor: pointer;

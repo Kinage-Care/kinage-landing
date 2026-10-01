@@ -129,11 +129,11 @@ export function HeroFlight() {
 
           <div className="hero__content" ref={contentRef}>
             <h1 className="hero__title" id="hero-title">
-              Stop worrying about your parent's bills
+              See your parent's bills in one place
             </h1>
             <p className="hero__lead">
-              Kinage brings your parent’s bills and account activity into one shared view, flags unusual activity, and
-              helps your family coordinate what needs attention.
+              Kinage brings bills and connected account activity into a shared view. It flags unusual activity so you, your
+              family, and trusted advisors can decide what needs attention.
             </p>
             <p className="hero__lead hero__lead--strong">See what’s happening before something goes wrong.</p>
             {/* The entrance tween moves this wrapper only: the button's own transform
@@ -156,9 +156,11 @@ export function HeroFlight() {
           <header className="section-head problems__head">
             <p className="eyebrow">Sound familiar</p>
             <h2 className="section-title section-title--lg" id="problems-title">
-              You're <span className="accent">not the only one</span>
+              Right now, it's hard to <span className="accent">see the whole picture</span>
             </h2>
-            <p className="section-lead">Most families don't realize how much is falling through the cracks until something goes wrong.</p>
+            <p className="section-lead">
+              You're probably managing your parent's finances in your head, across your email, and in three different browsers.
+            </p>
           </header>
 
           <ul className="problems__grid" data-flight-row>

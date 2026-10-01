@@ -36,7 +36,8 @@
   align-items: center;
   margin: 0;
   padding-bottom: calc(var(--phone-bottom) * var(--px));
-  border-radius: calc(14.696 * var(--px));
+  /* Lavender backdrop panel (landing surface, not the phone): the shared panel radius. */
+  border-radius: calc(12 * var(--px));
   background: var(--surface-card);
 }
 
@@ -242,7 +243,7 @@
 .pm__hello {
   font-size: 30.12px;
   line-height: 1.2;
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
 }
 .pm__hello-sub {
   font-size: 16.07px;
@@ -270,7 +271,7 @@
 .pm__balance-value {
   font-size: 38.15px;
   line-height: 1.2;
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   letter-spacing: -0.38px;
 }
 .pm__balance-label {
@@ -414,7 +415,7 @@
 }
 .pm__amount {
   font-size: 16.07px;
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   color: var(--pm-feed-text);
 }
 .pm__note {
@@ -426,7 +427,7 @@
 .pm__see-all {
   font-size: 14.06px;
   line-height: 1.2;
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   text-align: right;
   color: var(--pm-text);
 }

@@ -27,7 +27,7 @@ export function FinalCta() {
           Get started today
         </p>
         <h2 className="final-cta__title" id="final-cta-title" data-reveal>
-          Ready to stop <span className="final-cta__hl">wondering?</span>
+          See what’s happening. <span className="final-cta__hl">Before it matters</span>
         </h2>
         <p className="final-cta__body" data-reveal>
           No more spreadsheets. No more group texts. No more wondering if Dad paid the electric bill.

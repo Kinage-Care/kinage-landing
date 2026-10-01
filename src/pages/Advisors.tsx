@@ -75,7 +75,7 @@ export function AdvisorsPage() {
           <h1 className="adv__title" id="adv-title" data-reveal>
             {A.hero.title.plain} <span className="accent">{A.hero.title.accent}</span>
           </h1>
-          <p className="adv__lede" data-reveal>
+          <p className="adv__lede adv__lede--intro" data-reveal>
             {A.hero.lede}
           </p>
           <div className="adv__actions" data-reveal>

@@ -53,27 +53,26 @@
 }
 
 .founder__title {
-  font-size: var(--type-title-founder-size);
-  line-height: var(--type-title-founder-line);
-  font-weight: var(--type-title-founder-weight);
-  letter-spacing: var(--type-title-founder-tracking);
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-line);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
   color: var(--text-heading);
 }
 
 .founder__story {
   margin-top: var(--space-12);
-  font-size: var(--type-body-relaxed-size);
-  line-height: var(--type-body-relaxed-line);
-  letter-spacing: var(--type-body-relaxed-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
 }
 
 .founder__byline {
   margin-top: var(--space-16);
-  font-size: 13px;
-  line-height: normal;
-  letter-spacing: var(--tracking-small);
-  /* Museo Sans 500, full ink. */
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line);
+  letter-spacing: var(--type-small-tracking);
   font-weight: var(--weight-regular);
   color: var(--text-heading);
 }

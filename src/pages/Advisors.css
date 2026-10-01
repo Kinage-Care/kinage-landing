@@ -39,18 +39,24 @@
   color: var(--text-accent);
 }
 
+/* Section descriptions use the shared body style; only the page intro is a lead. */
 .adv__lede {
   width: min(640px, 100%);
   margin-top: var(--space-20);
-  font-size: var(--type-body-lg-relaxed-size);
-  line-height: var(--type-body-lg-relaxed-line);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
   font-weight: var(--weight-regular);
-  letter-spacing: var(--type-body-lg-relaxed-tracking);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
   text-wrap: pretty;
 }
 .adv__lede--left {
   width: 100%;
+}
+.adv__lede--intro {
+  font-size: var(--type-lead-size);
+  line-height: var(--type-lead-line);
+  letter-spacing: var(--type-lead-tracking);
 }
 
 .adv__actions {
@@ -102,16 +108,16 @@
   gap: var(--space-8);
 }
 .adv__card-title {
-  font-size: var(--type-title-strong-size);
-  line-height: var(--type-title-strong-line);
-  font-weight: var(--type-title-strong-weight);
-  letter-spacing: var(--type-title-strong-tracking);
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-line);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
   color: var(--text-heading);
 }
 .adv__card-body {
-  font-size: var(--type-body-sm-size);
-  line-height: var(--type-body-sm-line);
-  letter-spacing: var(--type-body-sm-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
 }
 
@@ -132,7 +138,7 @@
   align-items: center;
   gap: var(--space-16);
   padding: var(--space-16) var(--space-20);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--color-white) 8%, transparent);
   font-size: var(--type-body-size);
   line-height: var(--type-body-line);

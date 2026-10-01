@@ -17,10 +17,10 @@ export function Advisors() {
           For trusted advisors
         </p>
         <h2 className="section-title" id="advisors-title" data-reveal>
-          Built for the professionals <span className="accent">families trust</span>
+          A clear view for the professionals <span className="accent">families trust</span>
         </h2>
         <p className="advisors__lead" data-reveal>
-          Give your clients' families the visibility they need, without adding to your workload.
+          Permission-based visibility into your clients' household bills, with an audit trail and no custody of their money.
         </p>
         <div className="advisors__cta" data-reveal>
           <EarlyAccessButton mode="partner" className="btn btn--primary advisors__btn">

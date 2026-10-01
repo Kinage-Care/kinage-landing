@@ -14,8 +14,8 @@ export type AdvisorCard = { title: string; body: string };
 export const ADVISORS_PAGE = {
   hero: {
     eyebrow: 'For trusted advisors',
-    title: { plain: 'Fewer surprises across your book,', accent: 'and a record of who did what' },
-    lede: 'Kinage gives you shared visibility into a client household’s bills and payments, without holding their credentials or touching their money.',
+    title: { plain: 'A clear view across your book,', accent: 'and a record of who did what' },
+    lede: 'Kinage gives you permission-based visibility into a client household’s bills and payments, with an audit trail and no custody. You never hold their credentials or touch their money.',
     secondary: 'See how it works',
   },
   problem: {
@@ -54,6 +54,6 @@ export const ADVISORS_PAGE = {
   },
   close: {
     title: 'Bring Kinage to one household first',
-    lede: 'Start with a single client and see what it surfaces in the first month. Nothing about your existing process has to change.',
+    lede: 'Start with a single client household and see what Kinage surfaces in the first month. Your existing process can stay as it is.',
   },
 };

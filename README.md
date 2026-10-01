@@ -96,7 +96,7 @@ scripts/             build-tokens.mjs, build-brand.mjs, derive-hero-arcs.mjs, pa
 | Our Story copy | `src/content/our-story.ts` — chapters with `copy: null` stay hidden until Ben's text is added |
 | For Advisors copy | `src/content/advisors.ts` (from the source file's `#/advisors` route) |
 | Phone demo copy and timing | `src/content/demo-chat.ts` (question, alert and reply copy, `timing`) |
-| FAQ answers | `src/content/faq.ts` — answers from Ben's brief are `source: 'brief'`; the price ($19.99 per month) and the required email + bank connection are `source: 'review'` (client review 2026-09-30, worded from Ben's Q&A Script). No placeholder answers remain. |
+| FAQ answers | `src/content/faq.ts` — condensed from Ben's Q&A Script (`source: 'qa'`, `ref` names the questions); the price ($19.99 per month) and the required email + bank connection are `source: 'review'` (client review 2026-09-30). The copy changes of the 2026-10-01 pass and their sources are recorded in `design-system/copy-changes-2026-10-01.md`. |
 | Testimonials | `src/content/testimonials.ts` — add illustrative items with `kind: 'demo'`; they get a visible "Demo quote" label |
 | Section copy and lists | `src/content/landing.ts` and the section components |
 | Logo / favicon | Replace `design-system/brand/kinage-logo.svg` (the only source), then `npm run brand` |

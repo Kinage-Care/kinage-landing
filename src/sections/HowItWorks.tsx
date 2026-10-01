@@ -53,7 +53,7 @@ export function HowItWorks() {
           <header className="section-head" data-reveal>
             <p className="eyebrow">How it works</p>
             <h2 className="section-title" id="how-title">
-              Up and running <span className="accent">in minutes</span>
+              A clear view <span className="accent">in a few steps</span>
             </h2>
             <p className="section-lead">Connect your parent’s email and bank account, with their consent.</p>
           </header>
@@ -62,7 +62,7 @@ export function HowItWorks() {
               src={withBase('/media/kinage-explainer.mp4')}
               poster={withBase('/media/kinage-explainer-poster.jpg')}
               captions={{ src: withBase('/media/kinage-explainer.en.vtt'), srclang: 'en', label: 'English' }}
-              title="How Kinage works — about a minute on what it does, and why your accounts stay safe"
+              title="A one-minute video on how Kinage works and why your accounts stay safe"
             />
           </div>
         </div>

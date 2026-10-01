@@ -20,6 +20,7 @@ export const MOTION = {
     reveal: seconds(m.duration.reveal.$value),
     revealSlow: seconds(m.duration['reveal-slow'].$value),
     carousel: seconds(m.duration.carousel.$value),
+    iconReveal: seconds(m.duration['icon-reveal'].$value),
   },
   bezier: {
     out: bezier(m.ease.out.$value),
@@ -29,10 +30,13 @@ export const MOTION = {
   distance: {
     reveal: px(m.distance.reveal.$value),
     revealMobile: px(m.distance['reveal-mobile'].$value),
+    iconReveal: px(m.distance['icon-reveal'].$value),
   },
   stagger: {
     list: seconds(m.stagger.list.$value),
     steps: seconds(m.stagger.steps.$value),
+    cards: seconds(m.stagger.cards.$value),
+    iconDelay: seconds(m.stagger['icon-delay'].$value),
   },
   trigger: {
     revealStart: m.trigger['reveal-start'].$value,

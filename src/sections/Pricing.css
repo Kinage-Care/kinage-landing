@@ -78,11 +78,11 @@
 
 .pricing__body {
   width: 512.556px;
-  font-size: var(--type-body-light-size);
-  line-height: var(--type-body-light-line);
-  font-weight: var(--type-body-light-weight);
-  letter-spacing: var(--type-body-light-tracking);
-  color: var(--text-on-brand);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--text-on-brand-soft);
 }
 
 .pricing__cta {

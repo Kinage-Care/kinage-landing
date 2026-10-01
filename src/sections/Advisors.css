@@ -10,16 +10,16 @@
   align-items: center;
   gap: var(--space-20);
   padding: var(--space-80) var(--space-24);
-  /* Same radius as the What You Get cards (--radius-lg), all four corners. */
-  border-radius: var(--radius-lg);
+  /* A large panel: the shared panel radius, all four corners. */
+  border-radius: var(--radius-panel);
   background: var(--surface-warm);
   text-align: center;
 }
 
 .advisors__lead {
-  font-size: var(--type-body-md-size);
-  line-height: var(--type-body-md-line);
-  letter-spacing: var(--type-body-md-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
 }
 

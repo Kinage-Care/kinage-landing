@@ -111,7 +111,7 @@ a {
 :focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-control);
 }
 
 .on-brand :focus-visible,
@@ -131,7 +131,7 @@ html {
   left: 12px;
   z-index: 100;
   padding: 12px 20px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-control);
   background: var(--action-primary);
   color: var(--action-primary-label);
   font-weight: var(--type-control-weight);
@@ -226,7 +226,7 @@ html {
 .surface-card {
   padding: var(--space-24);
   border: 0;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-card);
   background: var(--color-white);
   box-shadow: var(--shadow-card);
 }
@@ -285,9 +285,9 @@ html {
 
 .section-lead {
   margin-top: var(--space-12);
-  font-size: var(--type-body-relaxed-size);
-  line-height: var(--type-body-relaxed-line);
-  letter-spacing: var(--type-body-relaxed-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
   text-wrap: pretty;
 }
@@ -314,7 +314,7 @@ html {
   justify-content: center;
   gap: var(--space-8);
   border: 0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-control);
   cursor: pointer;
   white-space: nowrap;
   font-family: var(--font-sans);

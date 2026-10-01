@@ -2,12 +2,12 @@
  * Structured copy and geometry for the Kinage landing page.
  * Copy is verbatim from Figma node 583:518 unless noted.
  */
-import bill from '../assets/3d/bill.webp';
-import doc from '../assets/3d/doc.webp';
-import gmail from '../assets/3d/gmail.webp';
-import sms from '../assets/3d/sms.webp';
-import scam from '../assets/3d/scam.webp';
-import chart from '../assets/3d/chart.webp';
+import bill from '../assets/3d/hero-bill.webp';
+import doc from '../assets/3d/hero-doc.webp';
+import gmail from '../assets/3d/hero-gmail.webp';
+import sms from '../assets/3d/hero-sms.webp';
+import scam from '../assets/3d/hero-scam.webp';
+import chart from '../assets/3d/hero-chart.webp';
 import benefitDashboard from '../assets/3d/benefit-dashboard.webp';
 import benefitFraud from '../assets/3d/benefit-fraud.webp';
 import benefitFamily from '../assets/3d/benefit-family.webp';
@@ -70,9 +70,9 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
     id: 'bill',
     label: 'Bill',
     src: bill,
-    hero: { left: -78.27, top: 0.57, width: 225.89, height: 221.648 },
+    hero: { left: -84.959, top: -6.051, width: 224.357, height: 224.357 },
     card: 0,
-    slot: { left: 13.32, top: 13.87, width: 173.903, height: 170.637 },
+    slot: { left: 8.17, top: 8.773, width: 172.723, height: 172.723 },
     slotOpacity: 0.9,
     shadow: { kind: 'blur', box: { left: -10.46, top: 19.07, width: 155.916, height: 153.16 }, inner: { width: 128.129, height: 124.231 }, rotate: -15, blur: 32.95, radius: 11, opacity: 0.14 },
     z: 2,
@@ -81,9 +81,9 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
     id: 'doc',
     label: 'Document',
     src: doc,
-    hero: { left: 65.77, top: 253.14, width: 121.025, height: 124.983 },
+    hero: { left: 49.029, top: 238.107, width: 151.511, height: 151.511 },
     card: 0,
-    slot: { left: 153.37, top: 13.67, width: 82.815, height: 85.524 },
+    slot: { left: 141.914, top: 3.384, width: 103.676, height: 103.676 },
     slotOpacity: 0.6,
     shadow: { kind: 'blur', box: { left: 125.19, top: 12.26, width: 87.06, height: 86.434 }, inner: { width: 72.686, height: 71.849 }, rotate: -13.08, blur: 32.95, radius: 11, opacity: 0.15 },
     z: 1,
@@ -92,9 +92,9 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
     id: 'gmail',
     label: 'Gmail',
     src: gmail,
-    hero: { left: -92.59, top: 442.4, width: 190.047, height: 180.764 },
+    hero: { left: -100.363, top: 451.373, width: 236.736, height: 157.824 },
     card: 0,
-    slot: { left: 165.92, top: 82.01, width: 125.353, height: 119.229 },
+    slot: { left: 151.559, top: 87.928, width: 156.148, height: 104.099 },
     slotOpacity: 1,
     shadow: { kind: 'blur', box: { left: 163.16, top: 74.33, width: 133.888, height: 132.109 }, inner: { width: 105.07, height: 102.066 }, rotate: 20.24, blur: 32.95, radius: 11, opacity: 0.15 },
     z: 3,
@@ -104,9 +104,9 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
     label: 'Scam alert',
     src: scam,
     layer: 'front',
-    hero: { left: 954.67, top: 345.34, width: 133.458, height: 128.564 },
+    hero: { left: 950.149, top: 335.878, width: 142.797, height: 142.797 },
     card: 1,
-    slot: { left: 78.48, top: 18.05, width: 173.597, height: 167.231 },
+    slot: { left: 72.6, top: 5.742, width: 185.744, height: 185.744 },
     slotOpacity: 1,
     shadow: { kind: 'svg', box: { left: 69.77, top: 2.43, width: 196.456, height: 196.145 }, inner: { width: 153.125, height: 152.6 }, rotate: 20.24 },
     z: 1,
@@ -115,9 +115,9 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
     id: 'chart',
     label: 'Chart',
     src: chart,
-    hero: { left: 1039.8, top: 490.33, width: 227.416, height: 169.48 },
+    hero: { left: 1014.024, top: 474.87, width: 275.732, height: 183.821 },
     card: 2,
-    slot: { left: 121.76, top: 49.64, width: 185.389, height: 138.16 },
+    slot: { left: 100.747, top: 37.037, width: 224.776, height: 149.851 },
     slotOpacity: 1,
     shadow: { kind: 'blur', box: { left: 150.91, top: 49.64, width: 127.073, height: 128.423 }, inner: { width: 105.521, height: 107.327 }, rotate: -13.08, blur: 48.867, radius: 16.314, opacity: 0.15 },
     z: 1,
@@ -126,9 +126,9 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
     id: 'sms',
     label: 'Family messages',
     src: sms,
-    hero: { left: 1052.2, top: -31.96, width: 198.185, height: 183.212 },
+    hero: { left: 1053.846, top: -44.503, width: 196.664, height: 196.664 },
     card: 2,
-    slot: { left: 58.01, top: 22.72, width: 102.847, height: 95.077 },
+    slot: { left: 58.864, top: 16.211, width: 102.058, height: 102.058 },
     slotOpacity: 1,
     shadow: { kind: 'blur', box: { left: 63.4, top: 23.79, width: 92.496, height: 93.19 }, inner: { width: 80.643, height: 81.48 }, rotate: 9.08, blur: 32.95, radius: 11, opacity: 0.15 },
     z: 2,
@@ -139,30 +139,42 @@ export const FLIGHT_ASSETS: FlightAsset[] = [
 
 export const PROBLEMS = [
   {
-    title: '"I have no idea what\'s going on with my parent\'s finances."',
+    title: '"I have no idea what\'s going on with my parent\'s finances"',
     body: "Bills are scattered, and you find out about problems after they're emergencies.",
   },
   {
-    title: '"I\'m terrified my parent will get scammed."',
+    title: '"I\'m terrified my parent will get scammed"',
     body: 'Scams often deceive older adults into sending money they believe is safe, and banks rarely cover the loss.',
   },
   {
-    title: '"Our family has no system, and it\'s causing friction."',
-    body: "Nobody knows who's handling what. No coordination, no accountability.",
+    title: '"Our family has no system, and it\'s causing friction"',
+    body: 'Everyone assumes someone else has it, so nobody is sure who is handling what.',
   },
 ] as const;
 
 export const BENEFITS = [
-  { title: 'Full Visibility, One Dashboard', body: 'Bills organized automatically: upcoming, past, and anything that needs review.', image: benefitDashboard },
-  { title: 'Early Warning for Fraud', body: 'Suspicious amounts and unfamiliar vendors flagged, so you can check before you pay.', image: benefitFraud },
-  { title: 'Family Coordination Without the Arguments', body: "Assign roles, share visibility, track who's handling what from one dashboard.", image: benefitFamily },
+  {
+    title: 'See bills in one place',
+    body: 'View upcoming bills, payment activity, and items that need attention from connected sources.',
+    image: benefitDashboard,
+  },
+  {
+    title: 'See what needs a closer look',
+    body: 'Kinage flags unusual amounts, unfamiliar vendors, and other suspicious signals in the data it monitors. Your family decides what to do next.',
+    image: benefitFraud,
+  },
+  {
+    title: 'See who is handling what',
+    body: 'You, your siblings, and trusted advisors can share responsibilities and keep a record of decisions in one place.',
+    image: benefitFamily,
+  },
 ] as const;
 
 export const STEPS = [
-  { title: "Connect your parent's email", body: 'Bills discovered and organized automatically.', tone: 1 },
+  { title: "Connect your parent's email", body: 'Kinage finds bills and statements and organizes them for you.', tone: 1 },
   { title: 'Link a bank account', body: 'Connect through Plaid with read-only access. Kinage cannot move money.', tone: 2 },
-  { title: 'Get alerts when something looks off', body: 'Unusual amounts, duplicates, potential scams.', tone: 3 },
-  { title: 'Invite your family and advisors', body: 'Assign roles, share visibility, one dashboard.', tone: 4 },
+  { title: 'Get alerts when something looks off', body: 'Kinage flags unusual amounts, duplicate charges, and possible scams.', tone: 3 },
+  { title: 'Invite your family and advisors', body: 'Share one view and agree on who handles what.', tone: 4 },
 ] as const;
 
 export const TRUST_CHIPS = ['Read-only access', 'No stored passwords', 'No money movement', 'Family and parent controls'] as const;
@@ -170,7 +182,7 @@ export const TRUST_CHIPS = ['Read-only access', 'No stored passwords', 'No money
 /** Three columns as designed: left, centre, right (DOM order = reading order per column). */
 export const TRUST_COLUMNS = [
   [
-    { title: 'Read-only access', body: 'Kinage can only see data, never move, change, or touch anything in any account.', icon: iconEye, fixed: true },
+    { title: 'Read-only access', body: "Kinage only sees the data you connect. It can't move or change anything in any account, and it can't see cash or phone calls.", icon: iconEye, fixed: true },
     { title: 'No Social Security number', body: 'We never ask for a Social Security number. Not during setup. Not ever.', icon: iconIdCard, fixed: true },
   ],
   [
@@ -184,8 +196,8 @@ export const TRUST_COLUMNS = [
 ] as const;
 
 export const STATS = [
-  { value: '$4.9B', label: 'reported to elder fraud in 2024 (FBI IC3, reported amounts only)' },
-  { value: '69M', label: 'family caregivers in the U.S. (AARP)' },
+  { value: '$4.9B', label: 'in fraud and scam losses reported by older Americans in 2024, up a little over 40% from 2023 (FBI IC3)' },
+  { value: '67M', label: 'Americans already provide care to an aging family member (AARP)' },
   { value: '$49T', label: '49% of U.S. household wealth held by adults 65 and older (WSJ)' },
   { value: '1 in 2', label: 'older adults will need some level of financial coordination before end of life' },
 ] as const;

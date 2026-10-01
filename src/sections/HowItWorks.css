@@ -28,7 +28,7 @@
   flex-direction: column;
   gap: var(--space-16);
   padding: var(--space-24);
-  border-radius: var(--radius-2xl);
+  border-radius: var(--radius-card);
 }
 
 .step__num-row {
@@ -47,7 +47,7 @@
   color: var(--color-white);
   font-size: 18px;
   line-height: normal;
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
 }
 .step__circle--1 { background: var(--color-copper); box-shadow: var(--shadow-step-1); }
 .step__circle--2 { background: var(--color-rosewood); box-shadow: var(--shadow-step-2); }
@@ -69,17 +69,17 @@
 }
 
 .step__title {
-  font-size: var(--type-title-sm-size);
-  line-height: var(--type-title-sm-line);
-  font-weight: var(--type-title-sm-weight);
-  letter-spacing: var(--type-title-sm-tracking);
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-line);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
   color: var(--text-heading);
 }
 
 .step__body {
-  font-size: var(--type-body-xs-size);
-  line-height: var(--type-body-xs-line);
-  letter-spacing: var(--type-body-xs-tracking);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
 }
 
@@ -101,9 +101,6 @@
   }
   .step {
     padding: var(--space-16) 0;
-  }
-  .step__body {
-    font-size: var(--type-body-size);
   }
   .step__line {
     visibility: hidden;

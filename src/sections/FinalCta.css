@@ -102,10 +102,10 @@
 
 .final-cta__body {
   width: min(580px, 100%);
-  font-size: var(--type-body-lg-relaxed-size);
-  line-height: var(--type-body-lg-relaxed-line);
-  letter-spacing: var(--type-body-lg-relaxed-tracking);
-  color: var(--text-on-brand-muted);
+  font-size: var(--type-lead-size);
+  line-height: var(--type-lead-line);
+  letter-spacing: var(--type-lead-tracking);
+  color: var(--text-on-brand-soft);
 }
 
 .final-cta__row {

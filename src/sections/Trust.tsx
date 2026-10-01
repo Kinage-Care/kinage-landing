@@ -16,7 +16,7 @@ export function Trust() {
           <header className="section-head" data-reveal>
             <p className="eyebrow">Trust and safety</p>
             <h2 className="section-title" id="trust-title">
-              Here's exactly what Kinage <span className="accent">can and cannot do</span>
+              See exactly what Kinage <span className="accent">can and cannot do</span>
             </h2>
             <p className="section-lead">Specific answers, not vague reassurance.</p>
           </header>
