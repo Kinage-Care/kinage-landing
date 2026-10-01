@@ -13,7 +13,7 @@ import './Pricing.css';
  *
  * Banner in normal flow; copy column on the left (36px heading, 300-weight
  * copy, outlined CTA). The household illustration is absolutely placed in the
- * 1200px inner: the paper card (cropped to its edges) is 345 × 207 with its
+ * 1200px inner: the paper card (transparent rounded corners) is 345 × 215 with its
  * centre at x 987.8, where the earlier art's visible card was. 768–1199px: the same anchor scales with the inner
  * width (container units); under 768px it stacks below the CTA.
  */
@@ -67,7 +67,7 @@ export function Pricing() {
           src={household}
           alt="Kinage household card showing three connected family members with a check mark"
           width={345}
-          height={207}
+          height={215}
           loading="lazy"
         />
       </div>

@@ -89,20 +89,22 @@
   gap: var(--space-8);
 }
 
-/* The paper household card (2026-10-01) is cropped to its own edges, so its
-   box is the visible card: 345 × 207 keeps the earlier art's visible width
-   (335px) and its centre (x 987.8 in the 1200 inner). Never cropped. */
+/* The paper household card (2026-10-01, supplied JPG with transparent rounded
+   corners added) fills its box: 345 × 215 keeps the earlier art's visible
+   width and its centre (x 987.8 in the 1200 inner). Never cropped. A light
+   drop shadow follows the card's shape and lifts it off the eggplant band. */
 .pricing__household {
   position: absolute;
   left: 815.3px;
   top: 50%;
   /* Centred with a margin (half its height), not a translate: the entrance
      tween owns this element's transform. */
-  margin-top: -103.5px;
+  margin-top: -107.5px;
   width: 345px;
-  height: 207px;
+  height: 215px;
   max-width: none;
   object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(27, 10, 30, 0.18)) drop-shadow(0 10px 22px rgba(27, 10, 30, 0.26));
 }
 
 /* ---- 768–1199: same anchor, scaled to the inner width -------------------- */
@@ -117,7 +119,7 @@
   }
   .pricing__household {
     left: calc(815.3 / 1200 * 100cqw);
-    margin-top: calc(-103.5 / 1200 * 100cqw);
+    margin-top: calc(-107.5 / 1200 * 100cqw);
     width: calc(345 / 1200 * 100cqw);
     height: auto;
   }
