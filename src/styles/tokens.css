@@ -37,6 +37,7 @@
   --color-mandarin-ink: #a8481a;
   --color-mandarin-tint: #fdf1e8;
   --color-mandarin-tint-strong: #fbe4d4;
+  --color-rose: #f6e3ea;
 
   /* semantic */
   --text-heading: var(--color-ink);
@@ -55,6 +56,8 @@
   --surface-card: var(--color-lavender);
   --surface-raised: var(--color-white);
   --surface-chip: var(--color-lilac);
+  --surface-pill: var(--color-rose);
+  --text-pill: var(--color-eggplant);
   --surface-brand: var(--color-eggplant);
   --surface-footer: var(--color-night);
   --action-primary: var(--color-mandarin);
@@ -146,7 +149,6 @@
   --layout-section-space-feature-mobile: 80px;
 
   /* radius */
-  --radius-xs: 2px;
   --radius-control: 6px;
   --radius-card: 8px;
   --radius-panel: 12px;

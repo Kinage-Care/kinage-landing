@@ -20,6 +20,7 @@ Kinage runs on a quiet surface system — white page, warm cream bands — with 
 | Violet | `#6c3bb2` | `--color-violet` | Retired from page actions; only inside the product mockup (chat send) |
 | Mandarin | `#da6c2d` | `--color-mandarin` | Filled CTA fill (white `#FFFFFF` label and icons, explicit client decision, 3.41:1) and outlined CTA stroke; hover `#c9622a`, pressed `#b95820`, outlined label, text links, nav-link hover and every focus ring on light surfaces `#a8481a` (`--color-mandarin-ink`, 5.8:1), outlined washes `#fdf1e8` / `#fbe4d4` |
 | Slate | `#50525a` | `--color-slate` | **The one body-text colour** on light surfaces (`--text-body`): every paragraph, description, lead, FAQ answer and testimonial, the hero paragraph included (7.8:1 on white, 7.3:1 on cream, 6.7:1 on lavender) |
+| Rose | `#f6e3ea` | `--color-rose` | Trust pills (`--surface-pill`, eggplant text `--text-pill`, no shadow): labels, not buttons |
 | Orchid | `#ebd4ec` | `--color-orchid` | Highlighted word in the final CTA; open FAQ toggle |
 | Ink | `#353535` | `--color-ink` | Headings, titles, nav links |
 | Soft ink | `rgba(27,14,25,.78)` | `--color-ink-soft` | Retired body colour (replaced by slate in the client feedback pass) |
@@ -81,11 +82,10 @@ Retired roles (now the shared ones): body-xl, body-lg, body-lg-relaxed, body-md,
 
 | Radius | Value | Token | Use |
 |--------|-------|-------|-----|
-| xs | 2px | `--radius-xs` | Trust chips |
 | control | 6px | `--radius-control` | Buttons, inputs, compact controls, icon tiles, focus rings |
 | card | 8px | `--radius-card` | Standard cards: problem, benefit, trust, statistic, testimonial (8 / its scale), roadmap steps, notices |
 | panel | 12px | `--radius-panel` | Larger panels: hero surface (12px at every size), advisors panel, video, product-demo backdrop, nav bar and menu, dialog |
-| pill | 100px | `--radius-pill` | Step numbers, FAQ toggles, round icon wells |
+| pill | 100px | `--radius-pill` | Trust pills, step numbers, FAQ toggles, round icon wells |
 
 Circles (play button, carousel arrows, dialog close), the phone's own frame and screen, and shapes baked into images are not part of the scale.
 

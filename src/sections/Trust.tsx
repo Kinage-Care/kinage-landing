@@ -33,7 +33,7 @@ export function Trust() {
           {TRUST_COLUMNS.map((col, i) => (
             <ul className="trust__col" key={i}>
               {col.map((card) => (
-                <li className={`trust-card surface-card${card.fixed ? ' trust-card--fixed' : ''}`} key={card.title}>
+                <li className="trust-card surface-card" key={card.title}>
                   <span className="trust-card__icon" aria-hidden="true">
                     <img src={card.icon} alt="" width={28} height={28} />
                   </span>

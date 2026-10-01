@@ -182,21 +182,20 @@ export const TRUST_CHIPS = ['Read-only access', 'No stored passwords', 'No money
 /** Three columns as designed: left, centre, right (DOM order = reading order per column). */
 export const TRUST_COLUMNS = [
   [
-    { title: 'Read-only access', body: "Kinage only sees the data you connect. It can't move or change anything in any account, and it can't see cash or phone calls.", icon: iconEye, fixed: true },
-    { title: 'No Social Security number', body: 'We never ask for a Social Security number. Not during setup. Not ever.', icon: iconIdCard, fixed: true },
+    { title: 'Read-only access', body: "Kinage only sees the data you connect. It can't move or change anything in any account, and it can't see cash or phone calls.", icon: iconEye },
+    { title: 'No Social Security number', body: 'We never ask for a Social Security number. Not during setup. Not ever.', icon: iconIdCard },
   ],
   [
-    { title: 'No stored passwords', body: "Bank connections run through Plaid. Your bank gives Kinage a locked, one-purpose code instead of a login, so there's no password to store.", icon: iconKey, fixed: false },
+    { title: 'No stored passwords', body: "Bank connections run through Plaid. Your bank gives Kinage a locked, one-purpose code instead of a login, so there's no password to store.", icon: iconKey },
     {
       title: 'Bank-level encryption',
       body: "Your family's data is protected with the same encryption standards large financial institutions use.",
       icon: iconShieldCheck,
-      fixed: true,
     },
   ],
   [
-    { title: 'No money movement', body: 'We cannot initiate transfers, make payments, or touch funds, by design.', icon: iconCircleX, fixed: true },
-    { title: 'Parent controls permissions', body: 'Your parent decides who sees what. They can revoke access at any time.', icon: iconUsers, fixed: true },
+    { title: 'No money movement', body: 'We cannot initiate transfers, make payments, or touch funds, by design.', icon: iconCircleX },
+    { title: 'Parent controls permissions', body: 'Your parent decides who sees what. They can revoke access at any time.', icon: iconUsers },
   ],
 ] as const;
 
