@@ -43,6 +43,17 @@
   color: var(--text-body);
 }
 
+/* FBI IC3 caveat: small supporting text, directly under the figures it qualifies. */
+.stats__note {
+  margin-top: calc(-1 * var(--space-12));
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line);
+  letter-spacing: var(--type-small-tracking);
+  color: var(--text-body);
+  text-align: center;
+  text-wrap: balance;
+}
+
 .stats__quote {
   padding-block: var(--space-4);
   font-size: var(--type-body-size);

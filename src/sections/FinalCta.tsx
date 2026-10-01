@@ -30,7 +30,8 @@ export function FinalCta() {
           See what’s happening. <span className="final-cta__hl">Before it matters</span>
         </h2>
         <p className="final-cta__body" data-reveal>
-          No more spreadsheets. No more group texts. No more wondering if Dad paid the electric bill.
+          No more spreadsheets. No more group texts. No more wondering if Dad paid the electric bill.{' '}
+          <strong className="final-cta__line">Connection is protection.</strong>
         </p>
         <div className="final-cta__row" data-reveal>
           <EarlyAccessButton className="btn btn--light final-cta__primary" />

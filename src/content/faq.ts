@@ -9,13 +9,14 @@
  * nothing). `ref` names the source questions. Settled decisions that the
  * script does not cover are marked `source: 'review'` (client review of
  * 2026-09-30: $19.99 per month; email and bank connection both required,
- * the bank through Plaid with read-only access).
+ * the bank through Plaid with read-only access). `source: 'taxonomy'` uses
+ * the taxonomy's approved language verbatim (Power of Attorney framing).
  */
 export type FaqItem = {
   id: string;
   question: string;
   answer: string;
-  source: 'qa' | 'review';
+  source: 'qa' | 'review' | 'taxonomy';
   ref: string;
   status: 'final';
 };
@@ -61,9 +62,18 @@ export const FAQ: FaqItem[] = [
     id: 'permissions',
     question: 'Who in the family can see what?',
     answer:
-      'Your parent decides, or a family lead your parent has chosen. They can invite siblings and trusted advisors and choose what each person can see, including view-only access for someone who wants to stay informed. Every action is logged, so everyone can see who did what and when.',
+      'Your parent decides, or a family lead your parent has chosen. They can invite siblings and trusted advisors and choose what each person can see, including view-only access for someone who wants to stay informed. Every action is logged, so everyone can see who did what and when. That record matters, because research from Ameriprise Financial finds that when adult siblings fight about money, the disputes are usually about their parents, most often inheritance and caregiving.',
     source: 'qa',
-    ref: 'Q5, Q15',
+    ref: 'Q5, Q15; Ameriprise sibling-conflict proof point (taxonomy)',
+    status: 'final',
+  },
+  {
+    id: 'poa',
+    question: 'Do we need a power of attorney?',
+    answer:
+      "Kinage is not a power of attorney and doesn't replace legal planning. It doesn't close that legal gap, but it makes it far less relevant while your parent is still able to grant consent directly. As long as your parent can say yes, you're in, with their knowledge and on their terms, no attorney required.",
+    source: 'taxonomy',
+    ref: 'Taxonomy: Power of Attorney framing (approved language)',
     status: 'final',
   },
   {

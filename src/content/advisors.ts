@@ -20,7 +20,7 @@ export const ADVISORS_PAGE = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'You are accountable for households you cannot see into',
+    title: "If you can't see it, you can't protect it",
     lede: 'Bills arrive in a client’s inbox you do not have. A family member pays something twice. You find out at the next review, or when something has already gone wrong.',
   },
   benefits: {
@@ -34,7 +34,7 @@ export const ADVISORS_PAGE = {
   },
   setup: {
     eyebrow: 'Setup',
-    title: 'Your client connects an email and an account. That is the whole setup',
+    title: 'Your client connects an email and an account. You both see the same view',
     lede: 'Read-only, through Google and Plaid. You never hold a credential, and Kinage cannot move money. Your client chooses what you see, and can disconnect at any time.',
     points: [
       { icon: 'lock', text: 'Your client signs in with their own bank, never with Kinage.' },
@@ -45,7 +45,7 @@ export const ADVISORS_PAGE = {
   },
   practice: {
     eyebrow: 'Practice fit',
-    title: 'Built to sit inside how you already work',
+    title: 'A clear view that fits how you already work',
     cards: [
       { title: 'Coordination tools', body: 'Bill pay coordination across the households you look after, in one place.' },
       { title: 'Co-branded materials', body: 'Explain Kinage to a client in your own name, with materials you can hand over.' },
@@ -53,7 +53,7 @@ export const ADVISORS_PAGE = {
     ] satisfies AdvisorCard[],
   },
   close: {
-    title: 'Bring Kinage to one household first',
+    title: "A clear view of aging, shared before it's too late",
     lede: 'Start with a single client household and see what Kinage surfaces in the first month. Your existing process can stay as it is.',
   },
 };

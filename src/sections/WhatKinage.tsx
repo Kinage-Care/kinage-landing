@@ -16,11 +16,11 @@ export function WhatKinage() {
         <div className="what__copy">
           <div className="what__text">
             <p className="eyebrow" data-reveal>
-              Family financial oversight
+              See aging finances clearly. Act together
             </p>
             <h2 className="section-title what__title" id="what-title" data-reveal>
               <span className="what__title-line">Managing a parent's finances is overwhelming.</span>{' '}
-              <span className="what__title-line accent">Seeing it clearly shouldn't be</span>
+              <span className="what__title-line accent">Seeing it clearly shouldn't be</span>
             </h2>
             <p className="what__body" data-reveal>
               Kinage finds your parent's bills, flags anything that looks suspicious, and keeps you, your siblings, and trusted

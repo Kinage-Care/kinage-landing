@@ -64,6 +64,23 @@ Unchanged on purpose: navigation labels, FAQ questions (except the three added o
 | Statistic 4 | 1 in 2 · older adults will need some level of financial coordination before end of life | 95M · Americans 65 and older expected by 2060 (AARP) | Taxonomy problem frame "Scale"; the old card had no source |
 | Trust card | Bank-grade encryption · All data is encrypted in transit and at rest. | Bank-level encryption · Your family's data is protected with the same encryption standards large financial institutions use. | Q16 wording, the same term as the FAQ |
 
+## Taxonomy additions (2026-10-01)
+
+| Section | Before | After | Source / rule |
+|---|---|---|---|
+| FAQ (new) | — | Do we need a power of attorney? / Kinage is not a power of attorney and doesn't replace legal planning. It doesn't close that legal gap, … no attorney required. | Power of Attorney framing, approved language verbatim |
+| FAQ, permissions | … who did what and when. | … plus: That record matters, because research from Ameriprise Financial finds that when adult siblings fight about money, the disputes are usually about their parents, most often inheritance and caregiving. | Sibling-conflict proof point |
+| Statistics lead | … That's not a personal failure. It's a gap nobody filled until now. | … Nobody has to do this alone. Research links isolation with scam risk in older adults, so staying connected is a form of protection too. | Rule 10 (both meanings) |
+| Statistics (new note) | — | FBI IC3 figures are reported cases only. Broader estimates put true losses in the tens of billions each year. | Optional caveat of the FBI IC3 proof point |
+| Final CTA body | … if Dad paid the electric bill. | … if Dad paid the electric bill. **Connection is protection.** | Campaign line as a standalone closing sentence (consumer context) |
+| For families eyebrow | Family financial oversight | See aging finances clearly. Act together | Supporting line, family context |
+| Problem card 2 body | … and banks rarely cover the loss. | … and once it's gone, it's usually gone for good. | Q2 ("That stolen money is gone"); the bank claim had no source |
+| Trust, Plaid card | … the same system used by PayPal, Venmo, Robinhood, and thousands of banks. | Bank connections run through Plaid. Your bank gives Kinage a locked, one-purpose code instead of a login, so there's no password to store. | Q16 (tokenized access); the brand list had no source |
+| Advisors page, problem | You are accountable for households you cannot see into | If you can't see it, you can't protect it | "The enemy, named" for advisors |
+| Advisors page, setup | … That is the whole setup | … You both see the same view | Rule 2 |
+| Advisors page, practice | Built to sit inside how you already work | A clear view that fits how you already work | Rule 2 |
+| Advisors page, close | Bring Kinage to one household first | A clear view of aging, shared before it's too late | Supporting line, advisor context |
+
 ## Open items
 
 - Trial: the FAQ keeps Q19's two-month trial (decision: leave as is for now). Ben to confirm whether it applies at $19.99 per month; the pricing banner does not mention a trial.

@@ -108,6 +108,12 @@
   color: var(--text-on-brand-soft);
 }
 
+/* The campaign line closes the body as its own sentence, in full white SemiBold. */
+.final-cta__line {
+  font-weight: var(--weight-semibold);
+  color: var(--text-on-brand);
+}
+
 .final-cta__row {
   display: flex;
   flex-wrap: wrap;

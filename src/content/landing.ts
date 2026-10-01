@@ -144,7 +144,7 @@ export const PROBLEMS = [
   },
   {
     title: '"I\'m terrified my parent will get scammed"',
-    body: 'Scams often deceive older adults into sending money they believe is safe, and banks rarely cover the loss.',
+    body: "Scams often trick older adults into sending money they believe is safe, and once it's gone, it's usually gone for good.",
   },
   {
     title: '"Our family has no system, and it\'s causing friction"',
@@ -186,7 +186,7 @@ export const TRUST_COLUMNS = [
     { title: 'No Social Security number', body: 'We never ask for a Social Security number. Not during setup. Not ever.', icon: iconIdCard, fixed: true },
   ],
   [
-    { title: 'No stored passwords', body: 'Connections run through Plaid, the same system used by PayPal, Venmo, Robinhood, and thousands of banks.', icon: iconKey, fixed: false },
+    { title: 'No stored passwords', body: "Bank connections run through Plaid. Your bank gives Kinage a locked, one-purpose code instead of a login, so there's no password to store.", icon: iconKey, fixed: false },
     {
       title: 'Bank-level encryption',
       body: "Your family's data is protected with the same encryption standards large financial institutions use.",

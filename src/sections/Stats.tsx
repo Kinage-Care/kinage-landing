@@ -18,8 +18,8 @@ export function Stats() {
             The need is <span className="accent">clearer than ever</span>
           </h2>
           <p className="section-lead">
-            Millions of families are managing an older adult's finances without a real system. That's not a personal failure. It's a
-            gap nobody filled until now.
+            Millions of families are managing an older adult's finances without a real system. Nobody has to do this alone. Research
+            links isolation with scam risk in older adults, so staying connected is a form of protection too.
           </p>
         </header>
         <ul className="stats__grid">
@@ -30,6 +30,9 @@ export function Stats() {
             </li>
           ))}
         </ul>
+        <p className="stats__note" data-reveal>
+          FBI IC3 figures are reported cases only. Broader estimates put true losses in the tens of billions each year.
+        </p>
         <p className="stats__quote" data-reveal>"Father time remains undefeated. We will all need help at some point."</p>
       </div>
     </section>
