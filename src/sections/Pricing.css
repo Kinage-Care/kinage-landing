@@ -89,17 +89,20 @@
   gap: var(--space-8);
 }
 
+/* The paper household card (2026-10-01) is cropped to its own edges, so its
+   box is the visible card: 345 × 207 keeps the earlier art's visible width
+   (335px) and its centre (x 987.8 in the 1200 inner). Never cropped. */
 .pricing__household {
   position: absolute;
-  left: 776.49px;
+  left: 815.3px;
   top: 50%;
   /* Centred with a margin (half its height), not a translate: the entrance
      tween owns this element's transform. */
-  margin-top: -141.171px;
-  width: 423.513px;
-  height: 282.342px;
+  margin-top: -103.5px;
+  width: 345px;
+  height: 207px;
   max-width: none;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* ---- 768–1199: same anchor, scaled to the inner width -------------------- */
@@ -113,9 +116,9 @@
     max-width: 512.556px;
   }
   .pricing__household {
-    left: calc(776.49 / 1200 * 100cqw);
-    margin-top: calc(-141.171 / 1200 * 100cqw);
-    width: calc(423.513 / 1200 * 100cqw);
+    left: calc(815.3 / 1200 * 100cqw);
+    margin-top: calc(-103.5 / 1200 * 100cqw);
+    width: calc(345 / 1200 * 100cqw);
     height: auto;
   }
   .br-wide {
@@ -138,8 +141,8 @@
   .pricing__household {
     position: static;
     display: block;
-    width: min(340px, 100%);
+    width: min(280px, 100%);
     height: auto;
-    margin: var(--space-16) auto 0;
+    margin: var(--space-24) auto 0;
   }
 }

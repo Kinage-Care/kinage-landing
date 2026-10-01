@@ -13,9 +13,8 @@ import './Pricing.css';
  *
  * Banner in normal flow; copy column on the left (36px heading, 300-weight
  * copy, outlined CTA). The household illustration is absolutely placed in the
- * 1200px inner with that inner's own Figma coordinates: (776.49, 0),
- * 423.5 × 282.3 — the art keeps its transparent padding, so the visible card
- * sits inside the band. 768–1199px: the same anchor scales with the inner
+ * 1200px inner: the paper card (cropped to its edges) is 345 × 207 with its
+ * centre at x 987.8, where the earlier art's visible card was. 768–1199px: the same anchor scales with the inner
  * width (container units); under 768px it stacks below the CTA.
  */
 export function Pricing() {
@@ -67,8 +66,8 @@ export function Pricing() {
           className="pricing__household"
           src={household}
           alt="Kinage household card showing three connected family members with a check mark"
-          width={424}
-          height={282}
+          width={345}
+          height={207}
           loading="lazy"
         />
       </div>

@@ -302,6 +302,38 @@
   }
 }
 
+/* Phones: the quote mark sits on its own row above the quote, and the arrows
+   move to a row under the card, so the quote and the byline use the full
+   width of the column (one column, not arrow + mark + text + arrow). */
+@media (max-width: 767px) {
+  .carousel {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4) var(--space-16);
+  }
+  .carousel__stage {
+    order: -1;
+    flex: 0 0 100%;
+  }
+  .quote-card,
+  .quote-card[data-offset='-1'],
+  .quote-card[data-offset='1'] {
+    --mark-w: 32px;
+    --mark-h: 24.53px;
+    --mark-gap: 14px;
+  }
+  .quote-card {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .quote-card__copy {
+    flex: none;
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .quote-card {
     transition: opacity 160ms linear;

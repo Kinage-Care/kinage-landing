@@ -10,10 +10,10 @@ Originals stay untouched in `D:\Kinage Lending\example`. The project holds deriv
 | `src/assets/3d/hero-scam.webp` | Supplied `Downloads/img/Obraz ChatGPT 1 paź 2026, 12_46_24-4.png` (1254²) → 960² WebP | Hero → problem card 2 | Shared flight asset (paper set, 2026-10-01; replaces the earlier tile set) |
 | `src/assets/3d/hero-chart.webp` | Supplied `Downloads/img/Obraz ChatGPT 1 paź 2026, 12_46_34-6.png` (1536×1024) → 960×640 WebP | Hero → problem card 3 | Shared flight asset (paper set, 2026-10-01; replaces the earlier tile set) |
 | `src/assets/3d/hero-sms.webp` | Supplied `Downloads/img/Obraz ChatGPT 1 paź 2026, 12_46_27-5.png` (1254²) → 960² WebP | Hero → problem card 3 | Shared flight asset (paper set, 2026-10-01; replaces the earlier tile set) |
-| `src/assets/3d/benefit-dashboard.webp` | `example/3d img/Dashboard.png` | What you get | Benefit 1 icon |
-| `src/assets/3d/benefit-fraud.webp` | `example/3d img/Fraud.png` | What you get | Benefit 2 icon |
-| `src/assets/3d/benefit-family.webp` | `example/3d img/Family coordination.png` | What you get | Benefit 3 icon |
-| `src/assets/3d/household.webp` | `example/3d img/household.png` | Pricing banner | "Kinage / Your household" card |
+| `src/assets/3d/benefit-dashboard.webp` | Supplied icon sheet (chat attachment, 2000×667 RGBA), icon 1 of 4 (columns 44–485) → 384² WebP, alpha kept, specks below alpha 16 cleared | What you get | Benefit 1 icon (paper set, 2026-10-01) |
+| `src/assets/3d/benefit-fraud.webp` | Same sheet, icon 3 of 4 (columns 1028–1465) | What you get | Benefit 2 icon (paper set) |
+| `src/assets/3d/benefit-family.webp` | Same sheet, icon 4 of 4 (columns 1522–1956) | What you get | Benefit 3 icon (paper set) |
+| `src/assets/3d/household.webp` | Supplied `Downloads/Karta Kinage – Twoje gospodarstwo domowe.png` (1589×990 RGBA), cropped to the card's alpha bounds + 1.5% → 960×576 WebP, specks cleared | Pricing banner | "Kinage / Your household" card (paper set, 2026-10-01) |
 | `src/assets/images/ben-terk.webp` | `example/Ben img/Group 67.png` | The story behind Kinage; end of Our Story | Ben + plate composite (plate spans x 48–705 of 765) |
 | `public/media/kinage-explainer.mp4` | Supplied `Comp 1_5.mp4`, byte-for-byte (1920×1080 H.264, 29.97 fps, AAC 48 kHz stereo, 63.46 s; already fast-start) | Up and running in minutes | Explainer video |
 | `public/media/kinage-explainer.en.vtt` | `kinage-product-video/subtitles/kinage-explainer.en.vtt`, unchanged (18 cues, timed to v2; checked against this file: its narration runs 20 ms later at every cue — AAC priming — so the timing holds) | Up and running in minutes | English subtitles, on by default |
