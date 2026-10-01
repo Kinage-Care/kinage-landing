@@ -73,7 +73,9 @@
   .stats__inner {
     gap: var(--space-28);
   }
+  /* Phones: one card per row, full width. */
   .stats__grid {
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-12);
   }
   .stat__value {
