@@ -187,7 +187,12 @@ export const TRUST_COLUMNS = [
   ],
   [
     { title: 'No stored passwords', body: 'Connections run through Plaid, the same system used by PayPal, Venmo, Robinhood, and thousands of banks.', icon: iconKey, fixed: false },
-    { title: 'Bank-grade encryption', body: 'All data is encrypted in transit and at rest.', icon: iconShieldCheck, fixed: true },
+    {
+      title: 'Bank-level encryption',
+      body: "Your family's data is protected with the same encryption standards large financial institutions use.",
+      icon: iconShieldCheck,
+      fixed: true,
+    },
   ],
   [
     { title: 'No money movement', body: 'We cannot initiate transfers, make payments, or touch funds, by design.', icon: iconCircleX, fixed: true },
@@ -198,8 +203,8 @@ export const TRUST_COLUMNS = [
 export const STATS = [
   { value: '$4.9B', label: 'in fraud and scam losses reported by older Americans in 2024, up a little over 40% from 2023 (FBI IC3)' },
   { value: '67M', label: 'Americans already provide care to an aging family member (AARP)' },
-  { value: '$49T', label: '49% of U.S. household wealth held by adults 65 and older (WSJ)' },
-  { value: '1 in 2', label: 'older adults will need some level of financial coordination before end of life' },
+  { value: '10,000', label: 'Baby Boomers turn 65 every day (AARP)' },
+  { value: '95M', label: 'Americans 65 and older expected by 2060 (AARP)' },
 ] as const;
 
 export const NAV_LINKS: LinkKey[] = ['howItWorks', 'forFamilies', 'pricing', 'forAdvisors', 'ourStory'];

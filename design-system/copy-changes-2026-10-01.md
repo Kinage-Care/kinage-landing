@@ -56,7 +56,16 @@ Unchanged on purpose: navigation labels, FAQ questions (except the three added o
 | Can our financial advisor take part? (new) | Q6, A1, A2 |
 | Can I try Kinage before committing? | Q19 (two-month trial) |
 
+## Follow-up decisions (2026-10-01)
+
+| Section | Before | After | Source / decision |
+|---|---|---|---|
+| Statistic 3 | $49T · 49% of U.S. household wealth held by adults 65 and older (WSJ) | 10,000 · Baby Boomers turn 65 every day (AARP) | Taxonomy problem frame "Scale" (attributed there to Investor deck / AARP); the old card's value and label did not match |
+| Statistic 4 | 1 in 2 · older adults will need some level of financial coordination before end of life | 95M · Americans 65 and older expected by 2060 (AARP) | Taxonomy problem frame "Scale"; the old card had no source |
+| Trust card | Bank-grade encryption · All data is encrypted in transit and at rest. | Bank-level encryption · Your family's data is protected with the same encryption standards large financial institutions use. | Q16 wording, the same term as the FAQ |
+
 ## Open items
 
-- Statistics "$49T / 49% of U.S. household wealth held by adults 65 and older (WSJ)" and "1 in 2 older adults will need some level of financial coordination before end of life" are not in the taxonomy. The first one's value and label do not match; the second has no source. Left unchanged.
-- Trial: Q19's two-month trial is now stated in the FAQ. The pricing banner does not mention a trial. Whether the trial still applies at $19.99 per month has not been confirmed in a newer decision.
+- Trial: the FAQ keeps Q19's two-month trial (decision: leave as is for now). Ben to confirm whether it applies at $19.99 per month; the pricing banner does not mention a trial.
+- The two scale statistics follow the taxonomy's attribution ("Investor deck / AARP"); Roger to confirm the public source wording.
+- Encryption in transit and at rest, mandatory multi-factor authentication and tokenized read-only access: Avinash to confirm before more specific wording is used.
