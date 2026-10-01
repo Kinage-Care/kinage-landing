@@ -85,7 +85,7 @@
   padding-right: var(--space-40);
   font-size: 28px;
   line-height: 1.18;
-  font-weight: var(--weight-black);
+  font-weight: var(--weight-bold);
   color: var(--text-heading);
   text-wrap: balance;
 }
@@ -188,9 +188,6 @@
   width: 100%;
   min-height: 48px;
   margin-top: var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: var(--type-button-size);
-  letter-spacing: var(--type-button-tracking);
 }
 .ea__submit[aria-disabled='true'] {
   cursor: progress;

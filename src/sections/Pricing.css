@@ -86,9 +86,7 @@
 }
 
 .pricing__cta {
-  font-size: var(--type-button-sm-size);
-  letter-spacing: var(--type-button-sm-tracking);
-  gap: var(--space-4);
+  gap: var(--space-8);
 }
 
 .pricing__household {

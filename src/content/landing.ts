@@ -153,14 +153,14 @@ export const PROBLEMS = [
 ] as const;
 
 export const BENEFITS = [
-  { title: 'Full Visibility, One Dashboard', body: 'Every bill, organized automatically: upcoming, past, and anything that needs review.', image: benefitDashboard },
-  { title: 'Early Warning for Fraud', body: 'Suspicious amounts and unfamiliar vendors flagged before money leaves the account.', image: benefitFraud },
+  { title: 'Full Visibility, One Dashboard', body: 'Bills organized automatically: upcoming, past, and anything that needs review.', image: benefitDashboard },
+  { title: 'Early Warning for Fraud', body: 'Suspicious amounts and unfamiliar vendors flagged, so you can check before you pay.', image: benefitFraud },
   { title: 'Family Coordination Without the Arguments', body: "Assign roles, share visibility, track who's handling what from one dashboard.", image: benefitFamily },
 ] as const;
 
 export const STEPS = [
   { title: "Connect your parent's email", body: 'Bills discovered and organized automatically.', tone: 1 },
-  { title: 'Link a bank account (optional)', body: 'Match bills to payments, get overdraft alerts.', tone: 2 },
+  { title: 'Link a bank account', body: 'Connect through Plaid with read-only access. Kinage cannot move money.', tone: 2 },
   { title: 'Get alerts when something looks off', body: 'Unusual amounts, duplicates, potential scams.', tone: 3 },
   { title: 'Invite your family and advisors', body: 'Assign roles, share visibility, one dashboard.', tone: 4 },
 ] as const;

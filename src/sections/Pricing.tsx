@@ -51,11 +51,11 @@ export function Pricing() {
       <div className="container pricing__inner">
         <div className="pricing__copy">
           <h2 className="pricing__title" id="pricing-title">
-            Plans starting at $10/month
+            Plans starting at $19.99/month
           </h2>
           <p className="pricing__body">
-            Start with unlimited family members and trusted advisors during your <br className="br-wide" />
-            low-cost trial, then pick a plan based on who wants to participate.
+            A monthly subscription for families. Your plan depends on how many family members and trusted
+            advisors you involve.
           </p>
           {/* Opens the shared contact dialog in its plans-inquiry mode. */}
           <EarlyAccessButton mode="plans" className="btn btn--ghost-light pricing__cta">

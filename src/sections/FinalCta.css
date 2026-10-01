@@ -120,7 +120,6 @@
 .final-cta__primary {
   width: 199px;
   height: 51px;
-  font-weight: var(--weight-black);
 }
 
 @media (max-width: 767px) {

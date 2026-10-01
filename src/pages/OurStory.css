@@ -146,9 +146,6 @@
 .story__cta {
   margin-top: var(--space-28);
   min-width: 249px;
-  border-radius: var(--radius-md);
-  font-size: var(--type-button-size);
-  letter-spacing: var(--type-button-tracking);
 }
 
 @media (max-width: 767px) {

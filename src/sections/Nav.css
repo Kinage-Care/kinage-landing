@@ -62,10 +62,11 @@
 }
 
 .nav__link {
-  font-size: var(--type-nav-size);
-  line-height: var(--type-nav-line);
-  font-weight: var(--type-nav-weight);
-  letter-spacing: var(--type-nav-tracking);
+  /* Same control type as the buttons: Museo Sans 16 / 1.25 / 500. */
+  font-size: var(--type-control-size);
+  line-height: var(--type-control-line);
+  font-weight: var(--type-control-weight);
+  letter-spacing: var(--type-control-tracking);
   color: var(--text-heading);
   white-space: nowrap;
   border-radius: 4px;

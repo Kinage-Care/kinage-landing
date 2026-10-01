@@ -301,7 +301,12 @@ html {
   }
 }
 
-/* ---- Buttons ------------------------------------------------------------ */
+/* ---- Buttons ------------------------------------------------------------
+ * One control type for every button and text link (and the nav links):
+ * Museo Sans 16px / 1.25, weight 500 (--type-control-*). One radius
+ * (--radius-md). Mandarin is the sparing warm accent for CTAs only; the
+ * eggplant brand, headings and illustrations keep their colours.
+ */
 
 .btn {
   display: inline-flex;
@@ -309,12 +314,14 @@ html {
   justify-content: center;
   gap: var(--space-8);
   border: 0;
+  border-radius: var(--radius-md);
   cursor: pointer;
   white-space: nowrap;
-  font-size: var(--type-button-size);
-  line-height: var(--type-button-line);
-  font-weight: var(--type-button-weight);
-  letter-spacing: var(--type-button-tracking);
+  font-family: var(--font-sans);
+  font-size: var(--type-control-size);
+  line-height: var(--type-control-line);
+  font-weight: var(--type-control-weight);
+  letter-spacing: var(--type-control-tracking);
   transition:
     background-color var(--motion-duration-hover) var(--motion-ease-out),
     border-color var(--motion-duration-hover) var(--motion-ease-out),
@@ -326,17 +333,22 @@ html {
   transform: scale(0.98);
 }
 
-/* Filled violet — "See how it works", "Partner with Kinage", footer CTA. */
+/* Filled mandarin — hero, section and form CTAs. White label and icons
+   (#FFFFFF) in every state, by explicit client decision; hover and press
+   go a step deeper, never back to purple. */
 .btn--primary {
   padding: 13px var(--space-28);
-  border-radius: var(--radius-sm);
   background: var(--action-primary);
-  color: var(--color-white);
-  font-size: var(--type-button-sm-size);
-  letter-spacing: var(--type-button-sm-tracking);
+  color: var(--action-primary-label);
 }
 .btn--primary:hover {
-  background: color-mix(in oklab, var(--action-primary) 86%, var(--color-night));
+  background: var(--action-primary-hover);
+}
+.btn--primary:active {
+  background: var(--action-primary-active);
+}
+.btn--primary:focus-visible {
+  outline-color: var(--action-focus);
 }
 
 /* Inactive (destination not decided yet, e.g. "See all plans"): visible,
@@ -347,22 +359,28 @@ html {
   pointer-events: none;
 }
 
-/* Outlined violet — nav "Get Early Access", "Read our story". */
+/* Outlined mandarin — nav "Get Early Access", "Read our story", dialog
+   "Close". Mandarin stroke, deep mandarin label (never white on a light
+   surface), warm wash on hover. */
 .btn--outline {
   padding: 13px var(--space-28);
-  border: 1px solid var(--action-primary);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--action-outline);
   background: transparent;
-  color: var(--text-action);
+  color: var(--action-outline-label);
 }
 .btn--outline:hover {
-  background: var(--color-lilac);
+  background: var(--action-outline-hover);
+}
+.btn--outline:active {
+  background: var(--action-outline-active);
+}
+.btn--outline:focus-visible {
+  outline-color: var(--action-focus);
 }
 
-/* White on eggplant — hero and final CTA primary. */
+/* White on eggplant — final CTA primary (kept white with its dark label). */
 .btn--light {
   padding: 10.67px 21.34px;
-  border-radius: var(--radius-md);
   background: var(--action-on-brand);
   color: var(--color-eggplant);
 }
@@ -370,11 +388,10 @@ html {
   background: var(--color-orchid);
 }
 
-/* Outlined white on eggplant — "See How It Works", "See all plans". */
+/* Outlined white on eggplant — "See How It Works", "Ask about plans". */
 .btn--ghost-light {
   padding: var(--space-16) var(--space-36);
   border: 1.5px solid var(--border-on-brand);
-  border-radius: var(--radius-md);
   background: transparent;
   color: var(--text-on-brand);
 }
@@ -383,12 +400,17 @@ html {
   background: color-mix(in srgb, var(--color-white) 10%, transparent);
 }
 
-/* Text link — "Learn more for advisors". */
+/* On eggplant and night the focus ring stays white, whatever the button. */
+.on-brand .btn:focus-visible {
+  outline-color: var(--focus-ring-on-brand);
+}
+
+/* Text link — "Learn more for advisors", "Kinage for advisors". */
 .text-link {
-  font-size: var(--type-button-size);
-  line-height: var(--type-button-line);
-  font-weight: var(--type-button-weight);
-  letter-spacing: var(--type-button-tracking);
+  font-size: var(--type-control-size);
+  line-height: var(--type-control-line);
+  font-weight: var(--type-control-weight);
+  letter-spacing: var(--type-control-tracking);
   color: var(--text-action);
   text-decoration: underline;
   text-decoration-color: transparent;

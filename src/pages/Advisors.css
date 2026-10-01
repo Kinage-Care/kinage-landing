@@ -63,9 +63,6 @@
 .adv__cta {
   min-width: 220px;
   min-height: 48px;
-  border-radius: var(--radius-md);
-  font-size: var(--type-button-size);
-  letter-spacing: var(--type-button-tracking);
 }
 
 /* Bands */

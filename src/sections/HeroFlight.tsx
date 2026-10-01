@@ -1,5 +1,6 @@
 import { useRef, type CSSProperties } from 'react';
 import { EarlyAccessButton } from '../components/EarlyAccess';
+import { SmartLink } from '../components/SmartLink';
 import { FLIGHT_ASSETS, PROBLEMS, SLOT_AREA, type FlightAsset, type Rect } from '../content/landing';
 import { SECTIONS } from '../content/links';
 import { gsap, useGSAP } from '../motion/gsap';
@@ -131,14 +132,27 @@ export function HeroFlight() {
               Stop worrying about your parent's bills
             </h1>
             <p className="hero__lead">
-              Kinage gives you visibility into your parent’s bills, flags unusual <br className="br-wide" />
-              activity, and keeps your family aligned so nothing gets missed.
+              Kinage brings your parent’s bills and account activity into one shared view, flags unusual activity, and
+              helps your family coordinate what needs attention.
             </p>
             <p className="hero__lead hero__lead--strong">See what’s happening before something goes wrong.</p>
             {/* The entrance tween moves this wrapper only: the button's own transform
-                (press scale, with its CSS transition) never competes with it. */}
+                (press scale, with its CSS transition) never competes with it. The
+                advisors link is the quiet second path (visible on phones too). */}
             <div className="hero__cta-wrap">
               <EarlyAccessButton className="btn btn--primary hero__cta">Get early access</EarlyAccessButton>
+              <SmartLink to="forAdvisors" className="text-link hero__advisors">
+                Kinage for advisors
+                <svg viewBox="0 0 20 12" width="20" height="12" fill="none" aria-hidden="true">
+                  <path
+                    d="M1.5 6h16M13 1.75 17.5 6 13 10.25"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </SmartLink>
             </div>
           </div>
         </div>

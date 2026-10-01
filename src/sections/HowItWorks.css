@@ -47,7 +47,7 @@
   color: var(--color-white);
   font-size: 18px;
   line-height: normal;
-  font-weight: var(--weight-black);
+  font-weight: var(--weight-bold);
 }
 .step__circle--1 { background: var(--color-copper); box-shadow: var(--shadow-step-1); }
 .step__circle--2 { background: var(--color-rosewood); box-shadow: var(--shadow-step-2); }
@@ -101,6 +101,9 @@
   }
   .step {
     padding: var(--space-16) 0;
+  }
+  .step__body {
+    font-size: var(--type-body-size);
   }
   .step__line {
     visibility: hidden;

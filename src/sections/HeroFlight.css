@@ -56,15 +56,11 @@
   background: var(--surface-hero-stage);
 }
 
-/* Large desktops: the hero reserves (almost) the first screen, so on a fresh
-   load Sound Familiar's eyebrow starts 24px below the fold instead of peeking
-   in. The extra room is below the card; the composition itself is untouched.
-   Shorter screens are unaffected (the hero is already taller than this). */
-@media (min-width: 1200px) {
-  .hero {
-    min-height: calc(100svh - (var(--section-y) - var(--hero-tail)) + var(--space-24));
-  }
-}
+/* The hero's height is its content: padding-top + the card + padding-bottom
+   (32.8u + --hero-tail, both bounded because --u never exceeds 1). It no
+   longer reserves the first screen with a viewport min-height — on a tall
+   monitor that left up to ~600px of empty lavender under the card. Sound
+   Familiar may now show below the fold on tall screens, by design. */
 
 .hero__stage {
   position: relative;
@@ -74,11 +70,12 @@
   display: flex;
 }
 
-/* Figma 596:1916: white on the lavender stage, 28 radius, soft edge. */
+/* Figma 596:1916: white on the lavender stage, soft edge. Radius --radius-hero
+   (28 → 22 in the client feedback pass) at the reference size, scaled with --u. */
 .hero__card {
   position: absolute;
   inset: 0;
-  border-radius: max(20px, calc(28 * var(--u)));
+  border-radius: max(16px, calc(22 * var(--u)));
   background: var(--surface-hero);
   box-shadow: var(--shadow-hero);
 }
@@ -97,7 +94,7 @@
   position: absolute;
   inset: 0;
   overflow: clip;
-  border-radius: max(20px, calc(28 * var(--u)));
+  border-radius: max(16px, calc(22 * var(--u)));
   pointer-events: none;
   /* Quieter texture, behind the icons without competing with the heading:
      45% on desktop and tablet (40% below the earlier 75%); phones keep 75%
@@ -184,8 +181,8 @@
 
 .hero__title {
   width: calc(877.685 * var(--u));
-  /* 72 = --type-display-size at the reference size. */
-  font-size: max(40px, calc(72 * var(--u)));
+  /* 64 = --type-display-size at the reference size (72 → 64, client feedback). */
+  font-size: max(40px, calc(64 * var(--u)));
   line-height: var(--type-display-line);
   font-weight: var(--type-display-weight);
   color: var(--text-hero-heading);
@@ -207,18 +204,33 @@
   color: var(--text-hero-strong);
 }
 
-/* Figma 596:2554: 249 × 44, 8px radius, violet, 16 / 700. */
+/* Figma 596:2554: 249 × 44 (mandarin, shared control type and radius). */
 .hero__cta-wrap {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  gap: var(--space-12) var(--space-28);
   margin-top: calc(36 * var(--u));
 }
 .hero__cta {
   width: 249px;
   height: 44px;
-  border-radius: var(--radius-md);
-  font-size: var(--type-button-size);
-  letter-spacing: var(--type-button-tracking);
+}
+/* The quiet second path: a text link beside the button (below it on
+   phones), same control type, no fill and no border. */
+.hero__advisors {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 44px;
+}
+.hero__advisors svg {
+  flex: none;
+  transition: transform var(--motion-duration-hover) var(--motion-ease-out);
+}
+.hero__advisors:hover svg {
+  transform: translateX(3px);
 }
 
 @media (max-width: 1023px) {
@@ -390,7 +402,7 @@
     min-height: 0;
   }
   .hero__card {
-    border-radius: 24px;
+    border-radius: 18px;
   }
   /* Phones: the ring layer spans the whole hero (not the card) and clips there. */
   .hero__rings {
@@ -436,6 +448,8 @@
     font-size: 16px;
   }
   .hero__cta-wrap {
+    flex-direction: column;
+    gap: var(--space-4);
     width: 100%;
     margin-top: 28px;
   }

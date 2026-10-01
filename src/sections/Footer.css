@@ -115,8 +115,6 @@
 
 .footer__cta {
   align-self: flex-start;
-  font-size: 13px;
-  letter-spacing: var(--tracking-small);
 }
 
 .footer__copy {

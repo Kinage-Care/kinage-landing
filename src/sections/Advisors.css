@@ -35,7 +35,6 @@
 .advisors__btn {
   width: 336px;
   max-width: 100%;
-  font-weight: var(--weight-black);
 }
 
 @media (max-width: 767px) {

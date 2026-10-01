@@ -80,7 +80,6 @@
 
 .founder__cta {
   margin-top: var(--space-16);
-  border-radius: var(--radius-sm);
 }
 
 @media (max-width: 767px) {

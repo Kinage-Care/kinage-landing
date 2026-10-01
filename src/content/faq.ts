@@ -1,18 +1,21 @@
 /**
  * FAQ — questions and order from Figma (node 562:4255).
  *
- * Answers marked `source: 'brief'` are Ben Terk's answers, verbatim from the
- * Kinage Landing Page Brief v3 (April 9, 2026 — landing_brief.txt §12).
- * The one answer marked `status: 'draft'` had no source answer; it is written
- * only from copy already on the page (the pricing band) and must be replaced
- * before publishing.
+ * Sources:
+ *  - 'brief'  Ben Terk's answers, verbatim from the Kinage Landing Page Brief
+ *             v3 (April 9, 2026 — landing_brief.txt §12);
+ *  - 'review' settled in the client review of 2026-09-30 (Ben): the price is
+ *             $19.99 per month, and the bank connection is required, through
+ *             Plaid with read-only access. Wording follows Ben's Q&A Script
+ *             (Q3, Q4, Q9).
+ * No answer is a placeholder any more.
  */
 export type FaqItem = {
   id: string;
   question: string;
   answer: string;
-  source: 'brief' | 'draft';
-  status: 'final' | 'draft';
+  source: 'brief' | 'review';
+  status: 'final';
 };
 
 export const FAQ: FaqItem[] = [
@@ -20,9 +23,9 @@ export const FAQ: FaqItem[] = [
     id: 'cost',
     question: 'How much does Kinage cost?',
     answer:
-      'Plans start at $10/month. You can start with unlimited family members and trusted advisors during your low-cost trial, then pick a plan based on who wants to participate.',
-    source: 'draft',
-    status: 'draft',
+      'Kinage is a monthly subscription for families. Plans start at $19.99 per month, depending on how many family members and trusted advisors you involve.',
+    source: 'review',
+    status: 'final',
   },
   {
     id: 'parent-app',
@@ -41,11 +44,11 @@ export const FAQ: FaqItem[] = [
     status: 'final',
   },
   {
-    id: 'email-only',
-    question: 'What if I only want to start with email?',
+    id: 'connect',
+    question: 'What do I need to connect?',
     answer:
-      "That's the recommended starting point. Connect email and you immediately get bill visibility and scam detection. Add bank or card connections later as you see the value.",
-    source: 'brief',
+      "Your parent's email and a bank account, both with your parent's consent. Kinage scans the email for bills and statements, with no forwarding or manual entry. The bank connects through Plaid with read-only access, so Kinage can match bills to payments and flag what looks unusual. Kinage cannot move money.",
+    source: 'review',
     status: 'final',
   },
   {
@@ -60,7 +63,7 @@ export const FAQ: FaqItem[] = [
     id: 'vs-bank',
     question: "How is this different from my bank's app?",
     answer:
-      'Your bank shows you one account. Kinage sees across all accounts, all vendors, and all family members in one view, and adds anomaly detection and family coordination that no single bank provides.',
+      "Your bank shows you one account. Kinage brings the accounts you connect, your parent's bills, and the family members helping into one view, and adds anomaly detection and family coordination that a single bank's app doesn't offer.",
     source: 'brief',
     status: 'final',
   },

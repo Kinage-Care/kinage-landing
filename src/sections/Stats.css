@@ -29,7 +29,7 @@
 .stat__value {
   font-size: var(--type-heading-size);
   line-height: normal;
-  font-weight: var(--weight-black);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--type-heading-tracking);
   color: var(--text-accent);
   font-variant-numeric: tabular-nums;

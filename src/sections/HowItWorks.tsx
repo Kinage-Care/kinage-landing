@@ -55,7 +55,7 @@ export function HowItWorks() {
             <h2 className="section-title" id="how-title">
               Up and running <span className="accent">in minutes</span>
             </h2>
-            <p className="section-lead">Start with just an email address.</p>
+            <p className="section-lead">Connect your parent’s email and bank account, with their consent.</p>
           </header>
           <div data-reveal>
             <VideoPlayer
