@@ -152,8 +152,8 @@
 .ea__field input:focus-visible,
 .ea__field textarea:focus-visible {
   outline: none;
-  border-color: var(--color-violet);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-violet) 22%, transparent);
+  border-color: var(--action-outline);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-mandarin) 22%, transparent);
 }
 .ea__field [aria-invalid='true'] {
   border-color: var(--color-berry);

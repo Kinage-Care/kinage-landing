@@ -42,7 +42,7 @@
   --text-heading: var(--color-ink);
   --text-body: var(--color-slate);
   --text-accent: var(--color-plum);
-  --text-action: var(--color-violet);
+  --text-action: var(--color-mandarin-ink);
   --text-hero-heading: var(--color-eggplant);
   --text-hero-body: var(--color-slate);
   --text-hero-strong: var(--color-graphite);
@@ -72,7 +72,7 @@
   --action-on-brand: var(--color-white);
   --border-hairline: var(--color-line);
   --border-on-brand: rgba(255, 255, 255, 0.5);
-  --focus-ring: var(--color-violet);
+  --focus-ring: var(--color-mandarin-ink);
   --focus-ring-on-brand: #ffffff;
   --selection: var(--color-orchid);
   --border-field: #d9d2dc;

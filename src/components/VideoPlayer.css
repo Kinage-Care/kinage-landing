@@ -85,13 +85,18 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: none;
+  /* Same orange as every CTA, white glyph (#FFFFFF), deeper on hover. */
+  background: var(--action-primary);
+  color: var(--action-primary-label);
   cursor: pointer;
   translate: -50% -50%;
-  transition: transform var(--motion-duration-hover) var(--motion-ease-out);
+  transition:
+    transform var(--motion-duration-hover) var(--motion-ease-out),
+    background-color var(--motion-duration-hover) var(--motion-ease-out);
 }
 .video__play:hover {
   transform: scale(1.06);
+  background: var(--action-primary-hover);
 }
 .video__play:active {
   transform: scale(0.97);

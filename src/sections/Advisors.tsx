@@ -26,7 +26,7 @@ export function Advisors() {
           <EarlyAccessButton mode="partner" className="btn btn--primary advisors__btn">
             {LINKS.partner.label}
           </EarlyAccessButton>
-          <SmartLink to="advisorsInfo" className="text-link" />
+          <SmartLink to="advisorsInfo" className="btn btn--outline advisors__more" />
         </div>
       </div>
     </section>

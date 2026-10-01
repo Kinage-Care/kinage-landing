@@ -138,20 +138,12 @@ export function HeroFlight() {
             <p className="hero__lead hero__lead--strong">See what’s happening before something goes wrong.</p>
             {/* The entrance tween moves this wrapper only: the button's own transform
                 (press scale, with its CSS transition) never competes with it. The
-                advisors link is the quiet second path (visible on phones too). */}
+                advisors path is the outlined partner of the filled CTA, same size
+                (stacked on phones, still in the hero). */}
             <div className="hero__cta-wrap">
               <EarlyAccessButton className="btn btn--primary hero__cta">Get early access</EarlyAccessButton>
-              <SmartLink to="forAdvisors" className="text-link hero__advisors">
+              <SmartLink to="forAdvisors" className="btn btn--outline hero__advisors">
                 Kinage for advisors
-                <svg viewBox="0 0 20 12" width="20" height="12" fill="none" aria-hidden="true">
-                  <path
-                    d="M1.5 6h16M13 1.75 17.5 6 13 10.25"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
               </SmartLink>
             </div>
           </div>

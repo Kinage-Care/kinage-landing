@@ -22,8 +22,8 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-padding-top: calc(var(--layout-nav-height) + 24px);
-  accent-color: var(--color-violet);
-  caret-color: var(--color-violet);
+  accent-color: var(--color-mandarin);
+  caret-color: var(--color-mandarin-ink);
 }
 
 body {
@@ -132,9 +132,9 @@ html {
   z-index: 100;
   padding: 12px 20px;
   border-radius: var(--radius-md);
-  background: var(--color-violet);
-  color: var(--color-white);
-  font-weight: var(--weight-bold);
+  background: var(--action-primary);
+  color: var(--action-primary-label);
+  font-weight: var(--type-control-weight);
   transform: translateY(-160%);
   transition: transform var(--motion-duration-hover) var(--motion-ease-out);
 }
@@ -405,7 +405,7 @@ html {
   outline-color: var(--focus-ring-on-brand);
 }
 
-/* Text link — "Learn more for advisors", "Kinage for advisors". */
+/* Text link — deep mandarin text (same orange family as the CTAs, 5.8:1). */
 .text-link {
   font-size: var(--type-control-size);
   line-height: var(--type-control-line);

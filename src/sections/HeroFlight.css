@@ -210,27 +210,14 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--space-12) var(--space-28);
+  gap: var(--space-12) var(--space-16);
   margin-top: calc(36 * var(--u));
 }
-.hero__cta {
+/* Filled CTA + its outlined partner (Kinage for advisors): same size. */
+.hero__cta,
+.hero__advisors {
   width: 249px;
   height: 44px;
-}
-/* The quiet second path: a text link beside the button (below it on
-   phones), same control type, no fill and no border. */
-.hero__advisors {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-8);
-  min-height: 44px;
-}
-.hero__advisors svg {
-  flex: none;
-  transition: transform var(--motion-duration-hover) var(--motion-ease-out);
-}
-.hero__advisors:hover svg {
-  transform: translateX(3px);
 }
 
 @media (max-width: 1023px) {
@@ -449,11 +436,12 @@
   }
   .hero__cta-wrap {
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-12);
     width: 100%;
     margin-top: 28px;
   }
-  .hero__cta {
+  .hero__cta,
+  .hero__advisors {
     width: 100%;
     max-width: 280px;
   }

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
-import playIcon from '../assets/figma/play.svg';
 import './VideoPlayer.css';
 
 type Captions = { src: string; srclang: string; label: string };
@@ -24,7 +23,7 @@ const IDLE_MS = 2600;
 
 /**
  * Explainer video (Figma 562:4374): poster with the heather multiply tint and
- * the 72px violet play button. Nothing autoplays; sound starts only from the
+ * the 72px mandarin play button (white glyph). Nothing autoplays; sound starts only from the
  * user's click. Once started, the player's own control bar takes over: seek,
  * play/pause, time, sound, subtitles (CC) and full screen.
  *
@@ -283,7 +282,13 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
         <>
           <span className="video__tint" aria-hidden="true" />
           <button type="button" className="video__play" onClick={start}>
-            <img src={playIcon} alt="" width={72} height={72} />
+            {/* Figma play glyph (play.svg) on the mandarin CTA disc drawn by CSS. */}
+            <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+              <path
+                d="M50 35.134C50.6667 35.5189 50.6667 36.4811 50 36.866L29.75 48.5574C29.0833 48.9423 28.25 48.4611 28.25 47.6913L28.25 24.3087C28.25 23.5389 29.0833 23.0577 29.75 23.4426L50 35.134Z"
+                fill="currentColor"
+              />
+            </svg>
             <span className="sr-only">Play video: {title}</span>
           </button>
         </>

@@ -73,7 +73,7 @@
   transition: color var(--motion-duration-hover) var(--motion-ease-out);
 }
 .nav__link:hover {
-  color: var(--text-accent);
+  color: var(--text-action);
 }
 
 .nav__cta {
@@ -157,7 +157,7 @@
     padding: var(--space-12) var(--space-16);
   }
   .nav__link:hover {
-    background: var(--color-lavender);
+    background: var(--action-outline-hover);
   }
   .nav__menu-cta {
     display: block;
