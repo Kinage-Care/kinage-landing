@@ -123,9 +123,9 @@
   margin-top: calc(var(--space-8) + var(--space-28));
 }
 
-.final-cta__primary {
-  width: 199px;
-  height: 51px;
+/* The white button and its outlined partner: one width, one height. */
+.final-cta__row .btn {
+  min-width: 220px;
 }
 
 @media (max-width: 767px) {
@@ -145,7 +145,8 @@
     align-items: stretch;
     width: min(320px, 100%);
   }
-  .final-cta__primary {
+  .final-cta__row .btn {
     width: 100%;
+    min-width: 0;
   }
 }

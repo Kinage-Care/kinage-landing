@@ -338,6 +338,9 @@ html {
    go a step deeper, never back to purple. */
 .btn--primary {
   padding: 13px var(--space-28);
+  /* Same box as .btn--outline (1px border), so a filled and an outlined
+     button side by side are exactly the same height. */
+  border: 1px solid transparent;
   background: var(--action-primary);
   color: var(--action-primary-label);
 }
@@ -380,7 +383,9 @@ html {
 
 /* White on eggplant — final CTA primary (kept white with its dark label). */
 .btn--light {
-  padding: 10.67px 21.34px;
+  /* Same box as .btn--ghost-light, its partner on eggplant. */
+  padding: 14px var(--space-36);
+  border: 1.5px solid transparent;
   background: var(--action-on-brand);
   color: var(--color-eggplant);
 }
@@ -390,7 +395,7 @@ html {
 
 /* Outlined white on eggplant — "See How It Works", "Ask about plans". */
 .btn--ghost-light {
-  padding: var(--space-16) var(--space-36);
+  padding: 14px var(--space-36);
   border: 1.5px solid var(--border-on-brand);
   background: transparent;
   color: var(--text-on-brand);
