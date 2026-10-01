@@ -162,9 +162,12 @@ export function Testimonials() {
                   <span className="quote-card__mark" />
                   <div className="quote-card__copy">
                     <p className="quote-card__text">{t.quote}</p>
-                    <p className="quote-card__who">
-                      {t.name}, {t.role}
-                      {t.kind === 'demo' && <span className="quote-card__demo"> · Demo quote</span>}
+                    <p className="quote-card__who byline">
+                      <span className="byline__name">{t.name}</span>
+                      <span className="byline__role">
+                        {t.role}
+                        {t.kind === 'demo' && <span className="quote-card__demo"> · Demo quote</span>}
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -195,9 +198,12 @@ export function Testimonials() {
                     <blockquote className="quote-card__text">
                       <p>{t.quote}</p>
                     </blockquote>
-                    <figcaption className="quote-card__who">
-                      {t.name}, {t.role}
-                      {t.kind === 'demo' && <span className="quote-card__demo"> · Demo quote</span>}
+                    <figcaption className="quote-card__who byline">
+                      <span className="byline__name">{t.name}</span>
+                      <span className="byline__role">
+                        {t.role}
+                        {t.kind === 'demo' && <span className="quote-card__demo"> · Demo quote</span>}
+                      </span>
                     </figcaption>
                   </div>
                 </figure>

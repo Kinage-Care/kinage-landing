@@ -410,6 +410,26 @@ html {
   outline-color: var(--focus-ring-on-brand);
 }
 
+/* ---- Byline ------------------------------------------------------------
+ * Who said or wrote it (testimonials, the founder note). Two lines: the name
+ * in SemiBold heading ink, the role in Regular body grey, so the attribution
+ * never blends into the quote or paragraph above it. Size comes from the
+ * context (the small role, or the testimonial's own scale).
+ */
+.byline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+}
+.byline__name {
+  font-weight: var(--weight-semibold);
+  color: var(--text-heading);
+}
+.byline__role {
+  font-weight: var(--weight-regular);
+  color: var(--text-body);
+}
+
 /* Text link — deep mandarin text (same orange family as the CTAs, 5.8:1). */
 .text-link {
   font-size: var(--type-control-size);

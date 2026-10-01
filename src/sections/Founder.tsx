@@ -29,7 +29,10 @@ export function Founder() {
               I built Kinage because my family lived this problem firsthand. When we needed to coordinate my mother’s finances,
               nothing available truly helped. Kinage is the product I wish we’d had.
             </p>
-            <p className="founder__byline">Ben Terk, Founder of Kinage</p>
+            <p className="founder__byline byline">
+              <span className="byline__name">Ben Terk</span>
+              <span className="byline__role">Founder of Kinage</span>
+            </p>
             <SmartLink to="story" className="btn btn--outline founder__cta" />
           </div>
         </div>
