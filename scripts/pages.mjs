@@ -4,7 +4,7 @@
  * repository's base path — on any OS (no shell-specific env syntax).
  *
  *   node scripts/pages.mjs build     → dist/ for /kinage-landing/
- *   node scripts/pages.mjs preview   → http://localhost:5191/kinage-landing/
+ *   node scripts/pages.mjs preview   → http://localhost:5201/kinage-landing/
  *
  * BASE_PATH overrides the default (the Pages workflow sets it from the Pages
  * site itself, so a renamed repository or a custom domain needs no change).

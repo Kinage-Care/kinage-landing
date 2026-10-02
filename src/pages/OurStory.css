@@ -1,11 +1,45 @@
 /*
- * /our-story — a reading page in the landing's system: white page, one
- * 720px reading column (the landing's narrow column), cream closing band,
- * section rhythm tokens. Story blocks are separated by whitespace and type,
- * never by rules. Ben's photo (the founder composite) closes the story.
+ * /our-story — a reading page in the landing's system: the home hero's wash
+ * and texture at the top, the story in one white card in front of it (the
+ * hero card's radius-xl, shadow-lg and 56 / 64 inner padding) with two
+ * columns: Ben's photo and caption (4 parts), the text (7 parts, about 70
+ * characters a line). Cream closing band, section rhythm tokens. Story
+ * blocks are separated by whitespace and type, never by rules.
  */
 .story {
   background: var(--surface-page);
+}
+
+/* Clears the fixed nav, then the card; the wash fills the top of the page
+   (about the home hero's height) behind it. */
+.story__top {
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + var(--space-32));
+  padding-bottom: var(--section-y);
+}
+.story__wash {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: min(100%, 1050px);
+  /* Its foot dissolves into the page white, so the band has no edge beside the card. */
+  mask-image: linear-gradient(180deg, #000 70%, transparent);
+}
+/* Photo column left, text right; both start at the card's top padding, so the
+   photo's top meets the first heading's. Text first in the DOM. */
+.story__card {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  grid-template-areas: 'photo text';
+  align-items: start;
+  column-gap: var(--space-64);
+  width: min(var(--layout-container), 100% - 2 * var(--layout-gutter));
+  margin-inline: auto;
+  padding: var(--space-56) var(--space-64) var(--space-64);
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
 }
 
 .story__column {
@@ -19,13 +53,12 @@
   text-align: center;
 }
 
-/* Clears the fixed nav (37 + 72) and then keeps the page's own rhythm. */
+.story__text {
+  grid-area: text;
+}
 /* The chapters follow on the same white: whitespace (their own top padding) separates them. */
 .story__head {
-  padding-top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + var(--section-join));
-}
-.story__head .eyebrow + .story__title {
-  margin-top: var(--space-12);
+  padding-bottom: 0;
 }
 
 .story__title {
@@ -36,22 +69,15 @@
   color: var(--text-heading);
   text-wrap: balance;
 }
-.story__title .accent {
-  color: var(--text-accent);
-}
 
 .story__intro {
   margin-top: var(--space-24);
-  font-size: var(--type-lead-size);
-  line-height: var(--type-lead-line);
+  font-size: var(--type-body-lg-relaxed-size);
+  line-height: var(--type-body-lg-relaxed-line);
   font-weight: var(--weight-regular);
-  letter-spacing: var(--type-lead-tracking);
+  letter-spacing: var(--type-body-lg-relaxed-tracking);
   color: var(--text-body);
   text-wrap: pretty;
-}
-
-.story__chapters {
-  padding-bottom: var(--section-y);
 }
 
 .story__chapter {
@@ -71,64 +97,37 @@
   margin-top: var(--space-8);
   font-size: var(--type-body-size);
   line-height: var(--type-body-line);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
   letter-spacing: var(--type-body-tracking);
   color: var(--text-accent);
 }
 
 .story__body {
   margin-top: var(--space-16);
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-line);
-  letter-spacing: var(--type-body-tracking);
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
+  letter-spacing: var(--type-body-relaxed-tracking);
   color: var(--text-body);
   text-wrap: pretty;
 }
 
-/* Same composite and plate as the landing's founder section, a little larger. */
+/* The landing's founder photo (its own purple panel, no frame) and the home
+   Ben section's caption (.person-caption), inset to the panel's edges. */
 .story__portrait {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-20);
-  padding-top: var(--space-64);
+  grid-area: photo;
+  margin: 0;
 }
+/* Never wider than half the native file (1958 px), so it is always drawn at 2x or sharper. */
 .story__photo {
-  position: relative;
   display: block;
-  width: 263.76px;
-  height: 273.6px;
-  margin-top: 101px;
-}
-.story__photo img {
-  position: absolute;
-  left: -19.08px;
-  bottom: 0;
-  width: 304.8px;
+  width: 100%;
+  max-width: 979px; /* BEN_PORTRAIT.maxWidth */
   height: auto;
-  max-width: none;
+  aspect-ratio: 1958 / 2413;
 }
-/* Two lines: the name prominent (700), the role quieter (secondary body). */
 .story__signature {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  text-align: center;
-}
-.story__signature-name {
-  font-size: var(--type-title-size);
-  line-height: 1.3;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--type-title-tracking);
-  color: var(--text-heading);
-}
-.story__signature-role {
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-line);
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--type-body-tracking);
-  color: var(--text-body);
+  margin-top: var(--space-20);
+  padding-inline: 6.25%;
 }
 
 .story__close {
@@ -146,11 +145,35 @@
 .story__cta {
   margin-top: var(--space-28);
   min-width: 249px;
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
+}
+
+/* Tablets: the home Ben card's proportions. */
+@media (max-width: 1023px) {
+  .story__card {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-40);
+    padding: var(--space-40);
+  }
 }
 
 @media (max-width: 767px) {
   .story__column {
     width: calc(100% - 2 * var(--layout-gutter-mobile));
+  }
+  /* Phones: the card keeps the page gutter, 20px inside it (the hero card's
+     inset); the photo and its caption first, the text below. */
+  .story__card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'photo' 'text';
+    row-gap: var(--space-40);
+    width: calc(100% - 2 * var(--layout-gutter-mobile));
+    padding: var(--space-40) var(--space-20) var(--space-48);
+  }
+  .story__portrait {
+    max-width: 240px;
   }
   .story__title {
     font-size: 36px;
@@ -159,18 +182,11 @@
   .story__close-title {
     font-size: 28px;
   }
-  .story__chapter,
-  .story__portrait {
+  .story__chapter {
     padding-top: var(--space-48);
   }
-  .story__photo {
-    width: 219.8px;
-    height: 228px;
-    margin-top: 84px;
-  }
-  .story__photo img {
-    left: -15.9px;
-    width: 254px;
+  .story__intro {
+    font-size: 17px;
   }
   .story__cta {
     width: 100%;

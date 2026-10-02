@@ -2,16 +2,24 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { Brand } from '../components/Brand';
 import { EarlyAccessButton } from '../components/EarlyAccess';
 import { SmartLink } from '../components/SmartLink';
-import { NAV_LINKS } from '../content/landing';
-import { SECTIONS } from '../content/links';
+import { LINKS, SECTIONS, type LinkKey } from '../content/links';
+import { NAV_LINKS } from '../content/site';
 import { withBase } from '../lib/base';
 import { MOTION } from '../motion/tokens';
 import { pageOf, usePathname } from '../router';
 import './Nav.css';
 
+/** Section links that can be "current" while their section is on screen. */
+const SPY: Partial<Record<LinkKey, string>> = {
+  howItWorks: SECTIONS.howItWorks,
+  security: SECTIONS.security,
+  faq: SECTIONS.faq,
+};
+
 /**
- * Floating nav bar (Figma 583:1070): 1200 wide, 80% white with a 6.85px
- * backdrop blur, 37px from the top. Fixed, so it never takes part in layout.
+ * Floating nav (reference pack): a white 8px container with the layered
+ * shadow, pill-shaped items, the current one in Mist Violet, one filled
+ * action. Fixed, so it never takes part in layout.
  *
  * Behaviour is scrolling vs idle — not direction: any scroll hides it with a
  * short fade and lift; once no scroll event has arrived for MOTION.nav.idle ms
@@ -29,6 +37,28 @@ export function Nav() {
   const openRef = useRef(false);
   openRef.current = open;
   const page = pageOf(usePathname());
+  const [current, setCurrent] = useState<string | null>(null);
+
+  // Scroll spy (landing only): the section crossing the upper third is current.
+  useEffect(() => {
+    if (page !== 'home') {
+      setCurrent(null);
+      return;
+    }
+    const ids = Object.values(SPY) as string[];
+    const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    if (!els.length) return;
+    const visible = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id));
+        setCurrent(ids.find((id) => visible.has(id)) ?? null);
+      },
+      { rootMargin: '-30% 0px -60% 0px' },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [page]);
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -86,6 +116,7 @@ export function Nav() {
                 to={key}
                 className="nav__link"
                 onClick={close}
+                data-current={(SPY[key] && SPY[key] === current) || undefined}
                 aria-current={(key === 'ourStory' && page === 'story') || (key === 'forAdvisors' && page === 'advisors') ? 'page' : undefined}
               />
             </li>
@@ -95,7 +126,7 @@ export function Nav() {
           </li>
         </ul>
 
-        <EarlyAccessButton className="btn btn--outline nav__cta" />
+        <EarlyAccessButton className="btn btn--outline btn--sm nav__cta">{LINKS.earlyAccess.label}</EarlyAccessButton>
 
         <button
           ref={toggleRef}

@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactElement } from 'react';
+import { useRef, type ReactElement } from 'react';
 import { EarlyAccessButton } from '../components/EarlyAccess';
 import { ADVISORS_PAGE as A, type AdvisorCard } from '../content/advisors';
 import { LINKS } from '../content/links';
@@ -57,25 +57,15 @@ export function AdvisorsPage() {
   const ref = useRef<HTMLElement>(null);
   useReveal(ref, { targets: '[data-reveal], .adv__card' });
 
-  useEffect(() => {
-    const previous = document.title;
-    document.title = 'For advisors — Kinage';
-    return () => {
-      document.title = previous;
-    };
-  }, []);
-
   return (
     <article className="adv" ref={ref} aria-labelledby="adv-title">
-      <header className="adv__hero">
+      <header className="adv__hero hero-wash">
+        <span className="hero-wash__texture" aria-hidden="true" />
         <div className="container adv__center">
-          <p className="eyebrow" data-reveal>
-            {A.hero.eyebrow}
-          </p>
           <h1 className="adv__title" id="adv-title" data-reveal>
-            {A.hero.title.plain} <span className="accent">{A.hero.title.accent}</span>
+            {A.hero.title.plain} {A.hero.title.accent}
           </h1>
-          <p className="adv__lede adv__lede--intro" data-reveal>
+          <p className="adv__lede" data-reveal>
             {A.hero.lede}
           </p>
           <div className="adv__actions" data-reveal>
@@ -89,11 +79,8 @@ export function AdvisorsPage() {
         </div>
       </header>
 
-      <section className="adv__band adv__band--warm" aria-labelledby="adv-problem">
+      <section className="adv__band" aria-labelledby="adv-problem">
         <div className="container adv__narrow">
-          <p className="eyebrow" data-reveal>
-            {A.problem.eyebrow}
-          </p>
           <h2 className="section-title adv__h2" id="adv-problem" data-reveal>
             {A.problem.title}
           </h2>
@@ -103,10 +90,9 @@ export function AdvisorsPage() {
         </div>
       </section>
 
-      <section className="adv__band" aria-labelledby="adv-benefits">
+      <section className="adv__band adv__band--warm" aria-labelledby="adv-benefits">
         <div className="container">
           <header className="section-head" data-reveal>
-            <p className="eyebrow">{A.benefits.eyebrow}</p>
             <h2 className="section-title" id="adv-benefits">
               {A.benefits.title}
             </h2>
@@ -118,9 +104,6 @@ export function AdvisorsPage() {
       <section className="adv__band adv__band--brand on-brand" id="adv-setup" aria-labelledby="adv-setup-title">
         <div className="container adv__split">
           <div className="adv__split-copy">
-            <p className="eyebrow adv__eyebrow-on-brand" data-reveal>
-              {A.setup.eyebrow}
-            </p>
             <h2 className="section-title adv__h2 adv__h2--on-brand" id="adv-setup-title" data-reveal>
               {A.setup.title}
             </h2>
@@ -138,18 +121,6 @@ export function AdvisorsPage() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      <section className="adv__band" aria-labelledby="adv-practice">
-        <div className="container">
-          <header className="section-head" data-reveal>
-            <p className="eyebrow">{A.practice.eyebrow}</p>
-            <h2 className="section-title" id="adv-practice">
-              {A.practice.title}
-            </h2>
-          </header>
-          <Cards cards={A.practice.cards} />
         </div>
       </section>
 

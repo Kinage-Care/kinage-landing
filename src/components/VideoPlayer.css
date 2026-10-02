@@ -1,13 +1,13 @@
-/* Up to 862.3 wide (Figma), radius 12. The box has the video's own shape —
-   16:9 for the explainer (1920 × 1080), replaced by the file's measured ratio
-   once its metadata loads — so the whole frame fills it: no bars, no crop. */
+/* The box has the file's own shape, set inline from the poster's natural size
+   and then the video's metadata (VideoPlayer.tsx) — no ratio constant here —
+   so the whole frame fills it: no bars, no crop. Until the shape is known
+   the <video> sizes the box by its intrinsic dimensions. */
 .video {
   position: relative;
-  width: min(862.302px, 100%);
-  aspect-ratio: 16 / 9;
+  width: min(960px, 100%);
   margin-inline: auto;
   overflow: hidden;
-  border-radius: var(--radius-panel);
+  border-radius: var(--radius-xl);
   background: var(--color-white);
   /* Subtitle and control sizes follow the player's width (and full screen). */
   container-type: inline-size;
@@ -16,9 +16,13 @@
 .video__media {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   background: var(--color-white);
+}
+
+.video[data-shaped] .video__media {
+  height: 100%;
 }
 
 /* The box has the video's own ratio, so `cover` shows the whole frame — and,
@@ -74,34 +78,50 @@
   pointer-events: none;
 }
 
+/* Centred in the poster's empty band between the phone and the headline
+   (the poster is the 0:12.3 frame), scaled with the player so it never
+   covers either. An orange disc (the primary button token) with a white
+   triangle; it leaves when playback starts. */
 .video__play {
+  --play: clamp(52px, 11cqw, 84px);
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 47.5%;
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
+  width: var(--play);
+  height: var(--play);
   padding: 0;
   border: 0;
   border-radius: 50%;
-  /* Same orange as every CTA, white glyph (#FFFFFF), deeper on hover. */
   background: var(--action-primary);
   color: var(--action-primary-label);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
   translate: -50% -50%;
   transition:
     transform var(--motion-duration-hover) var(--motion-ease-out),
     background-color var(--motion-duration-hover) var(--motion-ease-out);
 }
+/* The triangle is centred by its own geometry (centroid on the centre), so
+   no extra offset here; a round join softens its corners symmetrically. */
+.video__play svg {
+  width: 44%;
+  height: 44%;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
 .video__play:hover {
-  transform: scale(1.06);
   background: var(--action-primary-hover);
+  transform: scale(1.04);
 }
 .video__play:active {
   transform: scale(0.97);
 }
 .video__play:focus-visible {
+  outline-color: var(--action-focus);
   outline-offset: 4px;
   border-radius: 50%;
 }
@@ -122,7 +142,7 @@
 }
 .video__captions span {
   padding: 0.12em 0.45em;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: rgb(18 12 22 / 0.78);
   color: var(--color-white);
   font-size: clamp(14px, 2.3cqi, 36px);
@@ -181,11 +201,18 @@
   height: 40px;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-md);
   background: transparent;
   color: inherit;
   cursor: pointer;
   transition: background-color var(--motion-duration-hover) var(--motion-ease-out);
+}
+/* Invisible hit area: 44px tall and as wide as the button plus the bar gap
+   (2px), so neighbouring buttons never overlap. The CC indicator uses ::after. */
+.video__btn::before {
+  content: '';
+  position: absolute;
+  inset: min(0px, calc((100% - 44px) / 2)) -1px;
 }
 .video__btn:hover {
   background: rgb(255 255 255 / 0.14);
@@ -261,15 +288,10 @@
 .video__seek:focus-visible {
   outline: 2px solid var(--color-white);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 @media (max-width: 767px) {
-  .video__play,
-  .video__play img {
-    width: 60px;
-    height: 60px;
-  }
   .video__controls {
     padding: 14px 2px 2px;
   }
@@ -308,4 +330,26 @@
   .video__captions {
     transition: none;
   }
+}
+
+/* ---- Hero variant ---------------------------------------------------------
+   Sits directly on the hero's lavender backing panel (Hero.css, no white
+   card): the whole frame is always visible, no fade or mask, a hairline edge
+   on the video itself. The
+   box has the file's exact ratio, so `contain` shows the whole frame. */
+.video[data-variant='hero'] {
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+.video[data-variant='hero'] .video__media,
+.video[data-variant='hero'][data-started] .video__media {
+  object-fit: contain;
+  background: var(--color-white);
+}
+.video__edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(42, 26, 56, 0.08);
+  pointer-events: none;
 }

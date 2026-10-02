@@ -1,33 +1,31 @@
-/* Figma 583:1003 — 720px list, hairline dividers, round toggle. Cream band
-   (refinement brief) so the section reads as its own block between the white
-   statistics and the eggplant final CTA. */
-.faq {
-  padding-block: var(--section-y);
-  background: var(--surface-warm);
-}
-
 .faq__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-32);
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: var(--space-56);
+  align-items: start;
+}
+.faq__head {
+  position: sticky;
+  top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + 32px);
 }
 
 .faq__list {
-  width: min(var(--layout-container-narrow), 100%);
   border-top: 1px solid var(--border-hairline);
 }
-
 .faq__item {
   border-bottom: 1px solid var(--border-hairline);
 }
-
+.faq__q {
+  font-family: var(--font-text);
+  color: inherit;
+}
 .faq__button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-16);
+  gap: var(--space-24);
   width: 100%;
+  min-height: 72px;
   padding: var(--space-20) 0;
   border: 0;
   background: none;
@@ -37,56 +35,46 @@
 .faq__button:focus-visible {
   outline-offset: 2px;
 }
-
 .faq__question {
-  flex: 1;
-  font-size: var(--type-control-size);
+  font-size: var(--type-body-relaxed-size);
   line-height: 1.4;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--type-control-tracking);
+  font-weight: var(--weight-medium);
   color: var(--text-heading);
-  transition: color var(--motion-duration-hover) var(--motion-ease-out);
 }
-.faq__button:hover .faq__question {
-  color: var(--text-accent);
-}
-
-/* Branded, understated control: pale lilac disc, muted eggplant plus that
-   becomes a minus when open. No outline of its own — the whole row is the
-   button and carries the visible focus ring. */
 .faq__toggle {
   display: grid;
-  flex: none;
   place-items: center;
+  flex: none;
   width: 32px;
   height: 32px;
   border-radius: var(--radius-pill);
-  background: var(--surface-toggle);
-  transition: background-color var(--motion-duration-hover) var(--motion-ease-out);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-ease-out),
+    color var(--motion-duration-hover) var(--motion-ease-out);
+}
+.faq__button:hover .faq__toggle,
+.faq__item[data-open] .faq__toggle {
+  background: var(--color-mist-violet);
+  color: var(--color-amethyst);
 }
 .faq__toggle svg {
   width: 14px;
   height: 14px;
   fill: none;
-  stroke: var(--text-toggle);
-  stroke-width: 1.75;
+  stroke: currentColor;
+  stroke-width: 1.8;
   stroke-linecap: round;
 }
 .faq__toggle-v {
-  transform-origin: 50% 50%;
+  transform-origin: 7px 7px;
   transition: transform var(--motion-duration-accordion) var(--motion-ease-out);
 }
-.faq__button:hover .faq__toggle {
-  background: var(--surface-toggle-hover);
-}
-.faq__item[data-open] .faq__toggle {
-  background: var(--surface-toggle-open);
-}
 .faq__item[data-open] .faq__toggle-v {
-  transform: scaleY(0);
+  transform: rotate(90deg);
 }
 
-/* Smooth height without measuring: 0fr → 1fr. */
 .faq__panel {
   display: grid;
   grid-template-rows: 0fr;
@@ -99,31 +87,41 @@
   min-height: 0;
   overflow: hidden;
 }
-
 .faq__answer {
-  padding: 0 44px var(--space-20) 0;
+  max-width: 640px;
+  padding-right: var(--space-56);
   font-size: var(--type-body-size);
   line-height: var(--type-body-line);
-  letter-spacing: var(--type-body-tracking);
   color: var(--text-body);
-  opacity: 0;
-  transition: opacity var(--motion-duration-accordion) var(--motion-ease-out);
 }
-.faq__item[data-open] .faq__answer {
-  opacity: 1;
+.faq__answer + .faq__answer {
+  margin-top: var(--space-12);
+}
+.faq__answer:last-child {
+  padding-bottom: var(--space-24);
 }
 
-@media (max-width: 767px) {
-  .faq__answer {
-    padding-right: 0;
+@media (max-width: 1023px) {
+  .faq__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+    max-width: 760px;
+  }
+  .faq__head {
+    position: static;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .faq__panel,
-  .faq__answer,
-  .faq__toggle,
-  .faq__toggle-v {
-    transition: none;
+@media (max-width: 767px) {
+  .faq__question {
+    font-size: var(--type-body-size);
+  }
+  .faq__button {
+    min-height: 64px;
+    padding: var(--space-16) 0;
+    gap: var(--space-16);
+  }
+  .faq__answer {
+    padding-right: 0;
   }
 }

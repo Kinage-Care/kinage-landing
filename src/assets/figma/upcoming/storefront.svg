@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Storefront" clip-path="url(#clip0_0_50)">
+<g id="Vector">
+</g>
+<path id="Vector_2" d="M4.50586 12.8037V19.9671H19.5059V12.8037" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round"/>
+<path id="Vector_3" d="M5.06055 3.46838H18.9355C19.0985 3.46842 19.2569 3.52151 19.387 3.61964C19.5171 3.71776 19.6117 3.85558 19.6565 4.01226L20.998 8.71958H2.99805L4.34242 4.01226C4.38709 3.85604 4.48126 3.71856 4.61076 3.62048C4.74027 3.5224 4.89811 3.46902 5.06055 3.46838Z" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round"/>
+<path id="Vector_4" d="M8.99805 8.71875V10.2188C8.99805 11.0144 8.68198 11.7775 8.11937 12.3401C7.55676 12.9027 6.7937 13.2188 5.99805 13.2188C5.2024 13.2188 4.43934 12.9027 3.87673 12.3401C3.31412 11.7775 2.99805 11.0144 2.99805 10.2188V8.71875" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round"/>
+<path id="Vector_5" d="M15 8.71875V10.2188C15 11.0144 14.6839 11.7775 14.1213 12.3401C13.5587 12.9027 12.7956 13.2188 12 13.2188C11.2044 13.2188 10.4413 12.9027 9.87868 12.3401C9.31607 11.7775 9 11.0144 9 10.2188V8.71875" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round"/>
+<path id="Vector_6" d="M21.0021 8.71874V10.2187C21.0021 11.0144 20.686 11.7775 20.1234 12.3401C19.5608 12.9027 18.7978 13.2187 18.0021 13.2187C17.2065 13.2187 16.4434 12.9027 15.8808 12.3401C15.3182 11.7775 15.0021 11.0144 15.0021 10.2187V8.71874" stroke="#6F6F6F" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+<defs>
+<clipPath id="clip0_0_50">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>

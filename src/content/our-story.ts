@@ -29,14 +29,12 @@ export type StoryChapter = {
 };
 
 export const OUR_STORY: {
-  eyebrow: string;
   title: string;
   intro: string[];
   chapters: StoryChapter[];
   signature: { name: string; role: string };
   closing: string;
 } = {
-  eyebrow: 'Our story',
   title: 'Why I built this',
   intro: [
     'I built Kinage because my family lived this problem firsthand. When we needed to coordinate my mother’s finances, nothing available truly helped. Kinage is the product I wish we’d had.',
@@ -63,7 +61,7 @@ export const OUR_STORY: {
       kicker: 'The constraint that shaped everything after it.',
       copy: [
         'Kinage can only see data. It never moves, changes, or touches anything in any account, and it cannot initiate transfers, make payments, or touch funds, by design.',
-        'Your parent decides who sees what, and can revoke access at any time.',
+        'Your parent decides who takes part, and can revoke access at any time.',
       ],
       brief: 'Ben says why read-only, no money movement and the older adult’s control were choices, not limitations.',
     },
@@ -77,5 +75,5 @@ export const OUR_STORY: {
   ],
   /** Two-line caption under Ben's photo: name, then role (no comma or dash). */
   signature: { name: 'Ben Terk', role: 'Founder of Kinage' },
-  closing: 'See what Kinage finds in your family’s first week',
+  closing: 'See what’s happening. Before it matters.',
 };

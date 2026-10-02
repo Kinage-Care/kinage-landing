@@ -1,7 +1,12 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
+import { useCallback, useEffect, useImperativeHandle, useRef, useState, type CSSProperties, type KeyboardEvent, type Ref } from 'react';
 import './VideoPlayer.css';
 
 type Captions = { src: string; srclang: string; label: string };
+
+export type VideoPlayerHandle = {
+  /** Start playback (call inside a user gesture so sound is allowed). */
+  start: () => void;
+};
 
 type Props = {
   src: string;
@@ -9,7 +14,28 @@ type Props = {
   title: string;
   /** A WebVTT subtitle track, on by default. */
   captions?: Captions;
+  ref?: Ref<VideoPlayerHandle>;
+  /**
+   * 'hero': the idle preview has no frame shadow and its lower part fades into
+   * the page background (a mask on the media layer only, never on controls);
+   * the fade and poster overlay leave smoothly when playback starts.
+   */
+  variant?: 'default' | 'hero';
+  /** 'metadata' for a player in the first screen; 'none' further down the page. */
+  preload?: 'metadata' | 'none';
+  /** The media's natural shape (poster first, then the file's metadata). */
+  onShape?: (width: number, height: number) => void;
 };
+
+/**
+ * One sound at a time across every player on the page: when one starts, any
+ * other that is playing pauses.
+ */
+let playingNow: HTMLVideoElement | null = null;
+function claimPlayback(v: HTMLVideoElement) {
+  if (playingNow && playingNow !== v && !playingNow.paused) playingNow.pause();
+  playingNow = v;
+}
 
 type TrackMode = 'disabled' | 'hidden' | 'showing';
 
@@ -22,8 +48,13 @@ const clock = (s: number) => {
 const IDLE_MS = 2600;
 
 /**
- * Explainer video (Figma 562:4374): poster with the heather multiply tint and
- * the 72px mandarin play button (white glyph). Nothing autoplays; sound starts only from the
+ * Explainer video player. Its box takes the shape of the file itself — no
+ * fixed ratio anywhere: first the poster's natural size (the poster is a
+ * frame of the same file), then the video's own videoWidth × videoHeight once
+ * its metadata loads. Before either is known the <video> element sizes the
+ * box by its intrinsic dimensions.
+ *
+ * Poster with the heather multiply tint and the 72px play button. Nothing autoplays; sound starts only from the
  * user's click. Once started, the player's own control bar takes over: seek,
  * play/pause, time, sound, subtitles (CC) and full screen.
  *
@@ -40,7 +71,7 @@ const IDLE_MS = 2600;
  * where only the video element can go full screen (iPhone) the native player
  * is used.
  */
-export function VideoPlayer({ src, poster, title, captions }: Props) {
+export function VideoPlayer({ src, poster, title, captions, ref, variant = 'default', preload = 'metadata', onShape }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const trackRef = useRef<HTMLTrackElement>(null);
@@ -58,8 +89,31 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
   const [fullscreen, setFullscreen] = useState(false);
   const [idle, setIdle] = useState(false);
   const [ratio, setRatio] = useState<string | undefined>(undefined);
+  const shapeRef = useRef(onShape);
+  shapeRef.current = onShape;
 
   const track = () => trackRef.current?.track ?? null;
+
+  // Shape from the poster (a frame of the same file) until the metadata arrives.
+  useEffect(() => {
+    const img = new Image();
+    let alive = true;
+    const apply = () => {
+      if (alive && img.naturalWidth && img.naturalHeight) {
+        setRatio((r) => {
+          if (r) return r;
+          shapeRef.current?.(img.naturalWidth, img.naturalHeight);
+          return `${img.naturalWidth} / ${img.naturalHeight}`;
+        });
+      }
+    };
+    img.onload = apply;
+    img.src = poster;
+    if (img.complete) apply();
+    return () => {
+      alive = false;
+    };
+  }, [poster]);
 
   // Subtitle track: default on (once), then only ever mirrored.
   useEffect(() => {
@@ -95,9 +149,15 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
     const onTime = () => setTime(v.currentTime);
     const onMeta = () => {
       setDuration(v.duration);
-      if (v.videoWidth && v.videoHeight) setRatio(`${v.videoWidth} / ${v.videoHeight}`);
+      if (v.videoWidth && v.videoHeight) {
+        setRatio(`${v.videoWidth} / ${v.videoHeight}`);
+        shapeRef.current?.(v.videoWidth, v.videoHeight);
+      }
     };
-    const onPlay = () => setPlaying(true);
+    const onPlay = () => {
+      claimPlayback(v);
+      setPlaying(true);
+    };
     const onPause = () => setPlaying(false);
     const onVolume = () => setMuted(v.muted);
     const onBeginNative = () => {
@@ -180,6 +240,8 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
     requestAnimationFrame(() => playRef.current?.focus({ preventScroll: true }));
   };
 
+  useImperativeHandle(ref, () => ({ start }));
+
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
@@ -249,10 +311,12 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
     <div
       ref={rootRef}
       className="video"
+      data-variant={variant}
       data-started={started || undefined}
       data-playing={playing || undefined}
       data-idle={(started && idle) || undefined}
       data-fullscreen={fullscreen || undefined}
+      data-shaped={ratio ? true : undefined}
       style={ratio ? { aspectRatio: ratio } : undefined}
       onPointerMove={started ? wake : undefined}
       onPointerDown={started ? wake : undefined}
@@ -264,7 +328,7 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
         className="video__media"
         src={src}
         poster={poster}
-        preload="metadata"
+        preload={preload}
         playsInline
         aria-label={title}
         tabIndex={-1}
@@ -275,19 +339,18 @@ export function VideoPlayer({ src, poster, title, captions }: Props) {
           else togglePlay();
         }}
       >
-        {captions && <track ref={trackRef} kind="subtitles" src={captions.src} srcLang={captions.srclang} label={captions.label} default />}
+        {captions && <track ref={trackRef} kind="captions" src={captions.src} srcLang={captions.srclang} label={captions.label} default />}
       </video>
+
+      {variant === 'hero' && <span className="video__edge" aria-hidden="true" />}
 
       {!started && (
         <>
-          <span className="video__tint" aria-hidden="true" />
+          {variant === 'default' && <span className="video__tint" aria-hidden="true" />}
           <button type="button" className="video__play" onClick={start}>
-            {/* Figma play glyph (play.svg) on the mandarin CTA disc drawn by CSS. */}
-            <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
-              <path
-                d="M50 35.134C50.6667 35.5189 50.6667 36.4811 50 36.866L29.75 48.5574C29.0833 48.9423 28.25 48.4611 28.25 47.6913L28.25 24.3087C28.25 23.5389 29.0833 23.0577 29.75 23.4426L50 35.134Z"
-                fill="currentColor"
-              />
+            {/* Symmetric about y = 12; its centroid ((8.33 + 8.33 + 19.33) / 3 = 12) sits on the circle's centre. */}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.33 5.5 19.33 12 8.33 18.5Z" />
             </svg>
             <span className="sr-only">Play video: {title}</span>
           </button>

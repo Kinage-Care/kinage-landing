@@ -1,11 +1,10 @@
 /*
- * Figma 583:1070 — 1200 × 72, radius 16, white at 80% + 6.85px backdrop blur.
- * Only the bar's fill is translucent; logo, links and buttons stay opaque.
+ * Floating navigation (reference pack): frosted white container, 8px radius,
+ * the layered nav shadow; pill items in Plum Velvet, the current one on Mist
+ * Violet; one filled action on the right.
  *
  * Hidden while scrolling (lift + fade, --motion-nav-hide), shown again after
- * scrolling stops (--motion-nav-show, slower). The wrapper moves; the bar
- * fades — keeping opacity on the element that owns the backdrop-filter so the
- * blur is never cut off by an ancestor's opacity.
+ * scrolling stops (--motion-nav-show, slower).
  */
 .nav {
   position: fixed;
@@ -18,7 +17,6 @@
     transform var(--motion-nav-show) var(--motion-ease-out),
     visibility 0s linear 0s;
 }
-
 .nav[data-hidden] {
   visibility: hidden;
   pointer-events: none;
@@ -29,55 +27,86 @@
 }
 
 .nav__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  height: var(--layout-nav-height);
+  padding: 0 var(--space-12) 0 var(--space-20);
+  border-radius: var(--radius-md);
+  /* Frosted: the page behind is blurred, never the bar's own text or controls. */
+  background: rgba(255, 255, 255, 0.74);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: var(--shadow-md);
   transition: opacity var(--motion-nav-show) var(--motion-ease-out);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav__bar {
+    background: var(--color-white);
+  }
 }
 .nav[data-hidden] .nav__bar {
   opacity: 0;
   transition: opacity var(--motion-nav-hide) var(--motion-ease-exit);
 }
 
-.nav__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-24);
-  height: var(--layout-nav-height);
-  padding: var(--space-4) var(--space-24);
-  border-radius: var(--radius-panel);
-  background: rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: blur(6.85px);
-  backdrop-filter: blur(6.85px);
-  box-shadow: var(--shadow-nav);
-}
-
 .nav__brand {
+  position: relative;
   display: inline-flex;
-  border-radius: var(--radius-control);
+  flex: none;
+  border-radius: var(--radius-md);
+}
+/* Invisible 44px-tall hit area round the logo (nothing moves). */
+.nav__brand::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 44px;
+  translate: 0 -50%;
+}
+.nav__brand .brand__logo {
+  width: 124px;
+  height: auto;
+  margin-block: -2px -6px;
 }
 
 .nav__links {
   display: flex;
   align-items: center;
-  gap: var(--space-32);
+  gap: var(--space-4);
+  margin-left: auto;
 }
 
+/* Pill item (pack: pill radius, 8/16 padding, DM Sans 500 14, Plum Velvet). */
 .nav__link {
-  /* Same control type as the buttons: Museo Sans 16 / 1.25 / 500. */
-  font-size: var(--type-control-size);
-  line-height: var(--type-control-line);
-  font-weight: var(--type-control-weight);
-  letter-spacing: var(--type-control-tracking);
-  color: var(--text-heading);
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-pill);
+  font-size: var(--type-nav-size);
+  line-height: var(--type-nav-line);
+  font-weight: var(--type-nav-weight);
+  color: var(--text-strong);
   white-space: nowrap;
-  border-radius: 4px;
-  transition: color var(--motion-duration-hover) var(--motion-ease-out);
+  transition:
+    background-color var(--motion-duration-hover) var(--motion-ease-out),
+    color var(--motion-duration-hover) var(--motion-ease-out);
 }
 .nav__link:hover {
-  color: var(--text-action);
+  background: var(--color-paper);
+}
+.nav__link[data-current],
+.nav__link[aria-current='page'] {
+  background: var(--color-mist-violet);
+  color: var(--color-amethyst);
+}
+.nav__link:focus-visible {
+  border-radius: var(--radius-pill);
 }
 
 .nav__cta {
-  height: 44px;
+  flex: none;
 }
 
 .nav__menu-cta,
@@ -85,40 +114,39 @@
   display: none;
 }
 
-@media (max-width: 1279px) {
-  .nav__links {
-    gap: var(--space-24);
-  }
-}
-
 /* ---- Collapsed menu below 1024px ------------------------------------- */
 @media (max-width: 1023px) {
   .nav__cta {
-    display: none;
+    margin-left: auto;
   }
-
   .nav__toggle {
+    position: relative;
     display: inline-grid;
+    flex: none;
     place-items: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-control);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-mist);
+    border-radius: var(--radius-md);
     background: var(--color-white);
     cursor: pointer;
+  }
+  /* Invisible 44 × 44 hit area (the button stays 40 × 40; the inset is
+     measured inside its 1px border). */
+  .nav__toggle::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
   }
   .nav__toggle svg path {
     stroke: var(--color-ink);
     stroke-width: 1.75;
     stroke-linecap: round;
-    /* The 22 × 22 icon's centre, in viewBox units. */
     transform-box: view-box;
     transform-origin: 11px 11px;
     transition: transform var(--motion-duration-hover) var(--motion-ease-out);
   }
-  /* Close: each bar first moves onto the centre line (±4px), then turns about
-     the centre — a symmetric X. (Rotating first and moving after left the two
-     diagonals crossing off-centre, with uneven arms.) */
+  /* Close: each bar moves onto the centre line, then turns — a symmetric X. */
   .nav[data-open] .nav__toggle-top {
     transform: rotate(45deg) translateY(4px);
   }
@@ -133,11 +161,12 @@
     right: 0;
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
-    padding: var(--space-12);
-    border-radius: var(--radius-panel);
+    gap: 2px;
+    margin: 0;
+    padding: var(--space-8);
+    border-radius: var(--radius-md);
     background: var(--color-white);
-    box-shadow: var(--shadow-nav);
+    box-shadow: var(--shadow-md);
     visibility: hidden;
     opacity: 0;
     transform: translateY(-6px);
@@ -153,15 +182,17 @@
     transition-delay: 0s;
   }
   .nav__link {
-    display: block;
-    padding: var(--space-12) var(--space-16);
+    display: flex;
+    height: 48px;
+    border-radius: var(--radius-md);
+    font-size: var(--type-body-size);
   }
-  .nav__link:hover {
-    background: var(--action-outline-hover);
+  .nav__link:focus-visible {
+    border-radius: var(--radius-md);
   }
   .nav__menu-cta {
     display: block;
-    padding: var(--space-8) var(--space-16) var(--space-4);
+    padding: var(--space-8) 0 0;
   }
   .nav__menu-cta .btn {
     width: 100%;
@@ -175,11 +206,20 @@
   }
   .nav__bar {
     height: 60px;
-    padding: var(--space-4) var(--space-12) var(--space-4) var(--space-16);
+    gap: var(--space-12);
+    padding: 0 var(--space-8) 0 var(--space-16);
   }
-  .nav__bar .brand {
-    transform: scale(0.88);
-    transform-origin: left center;
+  .nav__brand .brand__logo {
+    width: 112px;
+  }
+}
+@media (max-width: 419px) {
+  /* The menu carries the action on small phones. */
+  .nav__cta {
+    display: none;
+  }
+  .nav__toggle {
+    margin-left: auto;
   }
 }
 

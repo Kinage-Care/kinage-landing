@@ -8,11 +8,7 @@ const subscribe = (cb: () => void) => {
   return () => mql.removeEventListener('change', cb);
 };
 
-/** Live `prefers-reduced-motion: reduce` flag for React state (carousel autoplay, demo). */
+/** Live prefers-reduced-motion state. */
 export function usePrefersReducedMotion(): boolean {
-  return useSyncExternalStore(
-    subscribe,
-    () => window.matchMedia(QUERY).matches,
-    () => false,
-  );
+  return useSyncExternalStore(subscribe, () => window.matchMedia(QUERY).matches, () => false);
 }

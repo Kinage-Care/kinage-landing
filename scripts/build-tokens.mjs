@@ -3,9 +3,11 @@
  * Kinage tokens → CSS custom properties.
  *
  * design-system/tokens.json is the single source of truth. This script writes
- * src/styles/tokens.css from it. Run with --check to fail (exit 1) when the
- * committed CSS has drifted from the JSON — `npm run check` does this, and
- * `npm run build` runs `check` first, so CSS and JSON cannot disagree in a build.
+ * src/styles/tokens.css from it and keeps the design system docs in step with
+ * the code: design-system/tokens.css is the same generated file and
+ * design-system/base.css a copy of src/styles/base.css. Run with --check to fail
+ * (exit 1) when any of them has drifted. `npm run check` does this, and
+ * `npm run build` runs `check` first, so CSS, JSON and docs cannot disagree in a build.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +16,9 @@ import { dirname, resolve } from 'node:path';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = resolve(root, 'design-system/tokens.json');
 const OUT = resolve(root, 'src/styles/tokens.css');
+const DOCS_TOKENS = resolve(root, 'design-system/tokens.css');
+const BASE = resolve(root, 'src/styles/base.css');
+const DOCS_BASE = resolve(root, 'design-system/base.css');
 const check = process.argv.includes('--check');
 
 const tokens = JSON.parse(readFileSync(SRC, 'utf8'));
@@ -70,7 +75,7 @@ for (const [group, prefix] of Object.entries(PREFIX)) {
   }
 }
 
-section('typography — size / line-height / weight / tracking');
+section('typography: size / line-height / weight / tracking');
 for (const [key, token] of Object.entries(tokens.typography)) {
   const v = token.$value;
   lines.push(`  --type-${key}-size: ${v.fontSize};`);
@@ -79,7 +84,7 @@ for (const [key, token] of Object.entries(tokens.typography)) {
   lines.push(`  --type-${key}-tracking: ${resolveAlias(v.letterSpacing)};`);
 }
 
-section('motion — CSS-consumable subset (GSAP reads the same JSON in src/motion/tokens.ts)');
+section('motion: CSS-consumable subset (GSAP reads the same JSON in src/motion/tokens.ts)');
 for (const sub of ['duration', 'ease', 'distance', 'stagger']) {
   for (const [key, token] of Object.entries(tokens.motion[sub])) {
     lines.push(`  --motion-${sub}-${key}: ${token.$value};`);
@@ -94,7 +99,7 @@ const breakpoints = Object.entries(tokens.breakpoint)
   .join(' · ');
 
 const css = `/*
- * GENERATED FILE — do not edit by hand.
+ * GENERATED FILE: do not edit by hand.
  * Source: design-system/tokens.json  →  npm run tokens
  * Breakpoints (use literally in media queries): ${breakpoints}
  */
@@ -102,14 +107,22 @@ const css = `/*
 }
 `;
 
+const base = readFileSync(BASE, 'utf8');
+const read = (file) => (existsSync(file) ? readFileSync(file, 'utf8') : '');
+
 if (check) {
-  const current = existsSync(OUT) ? readFileSync(OUT, 'utf8') : '';
-  if (current !== css) {
+  if (read(OUT) !== css) {
     console.error('✗ src/styles/tokens.css is out of date with design-system/tokens.json — run `npm run tokens`.');
     process.exit(1);
   }
-  console.log('✓ tokens.css matches tokens.json');
+  if (read(DOCS_TOKENS) !== css || read(DOCS_BASE) !== base) {
+    console.error('✗ design-system/tokens.css or design-system/base.css differs from the code — run `npm run tokens`.');
+    process.exit(1);
+  }
+  console.log('✓ tokens.css matches tokens.json; the design-system copies match the code');
 } else {
   writeFileSync(OUT, css);
-  console.log(`✓ wrote ${OUT.replace(root, '.')} (${lines.filter((l) => l.includes('--')).length} custom properties)`);
+  writeFileSync(DOCS_TOKENS, css);
+  writeFileSync(DOCS_BASE, base);
+  console.log(`✓ wrote ${OUT.replace(root, '.')} (${lines.filter((l) => l.includes('--')).length} custom properties) and the design-system copies`);
 }

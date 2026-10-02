@@ -1,30 +1,26 @@
 import { Brand } from '../components/Brand';
-import { EarlyAccessButton } from '../components/EarlyAccess';
 import { SmartLink } from '../components/SmartLink';
-import { FOOTER_COLUMNS } from '../content/landing';
-import { SECTIONS } from '../content/links';
+import { LINKS, SECTIONS, isPending } from '../content/links';
+import { FOOTER_COLUMNS, TAGLINE } from '../content/site';
 import { withBase } from '../lib/base';
 import './Footer.css';
 
-/** 15 — FOOTER (Figma 562:4265). */
+/**
+ * 10 — Footer on Paper. Brand and tagline, three link columns. The Privacy
+ * Policy and Terms texts are not in this project yet, so they are plain
+ * labels rather than links. No street address or phone number: none is
+ * confirmed for this site.
+ */
 export function Footer() {
   return (
-    <footer className="footer on-brand">
-      <span className="footer__rule" aria-hidden="true" />
+    <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__row">
-          <div className="footer__brand">
+          <div className="footer__brand" id={SECTIONS.contact}>
             <a href={withBase(`/#${SECTIONS.top}`)} className="footer__logo" aria-label="Kinage home">
-              <Brand tone="inverse" />
+              <Brand />
             </a>
-            <address className="footer__address" id={SECTIONS.contact}>
-              <span>350 Fifth Avenue, Suite 4120</span>
-              <span>New York, NY 10118</span>
-              <SmartLink to="email" className="footer__link" />
-              <SmartLink to="phone" className="footer__link" />
-            </address>
-            {/* Reserved 56 × 36 frame — empty in Figma (569:540), kept so the column keeps its height. */}
-            <span className="footer__reserved" aria-hidden="true" />
+            <p className="footer__tagline">{TAGLINE}</p>
           </div>
 
           {FOOTER_COLUMNS.map((col) => (
@@ -33,22 +29,20 @@ export function Footer() {
               <ul className="footer__links">
                 {col.links.map((key) => (
                   <li key={key}>
-                    <SmartLink to={key} className="footer__link" />
+                    {isPending(key) ? (
+                      // No legal text exists in this project yet: a plain label, not a link that goes nowhere.
+                      <span className="footer__label">{LINKS[key].label}</span>
+                    ) : (
+                      <SmartLink to={key} className="footer__link" />
+                    )}
                   </li>
                 ))}
               </ul>
             </nav>
           ))}
-
-          <div className="footer__col footer__col--news">
-            <p className="footer__title">Stay in the loop</p>
-            <p className="footer__note">Be first to know when we launch new features.</p>
-            <EarlyAccessButton className="btn btn--primary footer__cta" />
-          </div>
         </div>
 
-        <span className="footer__rule footer__rule--inner" aria-hidden="true" />
-        <p className="footer__copy">© 2025 Kinage. All rights reserved.</p>
+        <p className="footer__copy">© 2026 Kinage. All rights reserved.</p>
       </div>
     </footer>
   );

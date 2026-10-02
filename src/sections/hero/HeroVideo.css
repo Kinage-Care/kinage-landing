@@ -1,0 +1,253 @@
+/*
+ * Hero video block (Figma North-Star 706:2809, 679 × 317 at 1440): a lavender
+ * panel inside the hero card, 36 below the actions. Phone preview on the left
+ * (709:3505: 196 × 424 screen at 83 / 40, 11 bezel outside it), cropped by the
+ * panel and by a white fade along the bottom (706:2812); label and heading on
+ * the right. Geometry is in the hero's --u unit (--pu inside the phone), so
+ * the block scales with the card; colours, radii and shadows are tokens.
+ */
+.hero__video {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: calc(36 * var(--u, 1px));
+}
+
+.hero-video {
+  --pu: var(--u, 1px);
+  --bezel: calc(11 * var(--pu));
+  position: relative;
+  display: block;
+  width: min(calc(679 * var(--u, 1px)), 100%);
+  height: calc(317 * var(--pu));
+  padding: 0;
+  overflow: clip;
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-lilac);
+  color: var(--text-heading);
+  text-align: left;
+  cursor: pointer;
+}
+.hero-video:focus-visible {
+  outline-offset: 3px;
+}
+/* The fade: transparent to the card's white, over the phone's lower part. */
+.hero-video::after {
+  content: '';
+  position: absolute;
+  inset: calc(220 * var(--pu)) 0 0;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 0%, var(--color-white) 88%);
+  pointer-events: none;
+}
+
+/* ---- Phone preview ---------------------------------------------------------- */
+.hero-video__phone {
+  position: absolute;
+  left: calc(83 * var(--pu) - var(--bezel));
+  top: calc(40 * var(--pu) - var(--bezel));
+  display: block;
+  width: calc(195.8 * var(--pu) + 2 * var(--bezel));
+  height: calc(423.7 * var(--pu) + 2 * var(--bezel));
+  padding: var(--bezel);
+  border-radius: calc(var(--radius-xl) + var(--bezel));
+  background: var(--color-eggplant);
+  box-shadow: var(--shadow-md);
+  transition: translate var(--motion-duration-hover) var(--motion-ease-out);
+}
+.hero-video__screen {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: clip;
+  isolation: isolate;
+  border-radius: var(--radius-xl);
+  background: var(--color-product-canvas);
+}
+/* Figma "f_0001 2": the soft light texture across the top, hard-light. The file
+   is exported in its displayed proportion (551 × 249, 2x), so nothing stretches. */
+.hero-video__texture {
+  position: absolute;
+  left: calc(-36.79 * var(--pu));
+  top: calc(-24.83 * var(--pu));
+  width: calc(275.39 * var(--pu));
+  height: calc(124.4 * var(--pu));
+  max-width: none;
+  object-position: bottom;
+  mix-blend-mode: hard-light;
+}
+/* The Kinage lockup (the same brand file as the nav), 92.5 wide. */
+.hero-video__logo {
+  position: absolute;
+  left: calc(8.54 * var(--pu));
+  top: calc(23.5 * var(--pu));
+  width: calc(92.55 * var(--pu));
+  height: auto;
+}
+.hero-video__menu {
+  position: absolute;
+  left: calc(169.69 * var(--pu));
+  top: calc(25.1 * var(--pu));
+  display: grid;
+  place-items: center;
+  width: calc(19.08 * var(--pu));
+  height: calc(19.08 * var(--pu));
+  border-radius: var(--radius-sm);
+  background: var(--color-lilac);
+}
+.hero-video__menu img {
+  width: calc(10.05 * var(--pu));
+  height: calc(5.87 * var(--pu));
+}
+.hero-video__play {
+  position: absolute;
+  left: calc(61.9 * var(--pu));
+  top: calc(79 * var(--pu));
+  width: calc(72 * var(--pu));
+  height: calc(72 * var(--pu));
+  transition: scale var(--motion-duration-hover) var(--motion-ease-out);
+}
+.hero-video__line {
+  position: absolute;
+  left: calc(21.08 * var(--pu));
+  top: calc(189 * var(--pu));
+  width: calc(153.63 * var(--pu));
+  height: calc(7.355 * var(--pu));
+  border-radius: var(--radius-pill);
+  background: var(--color-heather);
+}
+.hero-video__line + .hero-video__line {
+  top: calc(208.18 * var(--pu));
+  width: calc(119.05 * var(--pu));
+}
+.hero-video__line + .hero-video__line + .hero-video__line {
+  top: calc(227.36 * var(--pu));
+  width: calc(80.01 * var(--pu));
+}
+
+/* ---- Label and heading ------------------------------------------------------ */
+.hero-video__text {
+  position: absolute;
+  inset: 0 calc(40 * var(--pu)) 0 calc(331 * var(--pu));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(8 * var(--pu));
+}
+/* Caps via CSS (the source text stays "Video overview"), the heading's colour, the caps tracking. */
+.hero-video__label {
+  font-size: max(var(--type-caption-size), calc(15 * var(--u, 1px)));
+  line-height: var(--type-body-sm-line);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-heading);
+}
+.hero-video__title {
+  font-family: var(--font-display);
+  font-size: max(var(--type-title-sm-size), calc(32 * var(--u, 1px)));
+  line-height: var(--type-heading-sm-line);
+  font-weight: var(--type-heading-weight);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+
+.hero-video:hover .hero-video__phone {
+  translate: 0 calc(-4 * var(--pu));
+}
+.hero-video:hover .hero-video__play {
+  scale: 1.06;
+}
+
+/* Exactly the video's width (no side bars); the close button sits above it. */
+.ea--video {
+  width: min(960px, 100% - 2 * var(--layout-gutter-mobile));
+  border-radius: var(--radius-xl);
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.ea__panel--video {
+  padding: 0;
+}
+.ea__panel--video .video {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+.ea__panel--video .ea__close {
+  top: -52px;
+  right: 0;
+  z-index: 2;
+}
+
+/* Phones held sideways: the player fills the screen at the file's own ratio
+   (--video-ratio, letterboxed by the backdrop), limited by the height as well
+   as the width, and the close button sits on its top-right corner, so nothing
+   is ever off screen. Follows a rotation at once (media query, dvh). */
+@media (orientation: landscape) and (max-height: 500px) {
+  .ea--video {
+    width: min(100% - 2 * var(--layout-gutter-mobile), (100dvh - 2 * var(--layout-gutter-mobile)) * var(--video-ratio));
+  }
+  .ea__panel--video .ea__close {
+    top: var(--space-8);
+    right: var(--space-8);
+  }
+}
+
+/* Phones: the label and heading on top, the phone preview below them, its
+   lower part under the same fade. */
+@media (max-width: 767px) {
+  .hero__video {
+    margin-top: var(--space-24);
+  }
+  .hero-video {
+    --pu: 0.86px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding-top: var(--space-24);
+  }
+  .hero-video::after {
+    inset: auto 0 0;
+    height: calc(110 * var(--pu));
+  }
+  .hero-video__text {
+    position: relative;
+    inset: auto;
+    align-items: center;
+    gap: var(--space-4);
+    padding-inline: var(--space-20);
+    text-align: center;
+  }
+  .hero-video__title {
+    font-size: var(--type-title-sm-size);
+    line-height: var(--type-title-sm-line);
+  }
+  .hero-video__phone {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex: none;
+    margin-top: var(--space-24);
+    /* Only the top of the phone shows: the panel clips the rest. */
+    margin-bottom: calc(-190 * var(--pu));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video__phone,
+  .hero-video__play {
+    transition: none;
+  }
+  .hero-video:hover .hero-video__phone,
+  .hero-video:hover .hero-video__play {
+    translate: none;
+    scale: none;
+  }
+}

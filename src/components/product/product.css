@@ -1,0 +1,77 @@
+/*
+ * Kinage product UI, shown inside product frames only: Museo Sans and the
+ * app's own colours and geometry (Figma North Star screens 544:406 Upcoming,
+ * 544:337 Payment card, 544:699 Welcome).
+ */
+.p-ui {
+  font-family: var(--font-product);
+  color: var(--color-product-ink);
+  text-align: left;
+}
+
+.p-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 26px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-product);
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: #eef1f5;
+  color: #44505f;
+}
+.p-badge[data-icon] {
+  padding-left: 8px;
+}
+.p-badge img {
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+.p-badge[data-kind='overdue'] {
+  background: #fbe7e7;
+  color: #8d3434;
+}
+.p-badge[data-kind='flagged'] {
+  background: #f3ecfa;
+  color: #684286;
+}
+.p-badge[data-kind='unusual'] {
+  background: #fff0e3;
+  color: #8a4c1f;
+}
+.p-badge[data-kind='due-soon'] {
+  background: #fff0db;
+  color: #8a4b10;
+}
+.p-badge[data-kind='confirmed'] {
+  background: #e6f3eb;
+  color: #2e6b49;
+}
+
+.p-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-text);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--color-white);
+  background: var(--color-eggplant);
+}
+.p-avatar[data-tone='violet'] {
+  background: var(--color-product-violet);
+}
+.p-avatar[data-tone='rose'] {
+  background: #974d4d;
+}
+.p-avatar[data-tone='sand'] {
+  background: #cea998;
+  color: var(--color-product-ink);
+}

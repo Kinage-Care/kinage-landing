@@ -1,9 +1,8 @@
 /**
  * Minimal History-API routing for the pages: the landing (/), Our Story
- * (/our-story) and For Advisors (/advisors), under the site's base path
- * (src/lib/base.ts). No dependency; Vite's dev server serves index.html for
- * these paths, and the build writes a static entry per page (plus 404.html),
- * so direct loads and refreshes also work on GitHub Pages.
+ * (/our-story) and For Advisors (/advisors). No dependency; Vite's dev and
+ * preview servers serve index.html for these paths, so direct loads and
+ * refreshes work locally.
  *
  * - Same-origin links that change the page are intercepted and pushed onto
  *   history (see `interceptLinks`); links within the current page — including

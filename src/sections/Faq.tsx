@@ -1,14 +1,15 @@
 import { useId, useRef, useState } from 'react';
 import { FAQ } from '../content/faq';
+import { FAQ_HEAD } from '../content/home';
 import { SECTIONS } from '../content/links';
 import { useReveal } from '../motion/useReveal';
 import './Faq.css';
 
 /**
- * 13 — FAQ. Heading has no trailing period ("Common questions").
- * All closed on load (as designed); one item open at a time.
- * Height animates with a CSS grid-rows transition; collapsed panels are
- * `inert` so their content leaves the tab order and the accessibility tree.
+ * 8 — FAQ. Heading block on the left, a hairline accordion on the right.
+ * All closed on load; one item open at a time. Height animates with a CSS
+ * grid-rows transition; collapsed panels are `inert`, so their content
+ * leaves the tab order and the accessibility tree.
  */
 export function Faq() {
   const ref = useRef<HTMLElement>(null);
@@ -17,12 +18,12 @@ export function Faq() {
   const baseId = useId();
 
   return (
-    <section className="faq" id={SECTIONS.faq} aria-labelledby="faq-title" ref={ref}>
+    <section className="section faq" id={SECTIONS.faq} aria-labelledby="faq-title" ref={ref}>
       <div className="container faq__inner">
-        <header className="section-head" data-reveal>
-          <p className="eyebrow">FAQ</p>
+        <header className="section-head section-head--left faq__head" data-reveal>
+          <p className="eyebrow">{FAQ_HEAD.tag}</p>
           <h2 className="section-title" id="faq-title">
-            Common <span className="accent">questions</span>
+            {FAQ_HEAD.title}
           </h2>
         </header>
 
@@ -32,7 +33,7 @@ export function Faq() {
             const btnId = `${baseId}-${item.id}-q`;
             const panelId = `${baseId}-${item.id}-a`;
             return (
-              <div className="faq__item" key={item.id} data-open={isOpen || undefined} data-status={item.status}>
+              <div className="faq__item" key={item.id} data-open={isOpen || undefined}>
                 <h3 className="faq__q">
                   <button
                     id={btnId}
@@ -51,10 +52,13 @@ export function Faq() {
                     </span>
                   </button>
                 </h3>
-                <div className="faq__panel" id={panelId} role="region" aria-labelledby={btnId} inert={!isOpen}>
+                <div className="faq__panel" id={panelId} inert={!isOpen}>
                   <div className="faq__panel-inner">
-                    {/* Draft status stays in content/faq.ts only — never rendered. */}
-                    <p className="faq__answer">{item.answer}</p>
+                    {item.answer.map((p) => (
+                      <p className="faq__answer" key={p.slice(0, 24)}>
+                        {p}
+                      </p>
+                    ))}
                   </div>
                 </div>
               </div>

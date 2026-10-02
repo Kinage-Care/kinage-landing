@@ -10,10 +10,10 @@
   margin: auto;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-panel);
+  border-radius: var(--radius-xl);
   background: var(--color-white);
   color: var(--text-body);
-  box-shadow: var(--shadow-dialog);
+  box-shadow: var(--shadow-lg);
   overflow: auto;
   overscroll-behavior: contain;
 }
@@ -61,6 +61,13 @@
   cursor: pointer;
   transition: background-color var(--motion-duration-hover) var(--motion-ease-out);
 }
+/* Invisible 44 × 44 hit area (the button stays 40 × 40). */
+.ea__close::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+}
 .ea__close:hover {
   background: var(--color-orchid);
 }
@@ -84,8 +91,8 @@
 .ea__title {
   padding-right: var(--space-40);
   font-size: 28px;
-  line-height: 1.18;
-  font-weight: var(--weight-semibold);
+  line-height: 1.1;
+  font-weight: var(--weight-medium);
   color: var(--text-heading);
   text-wrap: balance;
 }
@@ -114,10 +121,10 @@
   min-width: 0;
 }
 .ea__field label {
-  font-size: var(--type-label-size);
+  font-size: var(--type-button-sm-size);
   line-height: 1.3;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--type-button-sm-tracking);
   color: var(--text-heading);
 }
 .ea__optional {
@@ -131,7 +138,7 @@
   min-height: 48px;
   padding: 12px 14px;
   border: 1px solid var(--border-field);
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   color: var(--text-heading);
   font: inherit;
@@ -152,8 +159,8 @@
 .ea__field input:focus-visible,
 .ea__field textarea:focus-visible {
   outline: none;
-  border-color: var(--action-outline);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-mandarin) 22%, transparent);
+  border-color: var(--color-violet);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-violet) 22%, transparent);
 }
 .ea__field [aria-invalid='true'] {
   border-color: var(--color-berry);
@@ -163,23 +170,23 @@
 }
 
 .ea__error {
-  font-size: var(--type-small-size);
-  line-height: var(--type-small-line);
-  letter-spacing: var(--type-small-tracking);
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-small);
   color: var(--color-berry);
 }
 
 .ea__alert {
   padding: var(--space-12) var(--space-16);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--color-berry) 8%, var(--color-white));
   color: var(--color-ink);
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-line);
+  font-size: 15px;
+  line-height: 1.5;
 }
 .ea__alert a {
   color: var(--text-action);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -188,6 +195,9 @@
   width: 100%;
   min-height: 48px;
   margin-top: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
 }
 .ea__submit[aria-disabled='true'] {
   cursor: progress;
@@ -216,4 +226,15 @@
 /* Page scroll lock while the dialog is open (motion/smoothScroll.ts). */
 html.is-scroll-locked {
   overflow: hidden;
+}
+
+/* Local prototype notice (no endpoint configured). */
+.ea__local {
+  margin-top: var(--space-4);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  font-size: var(--type-body-xs-size);
+  line-height: 1.45;
+  color: var(--text-body);
 }

@@ -1,7 +1,8 @@
 import type { RefObject } from 'react';
-import { FLIGHT_ASSETS } from '../content/landing';
+import { FLIGHT_ASSETS } from '../content/flight';
 import { gsap, ScrollTrigger, useGSAP } from './gsap';
 import { MOTION, MQ } from './tokens';
+import { SMOOTH_QUERY } from './smoothScroll';
 
 type Geo = { fx: number; fy: number; fw: number; fh: number; tx: number; ty: number; scale: number };
 
@@ -16,8 +17,11 @@ type Geo = { fx: number; fy: number; fw: number; fh: number; tx: number; ty: num
  * is a uniform scale (hero and slot boxes share the PNG's aspect ratio, so the
  * transparent padding scales with the art).
  *
- * The timeline is scrubbed by native scroll: stop scrolling and it stops,
- * scroll up and it reverses continuously. No pinning, no scroll hijack.
+ * The timeline is scrubbed by the scroll: stop scrolling and it stops, scroll
+ * up and it reverses continuously. No pinning, no scroll hijack. While Lenis
+ * smooths the wheel the scrub has no lag of its own (`scrub: true`): one
+ * smoothing only, so the objects move in step with the page and never catch
+ * up after it has stopped. With native scrolling the short settle stays.
  * Paths bend (vertical first, horizontal later) so assets drop past the hero
  * copy and the section header instead of cutting across them; the flight
  * layer also sits beneath all copy (z-index), so an asset can never cover text.
@@ -30,7 +34,9 @@ export function useHeroFlight(zoneRef: RefObject<HTMLDivElement | null>) {
       const mm = gsap.matchMedia();
 
       // ------------------------------------------------ tablet & desktop, motion allowed
-      mm.add(`${MQ.tabletUp} and ${MQ.motion}`, () => {
+      mm.add({ flight: `${MQ.tabletUp} and ${MQ.motion}`, smooth: SMOOTH_QUERY }, (context) => {
+        const { flight, smooth } = context.conditions as { flight: boolean; smooth: boolean };
+        if (!flight) return;
         const row = zone.querySelector<HTMLElement>('[data-flight-row]');
         if (!row) return;
 
@@ -79,7 +85,7 @@ export function useHeroFlight(zoneRef: RefObject<HTMLDivElement | null>) {
             start: 'top top',
             endTrigger: row,
             end: MOTION.flight.end,
-            scrub: MOTION.flight.scrub,
+            scrub: smooth ? true : MOTION.flight.scrub,
             invalidateOnRefresh: true,
           },
         });

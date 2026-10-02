@@ -1,0 +1,117 @@
+/*
+ * Two rows: row 1 holds the photo and the copy, row 2 the photo's caption.
+ * The photo sits at the bottom of row 1 (its purple frame ends at the image's
+ * bottom edge) and the button is pushed to the bottom of the copy, so the two
+ * bottoms always meet (layout only); the caption hangs below that line. When
+ * the photo is the taller one the copy spreads to its height (tops meet too);
+ * when the copy is taller the photo drops to the button's line.
+ */
+.ben__card {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  grid-template-rows: auto auto;
+  column-gap: var(--space-64);
+  row-gap: 0;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: var(--space-48);
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
+}
+
+/* The photo already carries its own purple panel: no mat or frame around it. */
+.ben__photo {
+  display: grid;
+  grid-row: 1 / span 2;
+  grid-template-rows: subgrid;
+  margin: 0;
+}
+.ben__photo img {
+  align-self: end;
+  width: 100%;
+  max-width: 979px; /* BEN_PORTRAIT.maxWidth: half the native width */
+  height: auto;
+  aspect-ratio: 1958 / 2413;
+  object-fit: cover;
+}
+
+.ben__copy {
+  display: flex;
+  flex-direction: column;
+  grid-row: 1;
+  grid-column: 2;
+  padding-right: var(--space-16);
+}
+.ben__title {
+  margin-top: 0;
+}
+.ben__quote {
+  display: grid;
+  gap: var(--space-16);
+  margin: var(--space-24) 0 0;
+  padding: 0;
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
+  color: var(--text-body);
+}
+/* Caption under the photo (.person-caption, base.css), inset to the purple
+   panel's edges (35 of 560 px each side), so left and centre both follow it. */
+.ben__sign {
+  margin-top: var(--space-20);
+  padding-inline: 6.25%;
+}
+/* Pushed to the bottom of the copy column: its bottom is the photo's bottom. */
+.ben__action {
+  margin-top: auto;
+  padding-top: var(--space-20);
+}
+.ben__arrow {
+  transition: translate var(--motion-duration-hover) var(--motion-ease-out);
+}
+.ben__link:hover .ben__arrow,
+.ben__link:focus-visible .ben__arrow {
+  translate: 3px 0;
+}
+
+@media (max-width: 1023px) {
+  .ben__card {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-40);
+    padding: var(--space-40);
+  }
+  .ben__copy {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  /* One column: photo, its caption, then the copy. */
+  .ben__card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: var(--space-28);
+    padding: var(--space-28) var(--space-24);
+  }
+  .ben__photo {
+    display: block;
+    grid-row: auto;
+  }
+  .ben__copy {
+    grid-row: auto;
+    grid-column: auto;
+  }
+  .ben__action {
+    padding-top: var(--space-28);
+  }
+  .ben__link {
+    width: 100%;
+  }
+  .ben__photo {
+    max-width: 240px;
+  }
+  .ben__quote {
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line);
+  }
+}

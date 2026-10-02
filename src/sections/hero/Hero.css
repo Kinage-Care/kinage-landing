@@ -1,0 +1,319 @@
+/*
+ * Hero + problem flight zone, in the V1 landing's layout (Kinage-Care/
+ * kinage-landing, src/sections/HeroFlight.css): a centred white card with the
+ * six paper-style objects around it. This page keeps its own wash, texture,
+ * type and buttons.
+ *
+ * Every V1 measurement is written as N * var(--u), where --u is 1px at the
+ * reference size:
+ *   --ux  width unit: the 1360px composition (card + overhanging objects) fits
+ *         the viewport width.
+ *   --uy  height unit: the visible composition fits under the floating nav.
+ *   --u   = min(--ux, --uy), floored at 0.6 so type never gets small; below
+ *         that the hero simply runs past the fold.
+ * The card keeps the full width (1201 * --ux); everything inside and around
+ * it uses --u and is anchored to the nearest card edge. Copy has readable
+ * minimums, so with long copy (or the video card) the card grows instead.
+ */
+
+.flight-zone {
+  position: relative;
+  container-type: inline-size;
+  /* Hero colour below the card; the problem section keeps its full top
+     padding below it (flight slots are measured, so they follow). */
+  --hero-tail: var(--layout-hero-tail);
+}
+@media (max-width: 1199px) {
+  .flight-zone {
+    --hero-tail: var(--layout-hero-tail-tablet);
+  }
+}
+@media (max-width: 767px) {
+  .flight-zone {
+    --hero-tail: var(--layout-hero-tail-mobile);
+  }
+}
+
+/* ================================================================ HERO */
+
+.hero {
+  --ux: calc(min(100cqw - 32px, 1360px) / 1360);
+  --uy: calc((100svh - 129px) / 691.8);
+  --u: min(var(--ux), max(0.6px, var(--uy)));
+  /* Card top below the nav, with room for the objects that overhang it. */
+  --hero-pad-top: max(calc(145 * var(--u)), calc(var(--layout-nav-offset) + var(--layout-nav-height) + 4px + 32 * var(--u)));
+  --hero-pad-bottom: calc(32.8 * var(--u) + var(--hero-tail));
+  padding-top: var(--hero-pad-top);
+  padding-bottom: var(--hero-pad-bottom);
+  /* Objects that overhang the card never widen the page (only the x axis is clipped). */
+  overflow-x: clip;
+  /* The wash and the texture under the card: .hero-wash (base.css), shared with /our-story and /advisors. */
+}
+
+/* The card is 1201 × 801 (Figma North-Star 706:2774): V1's 637 plus the
+   video block under the actions. */
+.hero__stage {
+  --hero-card-h: 801;
+  /* The card height the lower objects' bottom offsets are measured from. */
+  --hero-anchor-h: var(--hero-card-h);
+  position: relative;
+  display: flex;
+  width: calc(1201 * var(--ux));
+  min-height: calc(var(--hero-card-h) * var(--u));
+  margin-inline: auto;
+}
+
+/* The white card: this page's panel radius and elevated shadow. */
+.hero__card {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
+}
+
+/*
+ * Dotted rings (V1): one seamless asset, ring radius = width / 2.4, 1 SVG unit
+ * = 1u. Desktop and tablet: centred round the left and right object groups,
+ * mostly outside the card and masked by it, so the visible arcs pass behind
+ * the objects inside the card. Only this layer clips.
+ */
+.hero__rings {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  border-radius: var(--radius-xl);
+  pointer-events: none;
+  opacity: 0.45;
+}
+.hero__ring {
+  position: absolute;
+  width: calc(var(--r) * 2.4);
+  height: calc(var(--r) * 2.4);
+}
+.hero__ring-spin {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.hero__ring img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+.hero__ring--a {
+  --r: calc(373.385 * var(--u));
+  left: calc(-231.382 * var(--u) - var(--r) * 1.2);
+  top: calc(345.455 * var(--u) - var(--r) * 1.2);
+  rotate: -60deg;
+}
+.hero__ring--b {
+  --r: calc(373.385 * var(--u));
+  right: calc(-177.673 * var(--u) - var(--r) * 1.2);
+  top: calc(345.455 * var(--u) - var(--r) * 1.2);
+  rotate: 120deg;
+  scale: -1 1;
+}
+
+/* Object slots — V1 boxes in card coordinates (1201 wide, tops from the card top). */
+.hero__slot {
+  position: absolute;
+  left: calc(var(--l) * var(--u));
+  top: calc(var(--t) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+}
+/* The right-hand group keeps its distance from the card's right edge. */
+.hero__slot[data-asset='sms'],
+.hero__slot[data-asset='scam'],
+.hero__slot[data-asset='chart'] {
+  left: auto;
+  right: calc((1201 - var(--l) - var(--w)) * var(--u));
+}
+/* Lower objects: at the reference card height (801u) they sit exactly at
+   their top coordinates, as in Figma; when the card grows taller (long copy,
+   large text) they keep their distance from its bottom edge. */
+.hero__slot[data-asset='gmail'],
+.hero__slot[data-asset='chart'],
+.hero__slot[data-asset='scam'] {
+  top: auto;
+  bottom: calc((var(--hero-anchor-h) - var(--t) - var(--h)) * var(--u));
+}
+/* Tablets: buttons and text have fixed minimum sizes, so the copy is taller
+   and wider in --u than on desktop; the lower objects keep V1's distance from
+   the card's bottom edge (as before the video block), clear of the actions. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero__stage {
+    --hero-anchor-h: 637;
+  }
+}
+.hero__slot img {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: calc(56 * var(--u)) calc(64 * var(--u));
+  text-align: center;
+}
+
+.hero__title {
+  width: min(calc(900 * var(--u)), 100% - 48px);
+  font-size: max(38px, calc(56 * var(--u)));
+  line-height: var(--type-heading-line);
+  font-weight: var(--type-display-weight);
+  letter-spacing: var(--type-display-tracking);
+  color: var(--text-heading);
+}
+
+.hero__lead {
+  width: min(calc(680 * var(--u)), 100% - 48px);
+  margin-top: calc(20 * var(--u));
+  font-size: max(16px, calc(18 * var(--u)));
+  line-height: var(--type-body-relaxed-line);
+  color: var(--text-body);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-12);
+  margin-top: calc(32 * var(--u));
+}
+/* Filled and ghost share one size (pack pairing rule). */
+.hero__btn {
+  min-width: 206px;
+}
+
+/* =========================================================== FLIGHT LAYER */
+
+/*
+ * Stacking inside .flight-zone (its own stacking context via container-type):
+ *   card surfaces (auto) < back layer (2) < copy (3) < front layer (4).
+ * Both layers are siblings of the sections, so no section transform or
+ * isolation can trap them below the copy. The nav (fixed) stays on top.
+ */
+.flight-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+}
+.flight-layer--front {
+  z-index: 4;
+}
+.flight-asset {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: none;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+.flight-zone.is-flying .flight-layer {
+  display: block;
+}
+.flight-zone.is-flying .flight-static {
+  visibility: hidden;
+}
+
+/* ================================================================ MOBILE
+ * No flight under 768px: the hero keeps V1's compact six-object composition
+ * (objects above and below the copy, never over it) and the cards show their
+ * own objects, revealed in sequence. */
+@media (max-width: 767px) {
+  .hero {
+    --u: var(--ux);
+    --hero-pad-top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + 52px);
+    --hero-pad-bottom: calc(64px + var(--hero-tail));
+    --hero-bleed: var(--layout-gutter-mobile);
+    padding: var(--hero-pad-top) var(--hero-bleed) var(--hero-pad-bottom);
+  }
+  .hero__stage {
+    width: 100%;
+    min-height: 0;
+  }
+  /* Phones: the ring layer spans the whole hero (not the card) and clips there. */
+  .hero__rings {
+    inset: calc(-1 * var(--hero-pad-top)) calc(-1 * var(--hero-bleed)) calc(-1 * var(--hero-pad-bottom));
+    border-radius: 0;
+    opacity: 0.75;
+  }
+  .hero__ring--a,
+  .hero__ring--b {
+    --r: calc(0.75 * (100cqw - 2 * var(--layout-gutter-mobile)));
+    left: calc(50% - var(--r) * 1.2);
+    right: auto;
+    opacity: 0.8;
+  }
+  .hero__ring--a {
+    top: calc(var(--hero-pad-top) + 76px - var(--r) * 2.325);
+  }
+  .hero__ring--b {
+    top: auto;
+    bottom: calc(var(--hero-pad-bottom) + 30px - var(--r) * 2.2);
+  }
+  /* Room above and below the copy for the two object rows. */
+  .hero__content {
+    padding: 104px 20px 120px;
+  }
+  .hero__title {
+    width: 100%;
+    font-size: 34px;
+    line-height: var(--type-heading-sm-line);
+    text-wrap: balance;
+  }
+  .hero__lead {
+    width: 100%;
+    margin-top: var(--space-16);
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line);
+  }
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-top: var(--space-24);
+  }
+  .hero__btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero__slot,
+  .hero__slot[data-asset] {
+    top: auto;
+    bottom: auto;
+    height: auto;
+    aspect-ratio: var(--w) / var(--h);
+  }
+  .hero__slot[data-asset='bill'] { left: -13.1px; top: -37px; width: 103.3px; }
+  .hero__slot[data-asset='doc'] { left: 84.5px; top: 19.3px; width: 67.6px; }
+  .hero__slot[data-asset='sms'] { left: auto; right: -12.1px; top: -35.8px; width: 91.3px; }
+  .hero__slot[data-asset='gmail'] { left: -16px; bottom: -30.9px; width: 119.6px; }
+  .hero__slot[data-asset='scam'] { left: calc(50% - 36.3px); bottom: -32.4px; width: 72.8px; }
+  .hero__slot[data-asset='chart'] { left: auto; right: -25.1px; bottom: -33.4px; width: 135.8px; }
+}
+
+/* Wide phones and small tablets in portrait: the circles get very large, so
+   their specks are softer still. */
+@media (min-width: 480px) and (max-width: 767px) {
+  .hero__ring--a,
+  .hero__ring--b {
+    opacity: 0.55;
+  }
+}
+
+/* Reduced motion: everything static (the rings do not turn, the objects stay
+   in their slots: the flight and the entrance only run under no-preference). */

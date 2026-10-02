@@ -34,12 +34,12 @@ jobs:
 
       - run: npm ci
 
-      # `build` runs `npm run check` first (token / brand / arc drift + TypeScript).
+      # `build` runs `npm run check` first (tokens, design-system copies, TypeScript).
       - run: npm run build
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}/
           # Optional: Settings → Secrets and variables → Actions → Variables.
-          # Unset, the contact dialog stays honest: it says it could not send.
+          # Unset, the contact dialog stays honest: nothing is sent.
           VITE_EARLY_ACCESS_ENDPOINT: ${{ vars.EARLY_ACCESS_ENDPOINT }}
 
       - uses: actions/upload-pages-artifact@v5

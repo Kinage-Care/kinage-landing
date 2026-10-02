@@ -17,13 +17,11 @@
   width: min(var(--layout-container-narrow), 100% - 2 * var(--layout-gutter));
 }
 
-/* Header: clears the fixed nav, then the page rhythm. */
+/* Header: clears the fixed nav, then the page rhythm. Background: the home
+   hero's wash and texture (.hero-wash, base.css); no card. */
 .adv__hero {
   padding-top: calc(var(--layout-nav-offset) + var(--layout-nav-height) + var(--section-join));
   padding-bottom: var(--section-y);
-}
-.adv__hero .eyebrow + .adv__title {
-  margin-top: var(--space-12);
 }
 .adv__title {
   width: min(880px, 100%);
@@ -34,29 +32,19 @@
   color: var(--text-heading);
   text-wrap: balance;
 }
-.adv__title .accent,
-.adv .section-title .accent {
-  color: var(--text-accent);
-}
 
-/* Section descriptions use the shared body style; only the page intro is a lead. */
 .adv__lede {
   width: min(640px, 100%);
   margin-top: var(--space-20);
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-line);
+  font-size: var(--type-body-lg-relaxed-size);
+  line-height: var(--type-body-lg-relaxed-line);
   font-weight: var(--weight-regular);
-  letter-spacing: var(--type-body-tracking);
+  letter-spacing: var(--type-body-lg-relaxed-tracking);
   color: var(--text-body);
   text-wrap: pretty;
 }
 .adv__lede--left {
   width: 100%;
-}
-.adv__lede--intro {
-  font-size: var(--type-lead-size);
-  line-height: var(--type-lead-line);
-  letter-spacing: var(--type-lead-tracking);
 }
 
 .adv__actions {
@@ -69,6 +57,9 @@
 .adv__cta {
   min-width: 220px;
   min-height: 48px;
+  border-radius: var(--radius-md);
+  font-size: var(--type-button-size);
+  letter-spacing: var(--type-button-tracking);
 }
 
 /* Bands */
@@ -84,11 +75,10 @@
 }
 
 .adv__h2 {
-  margin-top: var(--space-12);
   text-align: left;
 }
-.adv__h2--on-brand,
-.adv__eyebrow-on-brand {
+/* Plain heading text on the eggplant band: colour only, no background. */
+.adv__h2--on-brand {
   color: var(--text-on-brand);
 }
 .adv__lede--on-brand {
@@ -108,16 +98,16 @@
   gap: var(--space-8);
 }
 .adv__card-title {
-  font-size: var(--type-title-size);
-  line-height: var(--type-title-line);
-  font-weight: var(--type-title-weight);
-  letter-spacing: var(--type-title-tracking);
+  font-size: var(--type-title-strong-size);
+  line-height: var(--type-title-strong-line);
+  font-weight: var(--type-title-strong-weight);
+  letter-spacing: var(--type-title-strong-tracking);
   color: var(--text-heading);
 }
 .adv__card-body {
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-line);
-  letter-spacing: var(--type-body-tracking);
+  font-size: var(--type-body-sm-size);
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-sm-tracking);
   color: var(--text-body);
 }
 
@@ -138,7 +128,7 @@
   align-items: center;
   gap: var(--space-16);
   padding: var(--space-16) var(--space-20);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--color-white) 8%, transparent);
   font-size: var(--type-body-size);
   line-height: var(--type-body-line);

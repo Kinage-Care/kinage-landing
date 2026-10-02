@@ -5,8 +5,17 @@
  * scrubbed hero flight and the nav's scroll/idle detection keep working
  * unchanged — no transformed scroll container, no scrollerProxy. It only runs
  * with a fine pointer from `motion.smooth.min-width` and never under
- * prefers-reduced-motion; touch keeps native scrolling. It is driven by the
- * GSAP ticker so ScrollTrigger reads the same frame.
+ * prefers-reduced-motion; touch keeps native scrolling.
+ *
+ * One loop drives it: Lenis's own requestAnimationFrame, so every step is
+ * timed by the frame's vsync timestamp (the GSAP ticker passes Date.now() at
+ * callback time, whose jitter made the steps uneven). ScrollTrigger updates
+ * from Lenis's scroll event in the same frame. Each wheel step glides for a
+ * fixed duration on an ease-out (motion.smooth) instead of lerp: lerp only
+ * approaches the target and snaps the last half pixel, which ended every step
+ * with a slow pixel-by-pixel crawl and a final twitch.
+ * Lenis is the only smoothing: scroll-driven timelines scrub without a lag of
+ * their own while it runs (see SMOOTH_QUERY in useHeroFlight).
  *
  * GSAP's ScrollSmoother is not used on purpose: it transforms the content,
  * which breaks native sticky positioning.
@@ -19,23 +28,29 @@ import { MOTION } from './tokens';
 let lenis: Lenis | null = null;
 let locks = 0;
 
-const QUERY = `(min-width: ${MOTION.smooth.minWidth}px) and (pointer: fine) and (prefers-reduced-motion: no-preference)`;
+/** When Lenis smooths the wheel: wide windows, a fine pointer, motion allowed. */
+export const SMOOTH_QUERY = `(min-width: ${MOTION.smooth.minWidth}px) and (pointer: fine) and (prefers-reduced-motion: no-preference)`;
+const QUERY = SMOOTH_QUERY;
 
 /** Starts/stops smoothing as the media conditions change. Returns a cleanup. */
 export function initSmoothScroll(): () => void {
   const mql = window.matchMedia(QUERY);
-  const tick = (time: number) => lenis?.raf(time * 1000);
 
   const start = () => {
     if (lenis) return;
-    lenis = new Lenis({ lerp: MOTION.smooth.lerp, smoothWheel: true, syncTouch: false, autoRaf: false, anchors: false });
+    lenis = new Lenis({
+      duration: MOTION.smooth.duration,
+      easing: gsap.parseEase(MOTION.smooth.ease),
+      smoothWheel: true,
+      syncTouch: false,
+      autoRaf: true,
+      anchors: false,
+    });
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(tick);
     if (locks > 0) lenis.stop();
   };
   const stop = () => {
     if (!lenis) return;
-    gsap.ticker.remove(tick);
     lenis.destroy();
     lenis = null;
   };
@@ -82,3 +97,4 @@ export function lockScroll(): () => void {
     }
   };
 }
+

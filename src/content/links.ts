@@ -28,16 +28,12 @@ const page = (path: (typeof PATHS)[keyof typeof PATHS]): `/${string}` => withBas
 
 export const SECTIONS = {
   top: 'top',
-  problems: 'sound-familiar',
-  forFamilies: 'for-families',
-  advisors: 'for-advisors',
-  story: 'our-story',
-  benefits: 'what-you-get',
+  problem: 'why-it-matters',
   howItWorks: 'how-it-works',
-  trust: 'trust-and-safety',
-  testimonials: 'what-families-are-saying',
   pricing: 'pricing',
-  stats: 'youre-not-alone',
+  compare: 'why-kinage',
+  security: 'security',
+  story: 'ben',
   faq: 'faq',
   getStarted: 'get-started',
   contact: 'contact',
@@ -45,26 +41,27 @@ export const SECTIONS = {
 
 export const LINKS = {
   // Internal navigation — known.
-  howItWorks: { label: 'How It Works', href: section(SECTIONS.howItWorks), fallback: section(SECTIONS.howItWorks) },
-  forFamilies: { label: 'For Families', href: section(SECTIONS.forFamilies), fallback: section(SECTIONS.forFamilies) },
+  howItWorks: { label: 'How it works', href: section(SECTIONS.howItWorks), fallback: section(SECTIONS.howItWorks) },
+  security: { label: 'Security', href: section(SECTIONS.security), fallback: section(SECTIONS.security) },
+  faq: { label: 'FAQ', href: section(SECTIONS.faq), fallback: section(SECTIONS.faq) },
+  // The explainer now lives only in the hero.
+  video: { label: 'Explainer video', href: section(SECTIONS.top), fallback: section(SECTIONS.top) },
   pricing: { label: 'Pricing', href: section(SECTIONS.pricing), fallback: section(SECTIONS.pricing) },
-  forAdvisors: { label: 'For Advisors', href: page(PATHS.advisors), fallback: section(SECTIONS.advisors) },
-  ourStory: { label: 'Our Story', href: page(PATHS.story), fallback: section(SECTIONS.story) },
-  contact: { label: 'Contact', href: section(SECTIONS.contact), fallback: section(SECTIONS.contact) },
+  forAdvisors: { label: 'For advisors', href: page(PATHS.advisors), fallback: section(SECTIONS.getStarted) },
+  ourStory: { label: 'Our story', href: page(PATHS.story), fallback: section(SECTIONS.story) },
   email: { label: 'hello@kinage.com', href: 'mailto:hello@kinage.com', fallback: section(SECTIONS.contact), external: true },
-  phone: { label: '+1 (212) 555-0147', href: 'tel:+12125550147', fallback: section(SECTIONS.contact), external: true },
 
   // Open the shared contact dialog (components/EarlyAccess.tsx) in their own
-  // modes; the submission endpoint is configured in src/lib/early-access.ts.
-  earlyAccess: { label: 'Get Early Access', href: null, fallback: section(SECTIONS.getStarted), external: true },
-  partner: { label: 'Partner with Kinage', href: null, fallback: section(SECTIONS.advisors), external: true },
+  // modes. No endpoint is configured in this prototype: nothing is sent.
+  earlyAccess: { label: 'Get early access', href: null, fallback: section(SECTIONS.getStarted), external: true },
+  plans: { label: 'Ask about plans', href: null, fallback: section(SECTIONS.getStarted), external: true },
+  partner: { label: 'Partner with Kinage', href: null, fallback: section(SECTIONS.getStarted), external: true },
 
-  // Destinations to complete later — configurable, never blocking.
-  advisorsInfo: { label: 'Learn more for advisors', href: page(PATHS.advisors), fallback: section(SECTIONS.advisors) },
-  story: { label: 'Read our story', href: page(PATHS.story), fallback: section(SECTIONS.story) },
-  privacy: { label: 'Privacy Policy', href: null, fallback: section(SECTIONS.trust), external: true },
-  terms: { label: 'Terms of Service', href: null, fallback: section(SECTIONS.trust), external: true },
-  security: { label: 'Security', href: null, fallback: section(SECTIONS.trust), external: true },
+  advisorsInfo: { label: 'Kinage for advisors', href: page(PATHS.advisors), fallback: section(SECTIONS.getStarted) },
+  story: { label: 'Read Ben’s story', href: page(PATHS.story), fallback: section(SECTIONS.story) },
+  // Texts exist but are not in this project yet: shown as plain labels (Footer), never as links.
+  privacy: { label: 'Privacy Policy', href: null, fallback: section(SECTIONS.security), external: true },
+  terms: { label: 'Terms', href: null, fallback: section(SECTIONS.security), external: true },
 } satisfies Record<string, LinkTarget>;
 
 export type LinkKey = keyof typeof LINKS;
@@ -74,7 +71,7 @@ export const resolveHref = (key: LinkKey): string => LINKS[key].href ?? LINKS[ke
 export const isPending = (key: LinkKey): boolean => LINKS[key].href === null;
 
 /** Keys that open the contact dialog rather than navigating (never "pending"). */
-const DIALOG_KEYS: LinkKey[] = ['earlyAccess', 'partner'];
+const DIALOG_KEYS: LinkKey[] = ['earlyAccess', 'plans', 'partner'];
 
 export const pendingDestinations = (): string[] =>
   (Object.keys(LINKS) as LinkKey[])

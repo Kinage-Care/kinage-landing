@@ -3,9 +3,8 @@
  * plugins and custom eases are always registered first.
  *
  * Division of labour (never two systems on one property of one element):
- *   GSAP + ScrollTrigger — hero flight, section reveals, product demo timeline.
- *   CSS transitions      — hover/focus/press, FAQ height + indicator,
- *                          testimonial track and card emphasis.
+ *   GSAP + ScrollTrigger — hero flight and rings, section reveals, product demo timeline.
+ *   CSS transitions      — hover/focus/press, FAQ height + indicator.
  */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

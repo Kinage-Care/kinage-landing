@@ -11,16 +11,20 @@ import {
   type ReactNode,
 } from 'react';
 import { LINKS } from '../content/links';
-import { submitContact, type ContactKind } from '../lib/early-access';
+import { isContactConfigured, submitContact, type ContactKind } from '../lib/early-access';
 import { lockScroll } from '../motion/smoothScroll';
 import './EarlyAccess.css';
 
 /**
- * The shared contact dialog. One component, two modes:
- *  - 'early-access' — every "Get Early Access" control (nav, hero, final CTA,
- *    footer, Our Story);
- *  - 'plans'        — "Ask about plans" in the pricing banner;
- *  - 'partner'      — "Partner with Kinage" (landing advisors section, /advisors).
+ * The shared contact dialog. One component, three modes:
+ *  - 'early-access' — every "Get early access" control (nav, hero, final CTA,
+ *    Our Story);
+ *  - 'plans'        — "Ask about plans" (final CTA);
+ *  - 'partner'      — "Partner with Kinage" (/advisors).
+ *
+ * Local prototype: no endpoint is configured, so a valid submission ends in
+ * an honest "nothing was sent" state (status 'local') — never a fake
+ * confirmation. The dialog says so before submitting, too.
  * Same fields, validation, focus handling, scroll lock and submission
  * integration (src/lib/early-access.ts); only copy, the message field's
  * label/requirement and the request `kind` differ.
@@ -52,8 +56,8 @@ const MODES: Record<ContactMode, ModeCopy> = {
   },
   plans: {
     kind: 'plans-inquiry',
-    title: 'Ask about our plans',
-    intro: 'Have a question about subscriptions? Send us a message.',
+    title: 'Ask about plans',
+    intro: 'Kinage is a monthly subscription for families. Send us your question and we’ll share the current options.',
     messageLabel: 'Your question',
     messageRequired: true,
     messageError: 'Please enter your question.',
@@ -138,7 +142,7 @@ export function EarlyAccessButton({ children, onClick, mode = 'early-access', ..
 type Field = 'firstName' | 'lastName' | 'email' | 'message';
 type Values = Record<Field, string>;
 type Errors = Partial<Record<Field, string>>;
-type Status = 'idle' | 'sending' | 'sent' | 'failed';
+type Status = 'idle' | 'sending' | 'sent' | 'failed' | 'local';
 
 const EMPTY: Values = { firstName: '', lastName: '', email: '', message: '' };
 const MESSAGE_MAX = 500;
@@ -195,12 +199,12 @@ function ContactDialog({ open, mode, onClose }: { open: boolean; mode: ContactMo
   }, [open]);
 
   useEffect(() => {
-    if (status === 'sent') doneRef.current?.focus();
+    if (status === 'sent' || status === 'local') doneRef.current?.focus();
   }, [status]);
 
   const close = () => {
     abort.current?.abort();
-    if (status === 'sent') {
+    if (status === 'sent' || status === 'local') {
       setValues(EMPTY);
       setSubmitted(false);
       setErrors({});
@@ -240,7 +244,7 @@ function ContactDialog({ open, mode, onClose }: { open: boolean; mode: ContactMo
       abort.current.signal,
     );
     if (abort.current?.signal.aborted) return;
-    setStatus(result.ok ? 'sent' : 'failed');
+    setStatus(result.ok ? 'sent' : result.reason === 'not-configured' ? 'local' : 'failed');
   };
 
   const fieldProps = (field: Field) => ({
@@ -282,7 +286,20 @@ function ContactDialog({ open, mode, onClose }: { open: boolean; mode: ContactMo
           </svg>
         </button>
 
-        {status === 'sent' ? (
+        {status === 'local' ? (
+          <div className="ea__done">
+            <h2 className="ea__title" id={`${id}-title`} tabIndex={-1} ref={doneRef}>
+              Nothing was sent
+            </h2>
+            <p className="ea__intro" id={`${id}-intro`}>
+              This is a local prototype and isn’t connected to a sign-up service yet. Your details were checked in the browser only. They
+              weren’t stored or shared.
+            </p>
+            <button type="button" className="btn btn--outline ea__submit" onClick={close}>
+              Close
+            </button>
+          </div>
+        ) : status === 'sent' ? (
           <div className="ea__done">
             <h2 className="ea__title" id={`${id}-title`} tabIndex={-1} ref={doneRef}>
               Thanks, {values.firstName.trim()}
@@ -341,6 +358,10 @@ function ContactDialog({ open, mode, onClose }: { open: boolean; mode: ContactMo
                 We couldn’t send your {copy.kind === 'plans-inquiry' ? 'question' : copy.kind === 'partnership-inquiry' ? 'inquiry' : 'request'} just now. Please try again in a moment,
                 or email us at <a href={LINKS.email.href!}>{LINKS.email.label}</a>.
               </p>
+            )}
+
+            {!isContactConfigured() && (
+              <p className="ea__local">Local prototype: submitting checks the form but sends nothing.</p>
             )}
 
             <button type="submit" className="btn btn--primary ea__submit" aria-disabled={status === 'sending' || undefined}>

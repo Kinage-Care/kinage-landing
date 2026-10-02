@@ -1,43 +1,39 @@
 import { useEffect, useLayoutEffect } from 'react';
 import { EarlyAccessProvider } from './components/EarlyAccess';
-import { StackGroup } from './components/StackGroup';
 import { pendingDestinations } from './content/links';
+import { PAGE_META } from './content/meta';
+import { applyPageMeta } from './lib/pageMeta';
 import { ScrollTrigger } from './motion/gsap';
 import { initSmoothScroll, jumpTo } from './motion/smoothScroll';
 import { AdvisorsPage } from './pages/Advisors';
 import { OurStory } from './pages/OurStory';
 import { interceptLinks, pageOf, takePendingScroll, usePathname } from './router';
-import { Advisors } from './sections/Advisors';
-import { Benefits } from './sections/Benefits';
+import { Ben } from './sections/Ben';
+import { Compare } from './sections/Compare';
 import { Faq } from './sections/Faq';
 import { FinalCta } from './sections/FinalCta';
 import { Footer } from './sections/Footer';
-import { Founder } from './sections/Founder';
-import { HeroFlight } from './sections/HeroFlight';
-import { HowItWorks } from './sections/HowItWorks';
+import { HeroFlight } from './sections/hero/HeroFlight';
+import { HowItWorks } from './sections/how/HowItWorks';
 import { Nav } from './sections/Nav';
 import { Pricing } from './sections/Pricing';
-import { Stats } from './sections/Stats';
-import { Testimonials } from './sections/Testimonials';
 import { Trust } from './sections/Trust';
-import { WhatKinage } from './sections/WhatKinage';
 
-/** Section order = Figma node 583:518 (hero: 596:1908), top to bottom. */
+/**
+ * Page order: hero + problem (one flight zone, always adjacent) → the
+ * emotional hook (the closing section, repeated here) → walkthrough → pricing
+ * → comparison → security → founder → FAQ → the closing section again.
+ */
 function Landing() {
   return (
     <>
       <HeroFlight />
-      <WhatKinage />
-      <StackGroup equalize={2}>
-        <Advisors />
-        <Founder />
-        <Benefits />
-      </StackGroup>
+      <FinalCta placement="early" />
       <HowItWorks />
-      <Trust />
-      <Testimonials />
       <Pricing />
-      <Stats />
+      <Compare />
+      <Trust />
+      <Ben />
       <Faq />
       <FinalCta />
     </>
@@ -46,6 +42,9 @@ function Landing() {
 
 export function App() {
   const page = pageOf(usePathname());
+
+  // The current page's title and description (content/meta.ts).
+  useEffect(() => applyPageMeta(PAGE_META[page]), [page]);
 
   useEffect(() => {
     if (import.meta.env.DEV) {

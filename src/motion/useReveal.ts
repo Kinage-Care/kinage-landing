@@ -21,6 +21,12 @@ type RevealOptions = {
  * Content is visible by default. The hidden start state is applied by GSAP
  * only when motion is allowed and JS runs, so a script failure can never leave
  * copy invisible. Under prefers-reduced-motion nothing moves.
+ *
+ * Only opacity and transform are animated, never visibility or display: the
+ * waiting content stays in the accessibility tree and in the tab order, so
+ * screen readers read the whole page and Tab reaches every control. When
+ * keyboard focus lands inside a section that has not revealed yet, that
+ * section is shown at once, so the focused element is never invisible.
  */
 export function useReveal(scope: RefObject<HTMLElement | null>, options: RevealOptions = {}) {
   const {
@@ -41,21 +47,36 @@ export function useReveal(scope: RefObject<HTMLElement | null>, options: RevealO
         if (!els.length) return;
         const y = distance ?? (mobile ? MOTION.distance.revealMobile : MOTION.distance.reveal);
 
-        gsap.set(els, { autoAlpha: 0, y });
+        const waiting = new Set(els);
+        gsap.set(els, { opacity: 0, y });
         ScrollTrigger.batch(els, {
           start,
           once: true,
-          onEnter: (batch) =>
+          onEnter: (batch) => {
+            batch.forEach((el) => waiting.delete(el as HTMLElement));
             gsap.to(batch, {
-              autoAlpha: 1,
+              opacity: 1,
               y: 0,
               duration,
               ease: 'kinage.out',
               stagger,
               overwrite: true,
-              clearProps: 'transform,visibility,opacity',
-            }),
+              clearProps: 'transform,opacity',
+            });
+          },
         });
+
+        // Keyboard focus inside a section that is still waiting: show it now.
+        const root = scope.current;
+        const onFocusIn = () => {
+          if (!waiting.size) return;
+          const now = [...waiting];
+          waiting.clear();
+          gsap.killTweensOf(now);
+          gsap.set(now, { clearProps: 'transform,opacity' });
+        };
+        root.addEventListener('focusin', onFocusIn);
+        return () => root.removeEventListener('focusin', onFocusIn);
       });
       return () => mm.revert();
     },

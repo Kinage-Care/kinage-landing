@@ -1,0 +1,177 @@
+/*
+ * Problem section in the V1 landing's layout: three lavender cards whose
+ * art areas (336 × 201 at the reference size) receive the hero's objects.
+ * This page's copy sits on four shared subgrid rows (art · title · body ·
+ * "With Kinage"), so titles, dividers and benefit rows line up across cards.
+ */
+
+/* The full section padding above the heading (below the hero's tail colour). */
+.problem {
+  /* One gap between the cards, reused above the stat block below them. */
+  --problem-gap: var(--space-24);
+  padding-top: var(--section-y);
+  background: var(--surface-page);
+}
+
+.problem__head {
+  position: relative;
+  z-index: 3;
+}
+
+.problem__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto 1fr auto;
+  column-gap: var(--problem-gap);
+  margin-top: var(--space-48);
+}
+
+.problem-card {
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  padding: var(--space-28) var(--space-24) var(--space-24);
+  border-radius: var(--radius-lg);
+  background: var(--color-mist-violet);
+}
+
+/* The objects' landing area (V1): same proportions at every width. */
+.problem-card__art {
+  position: relative;
+  aspect-ratio: 336 / 201;
+  margin-bottom: var(--space-20);
+  container-type: inline-size;
+}
+.problem-card__slot,
+.problem-card__shadow {
+  position: absolute;
+}
+.problem-card__slot img {
+  width: 100%;
+  height: 100%;
+}
+.problem-card__shadow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Soft contact shadows under the objects, sized relative to the art box. */
+.problem-card__shadow-blur {
+  flex: none;
+  background: #5b5168;
+  border-radius: calc(var(--radius) / 336 * 100cqw);
+  filter: blur(calc(var(--blur) / 336 * 100cqw));
+}
+.problem-card__shadow-svg {
+  position: relative;
+  flex: none;
+}
+.problem-card__shadow-svg img {
+  position: absolute;
+  width: 202.23%;
+  height: 202.71%;
+  max-width: none;
+}
+
+/* Copy above the flight's back layer (z 2). */
+.problem-card__title,
+.problem-card__body,
+.problem-card__answer {
+  position: relative;
+  z-index: 3;
+}
+.problem-card__title {
+  font-size: var(--type-title-size);
+  line-height: var(--type-title-line);
+  letter-spacing: var(--type-title-tracking);
+}
+.problem-card__body {
+  margin-top: var(--space-8);
+  font-size: var(--type-body-sm-size);
+  line-height: var(--type-body-sm-line);
+  color: var(--text-body);
+}
+/* The "With Kinage" row: one paragraph gap under the body, no divider, no
+   icon, the same left edge as the title and body; pretty wrapping keeps a
+   single word off the last line. */
+.problem-card__answer {
+  margin-top: var(--space-16);
+  font-size: var(--type-body-sm-size);
+  line-height: 1.5;
+  color: var(--text-body);
+  text-wrap: pretty;
+}
+.problem-card__answer strong {
+  font-weight: var(--weight-semibold);
+  color: var(--text-accent);
+}
+.problem__stat {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-32);
+  margin: var(--problem-gap) 0 0;
+  padding: var(--space-24) var(--space-32);
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+}
+.problem__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--type-heading-size);
+  line-height: 1;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-accent);
+  white-space: nowrap;
+}
+.problem__stat-text {
+  display: grid;
+  gap: 4px;
+  font-size: var(--type-body-size);
+  line-height: 1.5;
+  color: var(--text-body);
+}
+.problem__stat-text small {
+  font-size: var(--type-body-xs-size);
+  color: var(--text-body);
+}
+
+@media (max-width: 1023px) {
+  .problem {
+    --problem-gap: var(--space-16);
+  }
+  .problem-card {
+    padding: var(--space-20) var(--space-16);
+  }
+}
+
+/* Phones: one card per row, the art area above the copy (objects never over text). */
+@media (max-width: 767px) {
+  .problem__cards {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    row-gap: var(--problem-gap);
+    margin-top: var(--space-32);
+  }
+  .problem-card {
+    grid-row: auto;
+    grid-template-rows: auto;
+    padding: var(--space-24) var(--space-20);
+  }
+  .problem-card__art {
+    width: min(100%, 360px);
+    margin-inline: auto;
+  }
+  .problem-card__title {
+    font-size: var(--type-title-sm-size);
+  }
+  .problem__stat {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    padding: var(--space-20);
+  }
+  .problem__stat-value {
+    font-size: var(--type-heading-sm-size);
+  }
+}

@@ -1,0 +1,613 @@
+/*
+ * The four step visuals. Each is drawn in the product's own styling (Museo
+ * Sans, Figma North Star colours) and changes state through data attributes
+ * driven by the step's own sequence (useSequence); CSS draws the states.
+ */
+
+/* ---- Step 1: connection cards and the phone -------------------------------
+   (Card offsets use --cx/--cy/--cs.)
+   One coordinate space (.connect, 360 × 540): the phone sits in it, and the
+   cards and pointer live in a foreground layer over it, so a floating card
+   can reach past the screen and then dock onto its slot inside it. */
+.connect {
+  position: relative;
+  flex: none;
+  width: 360px;
+  height: 540px;
+}
+
+.phone {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  width: 280px;
+  height: 520px;
+  padding: 6px;
+  border-radius: 38px;
+  background: #2b1d33;
+  box-shadow: var(--shadow-lg);
+}
+.phone__screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 18px 14px 18px;
+  overflow: hidden;
+  border-radius: 32px;
+  background: #f8f7f1;
+}
+
+.ob-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 24px;
+}
+.ob-top img {
+  width: 84px;
+  height: auto;
+}
+.cn-title {
+  margin-top: 16px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #1e1122;
+}
+/* Room for the two docked cards (78 + 10 + 78), or the banner. */
+.cn-dock {
+  height: 166px;
+  margin-top: 16px;
+}
+.cn-note {
+  margin-top: auto;
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 300;
+  text-align: center;
+  color: #525252;
+}
+
+/* One banner replaces both cards once they are connected (inside the screen). */
+.cn-done {
+  position: absolute;
+  top: 98px;
+  left: 14px;
+  right: 14px;
+  display: grid;
+  gap: 10px;
+  padding: 18px 16px;
+  border: 1px solid #9fd3b3;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(46, 107, 73, 0.08), var(--shadow-sm);
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 8px;
+  scale: 0.98;
+  transition:
+    opacity 0.45s var(--motion-ease-out),
+    translate 0.45s var(--motion-ease-out),
+    scale 0.45s var(--motion-ease-out),
+    visibility 0s linear 0.45s;
+}
+.cn-done[data-shown] {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  scale: 1;
+  transition-delay: 0.12s, 0.12s, 0.12s, 0s;
+}
+.cn-done__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e1122;
+}
+.cn-done__body {
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 300;
+  color: #525252;
+}
+.cn-done ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 2px;
+}
+.cn-done li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e1122;
+}
+.cn-ok {
+  flex: none;
+  color: #2e6b49;
+}
+
+.cn-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* The ConnectionStatusCard. Floating: larger, in front of the phone, past its
+   edges. Docked: its slot inside the screen, at 1:1. */
+.cn-card {
+  --cx: 0px;
+  --cy: 0px;
+  --cs: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 240px;
+  height: 78px;
+  padding: 18px 14px;
+  border: 1px solid rgba(201, 208, 217, 0.9);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
+  transform-origin: 0 0;
+  transform: translate(var(--cx), var(--cy)) scale(var(--cs));
+  transition:
+    transform 0.7s var(--motion-ease-out),
+    box-shadow 0.6s var(--motion-ease-out),
+    border-color 0.3s var(--motion-ease-out),
+    opacity 0.35s var(--motion-ease-out),
+    background-color 0.14s var(--motion-ease-out);
+}
+.cn-card[data-card='email'] {
+  --cx: 14px;
+  --cy: 140px;
+  --cs: 1.1;
+}
+.cn-card[data-card='bank'] {
+  --cx: 92px;
+  --cy: 296px;
+  --cs: 1.1;
+}
+/* Docked slots: 114px (below the screen title) and 114 + 78 + 10. */
+.cn-card[data-card='email'][data-docked] {
+  --cx: 60px;
+  --cy: 114px;
+  --cs: 1;
+}
+.cn-card[data-card='bank'][data-docked] {
+  --cx: 60px;
+  --cy: 202px;
+  --cs: 1;
+}
+.cn-card[data-docked] {
+  box-shadow: var(--shadow-sm);
+}
+.cn-card[data-pressed] {
+  background: #f3f0f8;
+}
+.cn-card[data-status='connected'] {
+  border-color: #9fd3b3;
+}
+.cn-card[data-status='connected']:not([data-docked]) {
+  box-shadow: 0 0 0 3px rgba(46, 107, 73, 0.1), var(--shadow-lg);
+}
+.cn-card[data-hidden] {
+  opacity: 0;
+}
+.cn-card__text strong,
+.cn-card__text small {
+  display: block;
+}
+.cn-card__text strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e1122;
+}
+.cn-card__text small {
+  margin-top: 1px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #525252;
+}
+.cn-card__state {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #525252;
+}
+.cn-card[data-status='connected'] .cn-card__state {
+  color: #2e6b49;
+}
+
+/* The simulated pointer: soft travel, a small press, no bounce. */
+.cn-pointer {
+  --px: 300px;
+  --py: 470px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 24px;
+  height: 28px;
+  opacity: 0;
+  transform: translate(var(--px), var(--py));
+  transition:
+    transform 0.9s var(--motion-ease-in-out),
+    opacity 0.4s var(--motion-ease-out);
+}
+.cn-pointer svg {
+  display: block;
+  fill: var(--color-white);
+  stroke: #1e1122;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 3px rgba(42, 26, 56, 0.3));
+  transform-origin: 3px 2px;
+  transition: scale 0.14s var(--motion-ease-out);
+}
+.cn-pointer[data-at='email'] {
+  --px: 150px;
+  --py: 184px;
+  opacity: 1;
+}
+.cn-pointer[data-at='bank'] {
+  --px: 230px;
+  --py: 342px;
+  opacity: 1;
+}
+.cn-pointer[data-at='gone'] {
+  --px: 250px;
+  --py: 374px;
+  opacity: 0;
+}
+.cn-pointer[data-click] svg {
+  scale: 0.86;
+}
+
+/* ---- Step 2: the list ------------------------------------------------------ */
+.bills {
+  width: 100%;
+  max-width: 700px;
+}
+.bills__title {
+  margin-bottom: 14px;
+  font-size: 26px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #353535;
+}
+/* Rows arrive top to bottom (fade + a small rise), hold, then leave in the
+   same staircase order, rising a little further; phase 0 resets them below,
+   unseen, with no transition. Timing: BillsSlide.tsx (motion tokens). */
+.bills .up__row {
+  transition:
+    opacity var(--motion-duration-reveal) var(--motion-ease-out) calc(var(--i) * var(--stagger)),
+    translate var(--motion-duration-reveal) var(--motion-ease-out) calc(var(--i) * var(--stagger));
+}
+.bills[data-phase='0'] .up__row {
+  opacity: 0;
+  translate: 0 var(--motion-distance-reveal-mobile);
+  transition: none;
+}
+.bills[data-phase='2'] .up__row {
+  opacity: 0;
+  translate: 0 calc(-1 * var(--motion-distance-reveal-mobile));
+  transition-timing-function: var(--motion-ease-in-out);
+}
+
+/* ---- Step 3: Kinage's message over the list -------------------------------- */
+.flag2 {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* The product's chat pattern: brand mark, "Kinage" label, bubble with a
+   speaker corner, typing dots. The bubble always holds the whole sentence. */
+.kmsg {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  max-width: 470px;
+  transition: opacity 0.4s var(--motion-ease-out), translate 0.4s var(--motion-ease-out);
+}
+.kmsg[data-state='hidden'] {
+  opacity: 0;
+  translate: 0 8px;
+}
+/* The navbar lockup at 64px wide: symbol, gaps and wordmark keep their ratio. */
+.kmsg__logo .brand__logo {
+  width: 64px;
+  height: auto;
+  margin-block: -1.2px -3px;
+}
+.kmsg__bubble {
+  position: relative;
+  padding: 11px 14px;
+  border-radius: 2px var(--radius-md) var(--radius-md) var(--radius-md);
+  background: var(--color-white);
+  filter: drop-shadow(0 0 4.95px rgba(151, 77, 77, 0.14));
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 300;
+  color: #1e1122;
+}
+/* The message's one controlled line break (content: HOW.alert.lineBreakBefore). */
+.kmsg__text {
+  white-space: pre-line;
+}
+.kmsg__rest {
+  visibility: hidden;
+}
+/* The dots and the bubble share one cell: the dots while typing, then the
+   bubble (its size is the full sentence, so the list never moves). */
+.kmsg__body {
+  display: grid;
+  justify-items: start;
+}
+.kmsg__dots,
+.kmsg__bubble {
+  grid-area: 1 / 1;
+}
+.kmsg__dots {
+  display: flex;
+  gap: 6px;
+  padding: 6px 2px;
+  opacity: 0;
+  transition: opacity var(--motion-duration-hover) linear;
+}
+.kmsg[data-state='typing'] .kmsg__dots {
+  opacity: 1;
+}
+.kmsg__bubble {
+  transform-origin: 0 0;
+  transition:
+    opacity var(--motion-duration-hover) var(--motion-ease-out),
+    scale var(--motion-duration-hover) var(--motion-ease-out);
+}
+.kmsg[data-state='hidden'] .kmsg__bubble,
+.kmsg[data-state='typing'] .kmsg__bubble {
+  opacity: 0;
+  scale: 0.96;
+}
+.kmsg__dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8a8490;
+  animation: kmsg-dot 1s ease-in-out infinite;
+}
+.kmsg__dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.kmsg__dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes kmsg-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+/* ---- Step 4: the household at the centre ----------------------------------- */
+.hh2 {
+  width: 100%;
+  max-width: 620px;
+  padding: 20px;
+  border: 1px solid rgba(201, 208, 217, 0.8);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+.hh2__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.hh2__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e1122;
+}
+.hh2__count {
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: #eef1f5;
+  font-size: 13px;
+  font-weight: 500;
+  color: #44505f;
+}
+
+/* Two people above, one below, the household in the middle row. */
+.hh2__map {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  row-gap: 26px;
+  column-gap: 16px;
+  margin-top: 18px;
+}
+.hh2__members {
+  display: contents;
+}
+.hh2__member {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  min-width: 0;
+  padding: 8px 14px 8px 8px;
+  border: 1px solid #e2e2e2;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition:
+    opacity 0.45s var(--motion-ease-out) calc(var(--i) * 90ms),
+    translate 0.45s var(--motion-ease-out) calc(var(--i) * 90ms);
+}
+.hh2__member[data-place='top-left'] {
+  grid-area: 1 / 1;
+  justify-self: start;
+}
+.hh2__member[data-place='top-right'] {
+  grid-area: 1 / 2;
+  justify-self: end;
+}
+.hh2__member[data-place='bottom'] {
+  grid-area: 3 / 1 / 4 / 3;
+  justify-self: center;
+}
+.hh2[data-phase='0'] .hh2__member {
+  opacity: 0;
+  translate: 0 8px;
+}
+.hh2__member .p-avatar {
+  flex: none;
+}
+.hh2__member strong,
+.hh2__member small {
+  display: block;
+  white-space: nowrap;
+}
+.hh2__member strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e1122;
+}
+.hh2__member small {
+  font-size: 13px;
+  font-weight: 300;
+  color: #525252;
+}
+
+.hh2__art {
+  position: relative;
+  z-index: 1;
+  grid-area: 2 / 1 / 3 / 3;
+  justify-self: center;
+  width: min(330px, 62%);
+  transition: opacity 0.6s var(--motion-ease-out), scale 0.6s var(--motion-ease-out);
+}
+.hh2[data-phase='0'] .hh2__art {
+  opacity: 0;
+  scale: 0.96;
+}
+.hh2__art > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* The card's own corner (about 60 of 1040 × 648 px), so the shadow follows it. */
+  border-radius: 5.83% / 9.35%;
+  box-shadow: var(--shadow-sm);
+}
+
+.hh2__links {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.hh2__links path {
+  fill: none;
+  stroke: #a98bc2;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 5 7;
+  opacity: 0;
+  transition: opacity 0.6s var(--motion-ease-out);
+  /* Dashes flow from each person towards the household: one period (12px)
+     every 0.9s, slow and continuous. Paused unless this step is the visible
+     one and the section is on screen and the tab is visible. */
+  animation: hh2-flow 0.9s linear infinite;
+  animation-play-state: paused;
+}
+.hh2[data-phase='2'] .hh2__links path {
+  opacity: 1;
+}
+.how__area[data-live] .how__slide[data-active] .hh2__links path {
+  animation-play-state: running;
+}
+@keyframes hh2-flow {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* ---- Narrow stages ---------------------------------------------------------- */
+@container (max-width: 400px) {
+  .connect {
+    scale: 0.9;
+  }
+}
+/* The narrowest phones (stage under 313px, viewports under ~368px): a little
+   less inset, so the first clause of the Step 3 message still fits one line
+   and "and higher than usual" starts line 2 at the same font size. */
+@container (max-width: 312px) {
+  .how__slide:has(.flag2) {
+    padding-inline: 8px;
+  }
+  .kmsg__bubble {
+    padding-inline: 12px;
+  }
+}
+@container (max-width: 560px) {
+  .bills__title {
+    font-size: 22px;
+  }
+  .kmsg__bubble {
+    font-size: 15px;
+  }
+}
+@container (max-width: 480px) {
+  /* Compact rows are taller: four rows keep the list inside the stage. */
+  .flag2 .up__row:nth-child(n + 5) {
+    display: none;
+  }
+  .hh2 {
+    padding: 14px;
+  }
+  .hh2__map {
+    row-gap: 22px;
+    column-gap: 8px;
+  }
+  .hh2__member {
+    gap: 8px;
+    padding: 6px 10px 6px 6px;
+  }
+  .hh2__member small {
+    font-size: 12px;
+  }
+  .hh2__art {
+    width: 76%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kmsg__dots i,
+  .hh2__links path {
+    animation: none;
+  }
+}

@@ -1,7 +1,6 @@
 /**
  * The site's pages, relative to its base path. Shared by the router
- * (src/router.ts) and the build (vite.config.ts), which writes a static entry
- * for each page so direct loads and refreshes work on a static host such as
- * GitHub Pages. No browser code here — the Vite config imports it.
+ * (src/router.ts), the links (src/content/links.ts) and the build
+ * (vite.config.ts writes a static entry per page for GitHub Pages).
  */
 export const PATHS = { home: '/', story: '/our-story', advisors: '/advisors' } as const;

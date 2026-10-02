@@ -1,151 +1,66 @@
-/* Figma 583:1006 — eggplant band, section rhythm padding, 28px gaps. */
-.final-cta {
-  position: relative;
-  overflow: hidden;
-  background: var(--surface-brand);
-  color: var(--text-on-brand);
-}
-
-.final-cta__decor {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.final-cta__texture {
-  position: absolute;
-  top: calc(50% + 0.5px);
-  left: 50%;
-  /* Figma's 1440 × 538 band, never smaller than the section — the band grew
-     with the section rhythm, and a fixed 538px left plain strips top and bottom. */
-  width: max(1440px, 100%);
-  height: max(538px, 100% + 1px);
-  max-width: none;
-  translate: -50% -50%;
-  object-fit: cover;
-  object-position: bottom;
-  mix-blend-mode: luminosity;
-  opacity: 0.56;
-}
-
-.final-cta__ellipse {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.final-cta__ellipse > span {
-  flex: none;
-  background-repeat: no-repeat;
-}
-.final-cta__ellipse--a {
-  left: calc(50% - 720px - 120px);
-  top: -290px;
-  width: 563.731px;
-  height: 556.41px;
-}
-.final-cta__ellipse--a > span {
-  width: 420px;
-  height: 400px;
-  rotate: -30deg;
-  background-image: url('../assets/figma/cta-glow-left.svg');
-  /* inset −1.38% −5.1% −4.09% −2.63% */
-  background-size: 107.73% 105.47%;
-  background-position: 34.02% 25.23%;
-}
-.final-cta__ellipse--b {
-  left: calc(50% - 720px + 1142.12px);
-  top: 255.93px;
-  width: 495.385px;
-  height: 495.385px;
-}
-.final-cta__ellipse--b > span {
-  width: 359.757px;
-  height: 340.823px;
-  rotate: 135deg;
-  background-image: url('../assets/figma/cta-glow-right.svg');
-  /* inset −1.63% −5.95% −4.79% −3.07% */
-  background-size: 109.02% 106.42%;
-  background-position: 34.04% 25.39%;
-}
-
-.final-cta__inner {
-  position: relative;
+/* Surface, glow and texture: the shared .brand-panel (base.css). */
+.final__panel {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-28);
-  padding: var(--section-y) var(--layout-gutter);
+  padding: var(--space-72) var(--space-40);
   text-align: center;
 }
 
-.final-cta__eyebrow {
-  font-size: var(--type-eyebrow-size);
-  line-height: var(--type-eyebrow-line);
-  font-weight: var(--type-eyebrow-weight);
-  letter-spacing: var(--type-eyebrow-tracking);
-  text-transform: uppercase;
+.final__title {
+  max-width: 760px;
+  font-size: clamp(36px, 4vw, var(--type-heading-lg-size));
+  /* The hero headline's ratio (Hero.css). */
+  line-height: var(--type-heading-line);
+  letter-spacing: var(--type-heading-lg-tracking);
   color: var(--text-on-brand);
 }
-
-.final-cta__title {
-  width: min(680px, 100%);
-  font-size: var(--type-heading-xl-size);
-  line-height: var(--type-heading-xl-line);
-  font-weight: var(--type-heading-xl-weight);
-  letter-spacing: var(--type-heading-xl-tracking);
-  color: var(--text-on-brand);
-}
-.final-cta__hl {
-  color: var(--text-highlight-cta);
-}
-
-.final-cta__body {
-  width: min(580px, 100%);
-  font-size: var(--type-lead-size);
-  line-height: var(--type-lead-line);
-  letter-spacing: var(--type-lead-tracking);
+.final__lead {
+  max-width: 600px;
+  margin-top: var(--space-16);
+  font-size: var(--type-body-relaxed-size);
+  line-height: var(--type-body-relaxed-line);
   color: var(--text-on-brand-soft);
 }
-
-/* The campaign line closes the body as its own sentence, in full white SemiBold. */
-.final-cta__line {
-  font-weight: var(--weight-semibold);
-  color: var(--text-on-brand);
-}
-
-.final-cta__row {
+.final__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-16);
-  /* Figma: an 8px spacer inside the 28px-gap column → 8 + 28. */
-  margin-top: calc(var(--space-8) + var(--space-28));
+  gap: var(--space-12);
+  margin-top: var(--space-32);
 }
-
-/* The white button and its outlined partner: one width, one height. */
-.final-cta__row .btn {
-  min-width: 220px;
+.final__btn {
+  min-width: 200px;
+}
+.final__advisor {
+  margin-top: var(--space-20);
+  font-size: var(--type-body-sm-size);
+  color: var(--text-on-brand-soft);
+}
+.final__link,
+.final__link:hover {
+  color: var(--text-on-brand);
+  vertical-align: bottom;
 }
 
 @media (max-width: 767px) {
-  .final-cta__inner {
-    padding: var(--section-y) var(--layout-gutter-mobile);
-    gap: var(--space-20);
-  }
-  .final-cta__title {
-    font-size: 36px;
-  }
-  .final-cta__body {
-    font-size: 16px;
-  }
-  .final-cta__row {
-    margin-top: var(--space-8);
-    flex-direction: column;
+  .final__panel {
     align-items: stretch;
-    width: min(320px, 100%);
+    padding: var(--space-48) var(--space-20);
+    text-align: left;
   }
-  .final-cta__row .btn {
+  .final__title {
+    font-size: var(--type-heading-sm-size);
+    line-height: var(--type-heading-sm-line);
+  }
+  .final__lead {
+    font-size: var(--type-body-size);
+  }
+  .final__actions {
+    flex-direction: column;
+    margin-top: var(--space-24);
+  }
+  .final__btn {
     width: 100%;
     min-width: 0;
   }
